@@ -3,7 +3,7 @@ set -e
 
 # Logging setup
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-echo "=== Starting 8bitCityChamp Startup Script (HD Persian Market & Multiplayer Hub): $(date) ==="
+echo "=== Starting 8bitCityChamp Startup Script (Mobile Touch Fix + Animated Arcade Hub BG): $(date) ==="
 
 # Update package list and install Nginx & curl
 apt-get update -y
@@ -13,20 +13,20 @@ apt-get install -y nginx curl git
 rm -rf /var/www/html/*
 rm -f /var/www/html/index.nginx-debian.html
 
-# Create Multi-Game Arcade Hub with HD Persian Market & Live Multiplayer
+# Create Multi-Game Arcade Hub with Animated Gaming Canvas & Mobile Touch Fix
 cat << 'EOF' > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>8bit Arcade Hub - CityChamp & HD Paper Snake Bazaar (Multiplayer)</title>
+    <title>8bit Arcade Hub - CityChamp & Paper Snake Bazaar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #05070e;
+            --bg-color: #030407;
             --neon-blue: #00d2d3;
             --neon-pink: #ff4757;
             --paper-gold: #f1c40f;
@@ -44,7 +44,6 @@ cat << 'EOF' > /var/www/html/index.html
 
         body {
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 20%, #151d30 0%, #060912 70%, #010205 100%);
             color: #ffffff;
             font-family: 'Press Start 2P', monospace, cursive;
             display: flex;
@@ -53,56 +52,78 @@ cat << 'EOF' > /var/www/html/index.html
             min-height: 100vh;
             padding: 8px;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Arcade Canvas Background */
+        canvas#bgArcadeCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* Top Hub Header Bar */
         .hub-header {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             width: 100%;
             max-width: 900px;
+            z-index: 10;
         }
 
         .hub-title {
             font-size: 1.8rem;
             color: #54a0ff;
-            text-shadow: 3px 3px 0 #000, -2px -2px 0 #ff4757, 0 0 20px #54a0ff;
+            text-shadow: 3px 3px 0 #000, -2px -2px 0 #ff4757, 0 0 25px #54a0ff;
             letter-spacing: 2px;
             margin-bottom: 6px;
+            animation: glow-title 2s infinite alternate;
+        }
+
+        @keyframes glow-title {
+            0% { text-shadow: 3px 3px 0 #000, -2px -2px 0 #ff4757, 0 0 15px #54a0ff; }
+            100% { text-shadow: 3px 3px 0 #000, -2px -2px 0 #ff4757, 0 0 30px #00d2d3; }
         }
 
         .hub-subtitle {
             font-size: 0.58rem;
             color: #feca57;
             letter-spacing: 1.5px;
+            text-shadow: 2px 2px #000;
         }
 
         .btn-back-hub {
             background: linear-gradient(180deg, #ff4757, #c0392b);
             color: #fff;
             border: 3px solid #fff;
-            padding: 8px 16px;
+            padding: 10px 18px;
             font-family: inherit;
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             border-radius: 8px;
             box-shadow: 0 4px 0 #000;
             cursor: pointer;
             display: none;
             margin-bottom: 12px;
+            z-index: 20;
         }
         .btn-back-hub:active { transform: translateY(2px); }
 
         /* Main Game Grid Selection Screen */
         .game-grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             width: 100%;
             max-width: 880px;
+            z-index: 10;
         }
 
         .game-card {
-            background: #0f172a;
+            background: rgba(15, 23, 42, 0.92);
             border: 4px solid #1e293b;
             border-radius: 14px;
             padding: 16px;
@@ -111,10 +132,11 @@ cat << 'EOF' > /var/www/html/index.html
             align-items: center;
             cursor: pointer;
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            backdrop-filter: blur(6px);
         }
 
-        .game-card:hover {
+        .game-card:hover, .game-card:active {
             transform: translateY(-6px);
             border-color: #54a0ff;
             box-shadow: 0 15px 30px rgba(84, 160, 255, 0.4);
@@ -122,7 +144,7 @@ cat << 'EOF' > /var/www/html/index.html
 
         .game-card-thumb {
             width: 100%;
-            height: 180px;
+            height: 170px;
             border-radius: 8px;
             border: 3px solid #000;
             overflow: hidden;
@@ -154,13 +176,14 @@ cat << 'EOF' > /var/www/html/index.html
             background: linear-gradient(180deg, #10ac84, #01a3a4);
             color: #fff;
             border: 2px solid #55efc4;
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-family: inherit;
-            font-size: 0.65rem;
-            border-radius: 6px;
-            box-shadow: 0 3px 0 #000;
+            font-size: 0.7rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 #000;
             width: 100%;
             text-align: center;
+            cursor: pointer;
         }
 
         /* ---------------------------------------------------- */
@@ -170,6 +193,7 @@ cat << 'EOF' > /var/www/html/index.html
             display: none;
             width: 100%;
             max-width: 860px;
+            z-index: 10;
         }
 
         .arcade-cabinet {
@@ -216,9 +240,9 @@ cat << 'EOF' > /var/www/html/index.html
             background: #1a2534;
             color: #feca57;
             border: 2px solid #54a0ff;
-            padding: 5px 10px;
+            padding: 6px 12px;
             font-family: inherit;
-            font-size: 0.52rem;
+            font-size: 0.55rem;
             border-radius: 6px;
             cursor: pointer;
         }
@@ -252,16 +276,16 @@ cat << 'EOF' > /var/www/html/index.html
             background: linear-gradient(180deg, #263544, #141b20);
             color: #fff;
             border: 2px solid #3c526d;
-            padding: 12px 14px;
+            padding: 14px 14px;
             font-family: inherit;
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             border-radius: 8px;
-            box-shadow: 0 3px 0 #090d13;
+            box-shadow: 0 4px 0 #090d13;
             cursor: pointer;
             flex: 1;
             text-align: center;
         }
-        .btn-start { background: linear-gradient(180deg, #10ac84, #01a3a4); border-color: #55efc4; font-weight: bold; width: 100%; margin-top: 8px; padding: 12px; font-size: 0.75rem; }
+        .btn-start { background: linear-gradient(180deg, #10ac84, #01a3a4); border-color: #55efc4; font-weight: bold; width: 100%; margin-top: 8px; padding: 14px; font-size: 0.8rem; }
         .btn-punch { background: linear-gradient(180deg, #ee5253, #10ac84); border-color: #ff6b6b; }
         .btn-kick { background: linear-gradient(180deg, #10ac84, #0fb9b1); border-color: #55efc4; }
         .btn-heavy { background: linear-gradient(180deg, #ff9f43, #ee5253); border-color: #feca57; }
@@ -274,6 +298,7 @@ cat << 'EOF' > /var/www/html/index.html
             display: none;
             width: 100%;
             max-width: 860px;
+            z-index: 10;
         }
 
         .paper-cabinet {
@@ -298,7 +323,6 @@ cat << 'EOF' > /var/www/html/index.html
             color: #f1c40f;
         }
 
-        /* Multiplayer Player Join Bar */
         .mp-bar {
             display: flex;
             gap: 10px;
@@ -342,9 +366,9 @@ cat << 'EOF' > /var/www/html/index.html
             background: linear-gradient(180deg, #d35400, #a04000);
             color: #fff;
             border: 3px solid #f39c12;
-            padding: 14px 4px;
+            padding: 16px 4px;
             font-family: inherit;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             border-radius: 10px;
             box-shadow: 0 4px 0 #5e2600, 3px 3px 0 rgba(0,0,0,0.4);
             cursor: pointer;
@@ -353,7 +377,6 @@ cat << 'EOF' > /var/www/html/index.html
         }
         .basket-touch-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #5e2600; }
 
-        /* Live Multiplayer Leaderboard Room Panel */
         .mp-leaderboard {
             margin-top: 12px;
             background: #1a0f07;
@@ -366,13 +389,14 @@ cat << 'EOF' > /var/www/html/index.html
         .mp-list { display: flex; flex-direction: column; gap: 4px; }
         .mp-item { display: flex; justify-content: space-between; padding: 4px 8px; background: #2c1a0e; border-radius: 4px; }
 
-        /* Clean Mobile CSS Overlay */
+        /* CLEAN MOBILE OVERLAY & RESPONSIVE TOUCH ENGINE */
         @media (max-width: 768px) {
             body { padding: 2px; }
             .hub-header { margin-bottom: 8px; }
             .hub-title { font-size: 1.2rem; }
             .top-bar { display: none !important; }
-            .retro-btn { padding: 16px 8px; font-size: 0.68rem; }
+            .game-card-thumb { height: 140px; }
+            .retro-btn { padding: 16px 8px; font-size: 0.7rem; }
             .basket-touch-btn { padding: 18px 4px; font-size: 0.9rem; }
         }
 
@@ -395,10 +419,13 @@ cat << 'EOF' > /var/www/html/index.html
 </head>
 <body>
 
+    <!-- Dynamic Animated Arcade Background Canvas -->
+    <canvas id="bgArcadeCanvas"></canvas>
+
     <!-- Main Hub Header -->
     <header class="hub-header">
         <h1 class="hub-title">8BIT ARCADE HUB</h1>
-        <p class="hub-subtitle">HD PERSIAN BAZAAR & LIVE MULTIPLAYER SERVER</p>
+        <p class="hub-subtitle">TOUCH MOBILE & PC GAMING MULTIPLAYER PLATFORM</p>
     </header>
 
     <!-- Return to Hub Button -->
@@ -408,22 +435,22 @@ cat << 'EOF' > /var/www/html/index.html
     <main class="game-grid-container" id="hubView">
 
         <!-- Game 1 Card -->
-        <div class="game-card" onclick="openGame(1)">
+        <div class="game-card" id="cardGame1">
             <div class="game-card-thumb" style="background: linear-gradient(135deg, #1e272e, #090d13);">
-                <div style="font-size:2.8rem;">🥊</div>
+                <div style="font-size:3.5rem;">🥊</div>
             </div>
             <h2 class="game-card-title">8bitCityChamp</h2>
-            <p class="game-card-desc">16-Bit SNES Arcade Fighter! 5 Stages, Dictator Boss, High Kick Attack, Blood FX & Street Fauna.</p>
+            <p class="game-card-desc">16-Bit SNES Arcade Fighter! 5 Stages, Dictator Boss, High Kick, Blood FX & Street Walkers.</p>
             <div class="btn-play-card">▶ PLAY CITY CHAMP</div>
         </div>
 
         <!-- Game 2 Card -->
-        <div class="game-card" onclick="openGame(2)">
+        <div class="game-card" id="cardGame2">
             <div class="game-card-thumb" style="background: linear-gradient(135deg, #8e1b1b, #3e1200);">
-                <div style="font-size:2.8rem;">🐍🏺</div>
+                <div style="font-size:3.5rem;">🐍🏺</div>
             </div>
             <h2 class="game-card-title">Paper Snake Bazaar</h2>
-            <p class="game-card-desc">HD Paper Mario Style Whack-a-Snake in a Persian Market! Live Multiplayer Room over same server IP!</p>
+            <p class="game-card-desc">HD Paper Mario Whack-a-Snake in a Persian Market! Live Multiplayer Room over same server IP!</p>
             <div class="btn-play-card">▶ PLAY PAPER SNAKE (MP)</div>
         </div>
 
@@ -481,7 +508,6 @@ cat << 'EOF' > /var/www/html/index.html
     <!-- ======================================================== -->
     <section id="game2View">
         <div class="paper-cabinet">
-            <!-- Live Multiplayer Name Registration -->
             <div class="mp-bar">
                 <span>PLAYER NAME:</span>
                 <input type="text" id="playerNick" class="mp-input" value="Sultan_Player1" maxlength="15">
@@ -499,7 +525,6 @@ cat << 'EOF' > /var/www/html/index.html
                 <div id="snakeOverlay" class="overlay-msg">HD PAPER SNAKE BAZAAR<br><span style="font-size:0.7rem; color:#fff;">PRESS A-S-D-F-G OR TAP BASKETS!</span></div>
             </div>
 
-            <!-- 5 Touch Buttons Mapped to Baskets A, S, D, F, G -->
             <div class="snake-touch-pad">
                 <button class="basket-touch-btn" id="btnBasket0">🧺 [A]</button>
                 <button class="basket-touch-btn" id="btnBasket1">🧺 [S]</button>
@@ -510,7 +535,6 @@ cat << 'EOF' > /var/www/html/index.html
 
             <button class="retro-btn btn-start" id="btnStartSnake" style="margin-top:10px;">🐍 START MULTIPLAYER SNAKE GAME</button>
 
-            <!-- Real-Time Multiplayer Room Leaderboard -->
             <div class="mp-leaderboard">
                 <div class="mp-title">🏆 LIVE MULTIPLAYER BAZAAR LEADERBOARD</div>
                 <div class="mp-list" id="mpLeaderboardList">
@@ -522,11 +546,81 @@ cat << 'EOF' > /var/www/html/index.html
 
     <script>
         // ----------------------------------------------------
-        // HUB NAVIGATION CONTROLLER
+        // ANIMATED SYNTHWAVE / PIXEL ARCADE BACKGROUND CANVAS
+        // ----------------------------------------------------
+        const bgCanvas = document.getElementById('bgArcadeCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+
+        function resizeBgCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeBgCanvas);
+        resizeBgCanvas();
+
+        const floatingIcons = ['🎮', '🕹️', '👾', '⭐', '🗡️', '🪙', '🐍', '🥊'];
+        const bgParticles = [];
+        for (let i = 0; i < 25; i++) {
+            bgParticles.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                icon: floatingIcons[Math.floor(Math.random() * floatingIcons.length)],
+                size: Math.random() * 24 + 18,
+                vy: -Math.random() * 1.5 - 0.5,
+                alpha: Math.random() * 0.6 + 0.2
+            });
+        }
+
+        let bgGridOffset = 0;
+        function renderBgArcade() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+            // Synthwave Grid Perspective Horizon
+            bgGridOffset = (bgGridOffset + 0.8) % 30;
+            bgCtx.strokeStyle = 'rgba(84, 160, 255, 0.25)';
+            bgCtx.lineWidth = 1;
+
+            const horizonY = bgCanvas.height * 0.55;
+            for (let y = horizonY; y < bgCanvas.height; y += 20) {
+                const drawY = y + (bgGridOffset % 20);
+                bgCtx.beginPath();
+                bgCtx.moveTo(0, drawY);
+                bgCtx.lineTo(bgCanvas.width, drawY);
+                bgCtx.stroke();
+            }
+
+            const centerX = bgCanvas.width / 2;
+            for (let x = -bgCanvas.width; x < bgCanvas.width * 2; x += 60) {
+                bgCtx.beginPath();
+                bgCtx.moveTo(centerX, horizonY);
+                bgCtx.lineTo(x, bgCanvas.height);
+                bgCtx.stroke();
+            }
+
+            // Floating Gaming Icons Animation
+            for (let p of bgParticles) {
+                p.y += p.vy;
+                if (p.y < -40) {
+                    p.y = bgCanvas.height + 20;
+                    p.x = Math.random() * bgCanvas.width;
+                }
+                bgCtx.globalAlpha = p.alpha;
+                bgCtx.font = `${p.size}px sans-serif`;
+                bgCtx.fillText(p.icon, p.x, p.y);
+            }
+            bgCtx.globalAlpha = 1.0;
+
+            requestAnimationFrame(renderBgArcade);
+        }
+        renderBgArcade();
+
+        // ----------------------------------------------------
+        // HUB NAVIGATION & UNIVERSAL TOUCH CONTROLLER
         // ----------------------------------------------------
         let activeGame = 0;
 
         function openGame(gameId) {
+            audio.init();
             activeGame = gameId;
             document.getElementById('hubView').style.display = 'none';
             document.getElementById('btnBackHub').style.display = 'block';
@@ -540,6 +634,16 @@ cat << 'EOF' > /var/www/html/index.html
                 initSnakeGame();
             }
         }
+
+        // Bind Card Touch & Click Listeners cleanly for Mobile Phones
+        function bindCard(cardId, gameId) {
+            const card = document.getElementById(cardId);
+            if (!card) return;
+            card.addEventListener('pointerdown', (e) => { e.preventDefault(); openGame(gameId); });
+            card.addEventListener('click', () => { openGame(gameId); });
+        }
+        bindCard('cardGame1', 1);
+        bindCard('cardGame2', 2);
 
         document.getElementById('btnBackHub').addEventListener('click', () => {
             activeGame = 0;
@@ -718,7 +822,7 @@ cat << 'EOF' > /var/www/html/index.html
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
                     osc.start(this.ctx.currentTime + i * 0.12);
-                    osc.stop(this.ctx.currentTime + (i + 1) * 0.12);
+                    osc.stop(this.ctx.currentTime + i * 0.12 + 0.12);
                 });
             }
             playGameOver() {
@@ -734,7 +838,7 @@ cat << 'EOF' > /var/www/html/index.html
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
                     osc.start(this.ctx.currentTime + i * 0.18);
-                    osc.stop(this.ctx.currentTime + (i + 1) * 0.18);
+                    osc.stop(this.ctx.currentTime + i * 0.18 + 0.18);
                 });
             }
         }
@@ -819,10 +923,10 @@ cat << 'EOF' > /var/www/html/index.html
         function bindTouchBtn(elementId, keyCode) {
             const btn = document.getElementById(elementId);
             if (!btn) return;
+            btn.addEventListener('pointerdown', (e) => { e.preventDefault(); audio.init(); keys[keyCode] = true; });
+            btn.addEventListener('pointerup', (e) => { e.preventDefault(); keys[keyCode] = false; });
             btn.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); keys[keyCode] = true; });
             btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyCode] = false; });
-            btn.addEventListener('mousedown', (e) => { audio.init(); keys[keyCode] = true; });
-            btn.addEventListener('mouseup', (e) => { keys[keyCode] = false; });
         }
 
         bindTouchBtn('btnLeft', 'ArrowLeft');
@@ -833,8 +937,8 @@ cat << 'EOF' > /var/www/html/index.html
         document.getElementById('btnLight').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerPunch(p1, false); });
         document.getElementById('btnKick').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerKick(p1); });
         document.getElementById('btnHeavy').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerPunch(p1, true); });
-        document.getElementById('btnBlock').addEventListener('touchstart', (e) => { e.preventDefault(); keys['Space'] = true; });
-        document.getElementById('btnBlock').addEventListener('touchend', (e) => { e.preventDefault(); keys['Space'] = false; });
+        document.getElementById('btnBlock').addEventListener('pointerdown', (e) => { e.preventDefault(); keys['Space'] = true; });
+        document.getElementById('btnBlock').addEventListener('pointerup', (e) => { e.preventDefault(); keys['Space'] = false; });
 
         function startNextGame() {
             audio.playStart();
@@ -992,7 +1096,6 @@ cat << 'EOF' > /var/www/html/index.html
 
             if (screenShakeTime > 0) screenShakeTime--;
 
-            // Continuous NPCs
             if (ambientNPCs.walker.active) {
                 ambientNPCs.walker.x += ambientNPCs.walker.speed;
                 if (ambientNPCs.walker.x > canvas.width + 60) { ambientNPCs.walker.active = false; ambientNPCs.walker.timer = 120; }
@@ -1022,7 +1125,6 @@ cat << 'EOF' > /var/www/html/index.html
                 ambientNPCs.rats.timer--; if (ambientNPCs.rats.timer <= 0) { ambientNPCs.rats.active = true; ambientNPCs.rats.x = canvas.width + 60; }
             }
 
-            // Controls P1
             if (p1.cooldown > 0) {
                 p1.cooldown--; if (p1.cooldown === 0 && p1.state !== 'KO') p1.state = 'IDLE';
             } else {
@@ -1035,7 +1137,6 @@ cat << 'EOF' > /var/www/html/index.html
                 else p1.state = 'IDLE';
             }
 
-            // CPU AI
             const oppConfig = OPPONENTS[currentStageIndex];
             if (p2.cooldown > 0) {
                 p2.cooldown--; if (p2.cooldown === 0 && p2.state !== 'KO') p2.state = 'IDLE';
@@ -1205,7 +1306,6 @@ cat << 'EOF' > /var/www/html/index.html
             else { ctx.fillRect(21, 8, 5, 5); ctx.fillStyle = '#fff'; ctx.fillRect(22, 9, 2, 2); }
             ctx.fillStyle = f.state === 'PUNCH_HEAVY' || f.state === 'KICK' || f.state === 'HIT' ? '#ff4757' : '#552211'; ctx.fillRect(22, 16, 10, 3);
 
-            // ALWAYS SOLID SKIN TORSO BASE (NO TRANSPARENT CHEST)
             ctx.fillStyle = f.skinColor; ctx.fillRect(10, 22, 34, 32);
 
             if (f.type === 'DICTATOR') {
@@ -1291,15 +1391,14 @@ cat << 'EOF' > /var/www/html/index.html
         ];
 
         let currentSnakeBasket = -1;
-        let snakeHeight = 0; // 0 to 45
-        let snakeState = 'HIDDEN'; // 'RISING', 'UP', 'HIT', 'HIDING', 'HIDDEN'
+        let snakeHeight = 0;
+        let snakeState = 'HIDDEN';
         let snakeStateTimer = 0;
         let activeClubBasket = -1;
         let clubSwingAnim = 0;
 
         const starsFX = [];
 
-        // REAL-TIME MULTIPLAYER SYNC ENGINE (BroadcastChannel + LocalStorage Sync across same Server IP)
         const mpChannel = new BroadcastChannel('8bit_bazaar_multplayer');
         let mpLeaderboardData = JSON.parse(localStorage.getItem('8bit_bazaar_scores') || '[]');
 
@@ -1346,19 +1445,16 @@ cat << 'EOF' > /var/www/html/index.html
             `).join('');
         }
 
-        // Bind Touch Buttons for Game 2
+        // Universal Touch Event Handlers for Mobile Gamepad Buttons
         baskets.forEach((b, idx) => {
             const btn = document.getElementById(`btnBasket${idx}`);
             if (btn) {
+                btn.addEventListener('pointerdown', (e) => { e.preventDefault(); audio.init(); whackBasket(idx); });
                 btn.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); whackBasket(idx); });
-                btn.addEventListener('click', () => { audio.init(); whackBasket(idx); });
             }
         });
 
-        document.getElementById('btnStartSnake').addEventListener('click', () => {
-            audio.init();
-            startSnakeGame();
-        });
+        document.getElementById('btnStartSnake').addEventListener('click', () => { audio.init(); startSnakeGame(); });
 
         function handleSnakeKeyPress(code) {
             const idx = baskets.findIndex(b => b.key === code);
@@ -1419,13 +1515,11 @@ cat << 'EOF' > /var/www/html/index.html
             audio.playWhack();
 
             if (basketIdx === currentSnakeBasket && (snakeState === 'RISING' || snakeState === 'UP')) {
-                // HIT SUCCESS!
                 snakeState = 'HIT';
                 snakeScore += 100;
                 document.getElementById('snakeScore').innerText = String(snakeScore).padStart(4, '0');
                 broadcastScoreUpdate();
 
-                // Spawn Paper Mario Stars & Bump FX
                 const b = baskets[basketIdx];
                 for (let i = 0; i < 8; i++) {
                     starsFX.push({
@@ -1449,14 +1543,9 @@ cat << 'EOF' > /var/www/html/index.html
 
             if (clubSwingAnim > 0) clubSwingAnim--;
 
-            // Update Star FX
             for (let i = starsFX.length - 1; i >= 0; i--) {
                 const st = starsFX[i];
-                st.x += st.vx;
-                st.y += st.vy;
-                st.vy += 0.3;
-                st.rot += 0.2;
-                st.life--;
+                st.x += st.vx; st.y += st.vy; st.vy += 0.3; st.rot += 0.2; st.life--;
                 if (st.life <= 0) starsFX.splice(i, 1);
             }
 
@@ -1466,13 +1555,11 @@ cat << 'EOF' > /var/www/html/index.html
                     if (snakeHeight >= 42) {
                         snakeHeight = 42;
                         snakeState = 'UP';
-                        snakeStateTimer = 35; // Frames to stay up
+                        snakeStateTimer = 35;
                     }
                 } else if (snakeState === 'UP') {
                     snakeStateTimer--;
-                    if (snakeStateTimer <= 0) {
-                        snakeState = 'HIDING';
-                    }
+                    if (snakeStateTimer <= 0) snakeState = 'HIDING';
                 } else if (snakeState === 'HIDING') {
                     snakeHeight -= 4;
                     if (snakeHeight <= 0) {
@@ -1484,184 +1571,101 @@ cat << 'EOF' > /var/www/html/index.html
             }
         }
 
-        // ULTRA HD PAPER MARIO PERSIAN MARKET RENDER ENGINE
         function renderSnakeGame() {
             if (activeGame !== 2) return;
 
-            // Persian Night Sky & Stars Background
             const skyGrad = sCtx.createLinearGradient(0, 0, 0, 240);
-            skyGrad.addColorStop(0, '#0c0714');
-            skyGrad.addColorStop(1, '#2c122e');
-            sCtx.fillStyle = skyGrad;
-            sCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+            skyGrad.addColorStop(0, '#0c0714'); skyGrad.addColorStop(1, '#2c122e');
+            sCtx.fillStyle = skyGrad; sCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
 
-            // Crescent Moon & Stars
-            sCtx.fillStyle = '#f1c40f';
-            sCtx.beginPath(); sCtx.arc(440, 48, 24, 0, Math.PI * 2); sCtx.fill();
-            sCtx.fillStyle = '#0c0714';
-            sCtx.beginPath(); sCtx.arc(430, 42, 20, 0, Math.PI * 2); sCtx.fill();
+            sCtx.fillStyle = '#f1c40f'; sCtx.beginPath(); sCtx.arc(440, 48, 24, 0, Math.PI * 2); sCtx.fill();
+            sCtx.fillStyle = '#0c0714'; sCtx.beginPath(); sCtx.arc(430, 42, 20, 0, Math.PI * 2); sCtx.fill();
 
-            // HD PERSIAN MARKET CANOPY TENT AWNING (Red, Purple & Gold Striped Fabric)
             const stripeW = 32;
             for (let i = 0; i < snakeCanvas.width / stripeW + 1; i++) {
                 sCtx.fillStyle = (i % 2 === 0) ? '#9b59b6' : (i % 3 === 0 ? '#e74c3c' : '#f1c40f');
-                sCtx.beginPath();
-                sCtx.moveTo(i * stripeW, 0);
-                sCtx.lineTo((i + 1) * stripeW, 0);
-                sCtx.lineTo((i + 0.8) * stripeW, 36);
-                sCtx.lineTo((i + 0.2) * stripeW, 36);
-                sCtx.closePath();
-                sCtx.fill();
-                // Scalloped Tent Trim
-                sCtx.fillStyle = '#f39c12';
-                sCtx.beginPath(); sCtx.arc((i + 0.5) * stripeW, 36, 12, 0, Math.PI); sCtx.fill();
+                sCtx.beginPath(); sCtx.moveTo(i * stripeW, 0); sCtx.lineTo((i + 1) * stripeW, 0); sCtx.lineTo((i + 0.8) * stripeW, 36); sCtx.lineTo((i + 0.2) * stripeW, 36); sCtx.closePath(); sCtx.fill();
+                sCtx.fillStyle = '#f39c12'; sCtx.beginPath(); sCtx.arc((i + 0.5) * stripeW, 36, 12, 0, Math.PI); sCtx.fill();
             }
 
-            // Hanging Persian Brass Genie Oil Lamps
             [80, 200, 320, 440].forEach(lx => {
                 sCtx.strokeStyle = '#f39c12'; sCtx.lineWidth = 2;
                 sCtx.beginPath(); sCtx.moveTo(lx, 36); sCtx.lineTo(lx, 65); sCtx.stroke();
                 sCtx.fillStyle = '#e67e22'; sCtx.fillRect(lx - 10, 65, 20, 22);
-                sCtx.fillStyle = '#f1c40f'; sCtx.fillRect(lx - 6, 69, 12, 14); // Glowing light
-                // Flickering Flame
+                sCtx.fillStyle = '#f1c40f'; sCtx.fillRect(lx - 6, 69, 12, 14);
                 if (Math.floor(Date.now() / 150) % 2 === 0) {
                     sCtx.fillStyle = '#e74c3c'; sCtx.beginPath(); sCtx.arc(lx, 63, 5, 0, Math.PI * 2); sCtx.fill();
                 }
             });
 
-            // Persian Archway Architecture
             sCtx.fillStyle = '#3e1d0f'; sCtx.fillRect(0, 110, snakeCanvas.width, 274);
-            sCtx.fillStyle = '#5c2d18';
-            sCtx.fillRect(0, 110, 35, 274); sCtx.fillRect(snakeCanvas.width - 35, 110, 35, 274);
-            sCtx.strokeStyle = '#f1c40f'; sCtx.lineWidth = 4;
-            sCtx.strokeRect(0, 110, 35, 274); sCtx.strokeRect(snakeCanvas.width - 35, 110, 35, 274);
+            sCtx.fillStyle = '#5c2d18'; sCtx.fillRect(0, 110, 35, 274); sCtx.fillRect(snakeCanvas.width - 35, 110, 35, 274);
+            sCtx.strokeStyle = '#f1c40f'; sCtx.lineWidth = 4; sCtx.strokeRect(0, 110, 35, 274); sCtx.strokeRect(snakeCanvas.width - 35, 110, 35, 274);
 
-            // Spice Sacks & Ceramic Pots on Market Floor
-            // Spice Sack 1 (Saffron Yellow)
             sCtx.fillStyle = '#d35400'; sCtx.fillRect(40, 215, 24, 28);
-            sCtx.fillStyle = '#f1c40f'; sCtx.beginPath(); sCtx.ellipse(52, 215, 12, 6, 0, 0, Math.PI * 2); sCtx.fill(); // Saffron Powder
-            // Spice Sack 2 (Paprika Red)
+            sCtx.fillStyle = '#f1c40f'; sCtx.beginPath(); sCtx.ellipse(52, 215, 12, 6, 0, 0, Math.PI * 2); sCtx.fill();
             sCtx.fillStyle = '#d35400'; sCtx.fillRect(448, 215, 24, 28);
-            sCtx.fillStyle = '#e74c3c'; sCtx.beginPath(); sCtx.ellipse(460, 215, 12, 6, 0, 0, Math.PI * 2); sCtx.fill(); // Paprika Powder
+            sCtx.fillStyle = '#e74c3c'; sCtx.beginPath(); sCtx.ellipse(460, 215, 12, 6, 0, 0, Math.PI * 2); sCtx.fill();
 
-            // Carpet Ground
             const carpetGrad = sCtx.createLinearGradient(0, 240, 0, 384);
-            carpetGrad.addColorStop(0, '#8e1b1b');
-            carpetGrad.addColorStop(1, '#5c0d0d');
-            sCtx.fillStyle = carpetGrad;
-            sCtx.fillRect(35, 245, 442, 130);
-            sCtx.strokeStyle = '#f1c40f'; sCtx.lineWidth = 4;
-            sCtx.strokeRect(35, 245, 442, 130);
+            carpetGrad.addColorStop(0, '#8e1b1b'); carpetGrad.addColorStop(1, '#5c0d0d');
+            sCtx.fillStyle = carpetGrad; sCtx.fillRect(35, 245, 442, 130);
+            sCtx.strokeStyle = '#f1c40f'; sCtx.lineWidth = 4; sCtx.strokeRect(35, 245, 442, 130);
 
-            // DRAW PAPER MARIO STYLE SNAKE & BASKETS
             baskets.forEach((b, idx) => {
                 sCtx.save();
                 sCtx.translate(b.x, b.y);
 
-                // Basket Shadow
-                sCtx.fillStyle = 'rgba(0,0,0,0.4)';
-                sCtx.beginPath(); sCtx.ellipse(0, 36, 32, 10, 0, 0, Math.PI * 2); sCtx.fill();
+                sCtx.fillStyle = 'rgba(0,0,0,0.4)'; sCtx.beginPath(); sCtx.ellipse(0, 36, 32, 10, 0, 0, Math.PI * 2); sCtx.fill();
 
-                // Draw Snake rising from Basket
                 if (idx === currentSnakeBasket && snakeHeight > 0) {
                     sCtx.save();
                     sCtx.translate(0, -snakeHeight);
 
-                    // Paper Cutout Shadow Offset
-                    sCtx.fillStyle = 'rgba(0,0,0,0.35)';
-                    sCtx.fillRect(-12, -28, 28, snakeHeight + 20);
+                    sCtx.fillStyle = 'rgba(0,0,0,0.35)'; sCtx.fillRect(-12, -28, 28, snakeHeight + 20);
+                    sCtx.fillStyle = '#ffffff'; sCtx.fillRect(-18, -34, 36, 38);
 
-                    // White Paper Border Outline
-                    sCtx.fillStyle = '#ffffff';
-                    sCtx.fillRect(-18, -34, 36, 38);
+                    sCtx.fillStyle = '#2ecc71'; sCtx.fillRect(-15, -31, 30, 34);
+                    sCtx.fillStyle = '#27ae60'; sCtx.fillRect(-10, -20, 20, 20);
 
-                    // Cobra Snake Body (Green Papercraft with Gold Diamond Texture)
-                    sCtx.fillStyle = '#2ecc71';
-                    sCtx.fillRect(-15, -31, 30, 34);
-                    sCtx.fillStyle = '#27ae60';
-                    sCtx.fillRect(-10, -20, 20, 20);
+                    sCtx.fillStyle = '#2ecc71'; sCtx.beginPath(); sCtx.ellipse(0, -15, 22, 12, 0, 0, Math.PI * 2); sCtx.fill();
+                    sCtx.fillStyle = '#f1c40f'; sCtx.fillRect(-8, -18, 16, 8);
 
-                    // Cobra Hood Wings
-                    sCtx.fillStyle = '#2ecc71';
-                    sCtx.beginPath(); sCtx.ellipse(0, -15, 22, 12, 0, 0, Math.PI * 2); sCtx.fill();
-                    sCtx.fillStyle = '#f1c40f';
-                    sCtx.fillRect(-8, -18, 16, 8);
-
-                    // Snake Head & Expression
-                    sCtx.fillStyle = '#2ecc71';
-                    sCtx.fillRect(-14, -36, 28, 18);
+                    sCtx.fillStyle = '#2ecc71'; sCtx.fillRect(-14, -36, 28, 18);
 
                     if (snakeState === 'HIT') {
-                        // HIT STATE: X_X Eyes, Tongue Out, and Big Red Lump / Bump (Chichón!)
-                        sCtx.fillStyle = '#111';
-                        sCtx.font = '12px sans-serif';
-                        sCtx.fillText('X', -10, -26);
-                        sCtx.fillText('X', 2, -26);
-
-                        // Red Lump / Bump (Chichón)
-                        sCtx.fillStyle = '#ff4757';
-                        sCtx.beginPath(); sCtx.arc(0, -42, 10, 0, Math.PI * 2); sCtx.fill();
+                        sCtx.fillStyle = '#111'; sCtx.font = '12px sans-serif'; sCtx.fillText('X', -10, -26); sCtx.fillText('X', 2, -26);
+                        sCtx.fillStyle = '#ff4757'; sCtx.beginPath(); sCtx.arc(0, -42, 10, 0, Math.PI * 2); sCtx.fill();
                         sCtx.strokeStyle = '#fff'; sCtx.lineWidth = 2; sCtx.stroke();
                     } else {
-                        // Cheeky Normal Eyes & Snake Tongue
-                        sCtx.fillStyle = '#fff';
-                        sCtx.fillRect(-10, -32, 7, 7); sCtx.fillRect(3, -32, 7, 7);
-                        sCtx.fillStyle = '#000';
-                        sCtx.fillRect(-8, -30, 3, 3); sCtx.fillRect(5, -30, 3, 3);
-                        // Forked Red Tongue
-                        sCtx.fillStyle = '#e74c3c';
-                        sCtx.fillRect(-2, -18, 4, 8); ctx.fillRect(-4, -10, 8, 2);
+                        sCtx.fillStyle = '#fff'; sCtx.fillRect(-10, -32, 7, 7); sCtx.fillRect(3, -32, 7, 7);
+                        sCtx.fillStyle = '#000'; sCtx.fillRect(-8, -30, 3, 3); sCtx.fillRect(5, -30, 3, 3);
+                        sCtx.fillStyle = '#e74c3c'; sCtx.fillRect(-2, -18, 4, 8); ctx.fillRect(-4, -10, 8, 2);
                     }
 
                     sCtx.restore();
                 }
 
-                // PAPER MARIO WOVEN BASKET (Canasto de Mimbre)
-                // White Paper Border Outline
-                sCtx.fillStyle = '#ffffff';
-                sCtx.fillRect(-34, -4, 68, 44);
+                sCtx.fillStyle = '#ffffff'; sCtx.fillRect(-34, -4, 68, 44);
+                sCtx.fillStyle = '#d35400'; sCtx.fillRect(-31, -1, 62, 38);
 
-                // Woven Golden Basket Body
-                sCtx.fillStyle = '#d35400';
-                sCtx.fillRect(-31, -1, 62, 38);
+                sCtx.fillStyle = '#f39c12'; sCtx.fillRect(-31, 6, 62, 5); sCtx.fillRect(-31, 18, 62, 5); sCtx.fillRect(-31, 30, 62, 5);
+                sCtx.fillRect(-16, -1, 6, 38); sCtx.fillRect(10, -1, 6, 38);
 
-                // Basket Weave Texture Stripes
-                sCtx.fillStyle = '#f39c12';
-                sCtx.fillRect(-31, 6, 62, 5);
-                sCtx.fillRect(-31, 18, 62, 5);
-                sCtx.fillRect(-31, 30, 62, 5);
-                sCtx.fillRect(-16, -1, 6, 38);
-                sCtx.fillRect(10, -1, 6, 38);
+                sCtx.fillStyle = '#e67e22'; sCtx.beginPath(); sCtx.ellipse(0, -1, 31, 8, 0, 0, Math.PI * 2); sCtx.fill();
+                sCtx.fillStyle = '#2c1a0e'; sCtx.beginPath(); sCtx.ellipse(0, -1, 25, 5, 0, 0, Math.PI * 2); sCtx.fill();
 
-                // Basket Rim Top Opening
-                sCtx.fillStyle = '#e67e22';
-                sCtx.beginPath(); sCtx.ellipse(0, -1, 31, 8, 0, 0, Math.PI * 2); sCtx.fill();
-                sCtx.fillStyle = '#2c1a0e'; // Inner dark hole
-                sCtx.beginPath(); sCtx.ellipse(0, -1, 25, 5, 0, 0, Math.PI * 2); sCtx.fill();
+                sCtx.fillStyle = '#f1c40f'; sCtx.fillRect(-12, 14, 24, 16);
+                sCtx.fillStyle = '#000'; sCtx.font = '10px "Press Start 2P"'; sCtx.textAlign = 'center'; sCtx.fillText(b.name, 0, 27);
 
-                // Key Label Badge [A] [S] [D] [F] [G]
-                sCtx.fillStyle = '#f1c40f';
-                sCtx.fillRect(-12, 14, 24, 16);
-                sCtx.fillStyle = '#000';
-                sCtx.font = '10px "Press Start 2P"';
-                sCtx.textAlign = 'center';
-                sCtx.fillText(b.name, 0, 27);
-
-                // DRAW WOODEN CLUB / MALLET SWING ANIMATION (Garrote de Madera)
                 if (activeClubBasket === idx && clubSwingAnim > 0) {
                     sCtx.save();
                     sCtx.translate(0, -45);
                     sCtx.rotate(-Math.PI / 4 * (clubSwingAnim / 10));
 
-                    // Wooden Mallet Handle
-                    sCtx.fillStyle = '#5c3818';
-                    sCtx.fillRect(-4, -45, 8, 45);
-
-                    // Heavy Wooden Mallet Head
-                    sCtx.fillStyle = '#8c531d';
-                    sCtx.fillRect(-22, -65, 44, 22);
-                    sCtx.fillStyle = '#f1c40f'; // Metal bands
-                    sCtx.fillRect(-22, -65, 6, 22); sCtx.fillRect(16, -65, 6, 22);
+                    sCtx.fillStyle = '#5c3818'; sCtx.fillRect(-4, -45, 8, 45);
+                    sCtx.fillStyle = '#8c531d'; sCtx.fillRect(-22, -65, 44, 22);
+                    sCtx.fillStyle = '#f1c40f'; sCtx.fillRect(-22, -65, 6, 22); sCtx.fillRect(16, -65, 6, 22);
 
                     sCtx.restore();
                 }
@@ -1669,15 +1673,9 @@ cat << 'EOF' > /var/www/html/index.html
                 sCtx.restore();
             });
 
-            // DRAW SPINNING STARS FX ON HIT
             for (let st of starsFX) {
-                sCtx.save();
-                sCtx.translate(st.x, st.y);
-                sCtx.rotate(st.rot);
-                sCtx.fillStyle = '#f1c40f';
-                sCtx.font = '14px sans-serif';
-                sCtx.fillText('⭐', 0, 0);
-                sCtx.restore();
+                sCtx.save(); sCtx.translate(st.x, st.y); sCtx.rotate(st.rot);
+                sCtx.fillStyle = '#f1c40f'; sCtx.font = '14px sans-serif'; sCtx.fillText('⭐', 0, 0); sCtx.restore();
             }
         }
 
@@ -1698,6 +1696,26 @@ cat << 'EOF' > /var/www/html/index.html
 </body>
 </html>
 EOF
+
+# Wipe any default Nginx index files
+rm -f /var/www/html/index.nginx-debian.html
+
+# Ensure default Nginx site configuration points cleanly to index.html
+cat << 'NGINX_CONF' > /etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+NGINX_CONF
 
 # Ensure proper permissions and ownership
 chown -R www-data:www-data /var/www/html
