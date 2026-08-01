@@ -8,6 +8,10 @@ on:
       - Feature2Game
   workflow_dispatch:
 
+concurrency:
+  group: terraform-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
     name: "Terraform Deploy (GCP Infrastructure)"
