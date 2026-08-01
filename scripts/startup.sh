@@ -3,7 +3,7 @@ set -e
 
 # Logging setup
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-echo "=== Starting 8bitCityChamp Startup Script (Professional Sprite + Kick Edition): $(date) ==="
+echo "=== Starting 8bitCityChamp Startup Script (Mobile + Ambient NPCs Edition): $(date) ==="
 
 # Update package list and install Nginx & curl
 apt-get update -y
@@ -12,21 +12,21 @@ apt-get install -y nginx curl git
 # Remove default Nginx index page
 rm -rf /var/www/html/*
 
-# Create Professional 16-Bit Arcade Web Application with Character Sprite Engine & Kick Move
+# Create Ultra Detailed 16-Bit Arcade Web Application with Mobile Touch Controls & Ambient Street NPCs
 cat << 'EOF' > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8bitCityChamp - Professional 16-Bit Arcade Sprite Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>8bitCityChamp - 16-Bit Mobile Arcade Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #040508;
-            --arcade-border: #161e2b;
+            --bg-color: #030407;
+            --arcade-border: #141b26;
             --neon-blue: #00d2d3;
             --neon-green: #54a0ff;
             --neon-red: #ff4757;
@@ -38,6 +38,8 @@ cat << 'EOF' > /var/www/html/index.html
         * {
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
             margin: 0;
             padding: 0;
         }
@@ -45,7 +47,7 @@ cat << 'EOF' > /var/www/html/index.html
         body {
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 50% 20%, #152038 0%, #05070f 60%, #010204 100%);
+                radial-gradient(circle at 50% 20%, #131c30 0%, #04060c 60%, #010204 100%);
             color: #ffffff;
             font-family: 'Press Start 2P', monospace, cursive;
             display: flex;
@@ -53,25 +55,25 @@ cat << 'EOF' > /var/www/html/index.html
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 12px;
+            padding: 8px;
             overflow-x: hidden;
         }
 
         /* Arcade Header */
         header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .logo-title {
-            font-size: 1.9rem;
+            font-size: 1.8rem;
             color: #54a0ff;
             text-shadow: 
                 3px 3px 0px #000,
                 -2px -2px 0px #ff4757,
                 0 0 20px #54a0ff;
             letter-spacing: 2px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             animation: pulse-title 2s infinite alternate;
         }
 
@@ -81,22 +83,22 @@ cat << 'EOF' > /var/www/html/index.html
         }
 
         .subtitle {
-            font-size: 0.62rem;
+            font-size: 0.58rem;
             color: var(--neon-yellow);
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
         }
 
         /* Arcade Cabinet Frame */
         .arcade-cabinet {
             position: relative;
-            background: #0e121a;
-            border: 12px solid #1e2838;
-            border-radius: 20px;
+            background: #0b0e16;
+            border: 10px solid #1a2332;
+            border-radius: 16px;
             box-shadow: 
                 0 0 0 4px #000,
-                0 25px 60px rgba(0,0,0,0.95),
+                0 20px 50px rgba(0,0,0,0.95),
                 inset 0 0 25px rgba(0,0,0,0.85);
-            padding: 16px;
+            padding: 12px;
             max-width: 860px;
             width: 100%;
         }
@@ -105,8 +107,8 @@ cat << 'EOF' > /var/www/html/index.html
         .crt-screen {
             position: relative;
             background: #000;
-            border: 6px solid #070910;
-            border-radius: 12px;
+            border: 5px solid #06080e;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: inset 0 0 35px rgba(0,0,0,1);
         }
@@ -128,19 +130,19 @@ cat << 'EOF' > /var/www/html/index.html
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #080a10;
-            padding: 8px 14px;
-            border-bottom: 2px solid #1a2436;
-            font-size: 0.58rem;
+            background: #07090e;
+            padding: 6px 12px;
+            border-bottom: 2px solid #161f2e;
+            font-size: 0.55rem;
         }
 
         .music-toggle-btn {
-            background: #1e2a3a;
+            background: #1a2534;
             color: #feca57;
             border: 2px solid #54a0ff;
-            padding: 6px 12px;
+            padding: 5px 10px;
             font-family: inherit;
-            font-size: 0.55rem;
+            font-size: 0.52rem;
             border-radius: 6px;
             cursor: pointer;
             box-shadow: 0 2px 0 #000;
@@ -155,10 +157,10 @@ cat << 'EOF' > /var/www/html/index.html
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #030408;
-            padding: 10px 16px;
-            border-bottom: 4px solid #182030;
-            font-size: 0.65rem;
+            background: #030407;
+            padding: 8px 12px;
+            border-bottom: 4px solid #141c28;
+            font-size: 0.6rem;
             z-index: 5;
             position: relative;
         }
@@ -166,14 +168,14 @@ cat << 'EOF' > /var/www/html/index.html
         .hud-player {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             width: 38%;
         }
 
         .player-name {
             display: flex;
             justify-content: space-between;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
         }
 
         .p1-color { color: #54a0ff; }
@@ -181,8 +183,8 @@ cat << 'EOF' > /var/www/html/index.html
 
         .health-bar-container {
             width: 100%;
-            height: 18px;
-            background: #1a2228;
+            height: 16px;
+            background: #161d24;
             border: 2px solid #fff;
             position: relative;
             box-shadow: inset 0 0 6px #000;
@@ -201,15 +203,15 @@ cat << 'EOF' > /var/www/html/index.html
         }
 
         .hud-timer {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #fff;
             text-shadow: 2px 2px #ff4757;
         }
 
         .hud-stage {
-            font-size: 0.55rem;
+            font-size: 0.52rem;
             color: #feca57;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         /* Canvas Game Arena */
@@ -221,88 +223,90 @@ cat << 'EOF' > /var/www/html/index.html
             image-rendering: pixelated;
         }
 
-        /* Controls Section */
-        .controls-panel {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 16px;
-            background: #111522;
-            padding: 14px;
-            border-radius: 8px;
-            border: 2px solid #222b3e;
-        }
-
-        .control-group {
-            font-size: 0.58rem;
-            line-height: 1.7;
-        }
-
-        .control-group h3 {
-            color: #54a0ff;
-            font-size: 0.65rem;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .key-badge {
-            background: #283448;
-            color: #fff;
-            padding: 2px 6px;
-            border-radius: 4px;
-            border: 1px solid #40526e;
-            box-shadow: 0 2px 0 #0d121c;
-        }
-
-        /* On-Screen Touch Controls for Mobile */
+        /* Mobile Touch Controls Container */
         .mobile-controls {
-            display: none;
-            margin-top: 14px;
+            display: flex;
+            margin-top: 10px;
             width: 100%;
             justify-content: space-between;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-controls { display: flex; }
-            .controls-panel { grid-template-columns: 1fr; }
-            .logo-title { font-size: 1.2rem; }
+            gap: 8px;
         }
 
         .btn-group {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .retro-btn {
-            background: linear-gradient(180deg, #2e3e50, #1a2228);
+            background: linear-gradient(180deg, #263544, #141b20);
             color: #fff;
-            border: 3px solid #486382;
-            padding: 10px 14px;
+            border: 2px solid #3c526d;
+            padding: 12px 14px;
             font-family: inherit;
             font-size: 0.6rem;
             border-radius: 8px;
-            box-shadow: 0 4px 0 #0c1018;
+            box-shadow: 0 3px 0 #090d13;
             cursor: pointer;
+            flex: 1;
+            text-align: center;
         }
 
         .retro-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 1px 0 #0c1018;
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #090d13;
         }
 
-        .btn-start { background: linear-gradient(180deg, #10ac84, #01a3a4); border-color: #55efc4; font-weight: bold; width: 100%; margin-top: 10px; padding: 14px; font-size: 0.78rem; }
+        .btn-start { background: linear-gradient(180deg, #10ac84, #01a3a4); border-color: #55efc4; font-weight: bold; width: 100%; margin-top: 8px; padding: 12px; font-size: 0.75rem; }
         .btn-punch { background: linear-gradient(180deg, #ee5253, #10ac84); border-color: #ff6b6b; }
         .btn-kick { background: linear-gradient(180deg, #10ac84, #0fb9b1); border-color: #55efc4; }
         .btn-heavy { background: linear-gradient(180deg, #ff9f43, #ee5253); border-color: #feca57; }
         .btn-block { background: linear-gradient(180deg, #2e86de, #5f27cd); border-color: #54a0ff; }
 
+        /* Controls Panel for Desktop */
+        .controls-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 14px;
+            background: #0e121c;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #1d2534;
+        }
+
+        .control-group {
+            font-size: 0.55rem;
+            line-height: 1.6;
+        }
+
+        .control-group h3 {
+            color: #54a0ff;
+            font-size: 0.62rem;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .key-badge {
+            background: #202b3a;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 4px;
+            border: 1px solid #36465c;
+            box-shadow: 0 2px 0 #0a0e16;
+        }
+
+        @media (max-width: 768px) {
+            .logo-title { font-size: 1.2rem; }
+            .controls-panel { display: none; }
+            .retro-btn { padding: 14px 12px; font-size: 0.62rem; }
+        }
+
         /* Footer Info */
         footer {
-            margin-top: 16px;
+            margin-top: 12px;
             text-align: center;
-            font-size: 0.58rem;
-            color: #888;
+            font-size: 0.55rem;
+            color: #777;
         }
 
         footer span {
@@ -315,7 +319,7 @@ cat << 'EOF' > /var/www/html/index.html
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #feca57;
             text-shadow: 4px 4px 0 #000, -2px -2px 0 #ff4757;
             text-align: center;
@@ -323,7 +327,7 @@ cat << 'EOF' > /var/www/html/index.html
             pointer-events: none;
             display: none;
             width: 92%;
-            line-height: 1.6;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -331,12 +335,12 @@ cat << 'EOF' > /var/www/html/index.html
 
     <header>
         <h1 class="logo-title">8bitCityChamp</h1>
-        <p class="subtitle">PROFESSIONAL 16-BIT SPRITE ENGINE • FEATURE2 EDITION</p>
+        <p class="subtitle">MOBILE TOUCH GAMEPAD & STREET AMBIENT NPCs</p>
     </header>
 
     <main class="arcade-cabinet">
         <div class="top-bar">
-            <span>16-BIT SNES BGM SOUNDTRACK</span>
+            <span>16-BIT SNES SOUNDTRACK</span>
             <button class="music-toggle-btn" id="btnToggleMusic">🎵 BGM MUSIC: ON</button>
         </div>
 
@@ -376,15 +380,15 @@ cat << 'EOF' > /var/www/html/index.html
         </div>
 
         <!-- Start Button for All Devices -->
-        <button class="retro-btn btn-start" id="btnStartGame">🎮 PRESS START / BEGIN 16-BIT BATTLE</button>
+        <button class="retro-btn btn-start" id="btnStartGame">🎮 PRESS START / BEGIN BATTLE</button>
 
-        <!-- Mobile Touch Buttons -->
+        <!-- Mobile Touch Controls -->
         <div class="mobile-controls">
-            <div class="btn-group">
-                <button class="retro-btn" id="btnLeft">◄ MOVE</button>
-                <button class="retro-btn" id="btnRight">MOVE ►</button>
+            <div class="btn-group" style="width: 40%;">
+                <button class="retro-btn" id="btnLeft">◄ LEFT</button>
+                <button class="retro-btn" id="btnRight">RIGHT ►</button>
             </div>
-            <div class="btn-group">
+            <div class="btn-group" style="width: 60%;">
                 <button class="retro-btn btn-punch" id="btnLight">JAB</button>
                 <button class="retro-btn btn-kick" id="btnKick">KICK</button>
                 <button class="retro-btn btn-heavy" id="btnHeavy">HEAVY</button>
@@ -392,33 +396,32 @@ cat << 'EOF' > /var/www/html/index.html
             </div>
         </div>
 
-        <!-- Controls Guide in English -->
+        <!-- Controls Guide for Desktop -->
         <div class="controls-panel">
             <div class="control-group">
                 <h3>🎮 CONTROLS (PLAYER 1)</h3>
                 <p><span class="key-badge">◄</span> / <span class="key-badge">►</span> or <span class="key-badge">A</span> / <span class="key-badge">D</span> : Walk Left / Right</p>
                 <p><span class="key-badge">Z</span> or <span class="key-badge">J</span> : Fast Jab Punch (12 DMG)</p>
-                <p><span class="key-badge">C</span> or <span class="key-badge">L</span> : 💥 HIGH KICK ATTACK (18 DMG)</p>
+                <p><span class="key-badge">C</span> or <span class="key-badge">L</span> : 💥 High Kick Attack (18 DMG)</p>
                 <p><span class="key-badge">X</span> or <span class="key-badge">K</span> : Heavy Hook Punch (25 DMG + Blood FX)</p>
                 <p><span class="key-badge">SPACE</span> or <span class="key-badge">S</span> : Block / Guard</p>
             </div>
             <div class="control-group">
-                <h3>⚡ PROFESSIONAL SPRITE FEATURES</h3>
-                <p>• <strong>16-Bit Pixel Art Sprite Sheet Engine</strong> for all fighters.</p>
-                <p>• <strong>Kick Attack Included</strong> with leg animation & kick sound!</p>
-                <p>• <strong>Blood Splatter & Spark Particles</strong> on every impact.</p>
-                <p>• <strong>Final Boss (Stage 5):</strong> General Ironclad (Military Dictator).</p>
+                <h3>🌆 STREET AMBIENT NPCs & MOBILE UX</h3>
+                <p>• <strong>Fast Street Walker & Staggering Drunkard</strong> NPCs in background!</p>
+                <p>• <strong>Full Mobile Support:</strong> Touch D-Pad & Action Gamepad Buttons.</p>
+                <p>• <strong>5 Fighters & Dictator Boss:</strong> General Ironclad (Stage 5).</p>
                 <p>• Deployed on GCP Compute Engine via Terraform.</p>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>POWERED BY <span>GOOGLE CLOUD PLATFORM</span> & <span>TERRAFORM</span> | Professional Sprite Edition</p>
+        <p>POWERED BY <span>GOOGLE CLOUD PLATFORM</span> & <span>TERRAFORM</span> | Mobile 16-Bit Edition</p>
     </footer>
 
     <script>
-        // 16-Bit SNES Audio & Synth Engine (BGM + Sound FX)
+        // 16-Bit SNES Audio & Synth Engine
         class AudioEngine {
             constructor() {
                 this.ctx = null;
@@ -651,7 +654,24 @@ cat << 'EOF' > /var/www/html/index.html
             screenShakeTime = 8;
         }
 
-        // Detailed Opponents Roster Definition
+        // Ambient Background Pedestrians (Street Walker & Staggering Drunkard)
+        const ambientNPCs = {
+            walker: {
+                active: false,
+                x: -50,
+                y: 228,
+                speed: 4.8
+            },
+            drunkard: {
+                active: false,
+                x: 560,
+                y: 232,
+                speed: -1.2,
+                staggerOffset: 0
+            }
+        };
+
+        // Opponents Definition
         const OPPONENTS = [
             {
                 id: 1,
@@ -753,7 +773,7 @@ cat << 'EOF' > /var/www/html/index.html
             hairColor: '#5c3a21',
             health: 100,
             maxHealth: 100,
-            state: 'IDLE', // IDLE, WALK, PUNCH_LIGHT, PUNCH_HEAVY, KICK, BLOCK, HIT, KO
+            state: 'IDLE',
             facing: 1,
             cooldown: 0,
             hitFlash: 0
@@ -805,7 +825,19 @@ cat << 'EOF' > /var/www/html/index.html
             keys[e.code] = false;
         });
 
-        // Touch & Button Click Listeners
+        // Touch Listeners for Mobile Gamepad
+        function bindTouchBtn(elementId, keyCode) {
+            const btn = document.getElementById(elementId);
+            if (!btn) return;
+            btn.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); keys[keyCode] = true; });
+            btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyCode] = false; });
+            btn.addEventListener('mousedown', (e) => { audio.init(); keys[keyCode] = true; });
+            btn.addEventListener('mouseup', (e) => { keys[keyCode] = false; });
+        }
+
+        bindTouchBtn('btnLeft', 'ArrowLeft');
+        bindTouchBtn('btnRight', 'ArrowRight');
+
         document.getElementById('btnStartGame').addEventListener('click', () => {
             audio.init();
             if (gameState === 'TITLE' || gameState === 'GAME_OVER' || gameState === 'GAME_VICTORY') {
@@ -819,11 +851,6 @@ cat << 'EOF' > /var/www/html/index.html
             document.getElementById('btnToggleMusic').innerText = active ? "🎵 BGM MUSIC: ON" : "🔇 BGM MUSIC: OFF";
         });
 
-        document.getElementById('btnLeft').addEventListener('touchstart', (e) => { e.preventDefault(); keys['ArrowLeft'] = true; });
-        document.getElementById('btnLeft').addEventListener('touchend', (e) => { e.preventDefault(); keys['ArrowLeft'] = false; });
-        document.getElementById('btnRight').addEventListener('touchstart', (e) => { e.preventDefault(); keys['ArrowRight'] = true; });
-        document.getElementById('btnRight').addEventListener('touchend', (e) => { e.preventDefault(); keys['ArrowRight'] = false; });
-        
         document.getElementById('btnLight').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerPunch(p1, false); });
         document.getElementById('btnKick').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerKick(p1); });
         document.getElementById('btnHeavy').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerPunch(p1, true); });
@@ -889,11 +916,20 @@ cat << 'EOF' > /var/www/html/index.html
                     if (timer > 20 && Math.random() < 0.03 && !street.policeActive) {
                         triggerPolicePatrol();
                     }
+                    // Random Street Walker Spawning
+                    if (!ambientNPCs.walker.active && Math.random() < 0.04) {
+                        ambientNPCs.walker.active = true;
+                        ambientNPCs.walker.x = -60;
+                    }
+                    // Random Drunkard Spawning
+                    if (!ambientNPCs.drunkard.active && Math.random() < 0.03) {
+                        ambientNPCs.drunkard.active = true;
+                        ambientNPCs.drunkard.x = 560;
+                    }
                 }
             }, 1000);
         }
 
-        // Punch Attack
         function triggerPunch(fighter, isHeavy) {
             if (fighter.state === 'IDLE' || fighter.state === 'WALK') {
                 fighter.state = isHeavy ? 'PUNCH_HEAVY' : 'PUNCH_LIGHT';
@@ -909,7 +945,6 @@ cat << 'EOF' > /var/www/html/index.html
             }
         }
 
-        // Kick Attack Feature
         function triggerKick(fighter) {
             if (fighter.state === 'IDLE' || fighter.state === 'WALK') {
                 fighter.state = 'KICK';
@@ -919,7 +954,7 @@ cat << 'EOF' > /var/www/html/index.html
                 const opponent = (fighter === p1) ? p2 : p1;
                 const dist = Math.abs(fighter.x - opponent.x);
 
-                if (dist < 68) { // Kick has longer reach!
+                if (dist < 68) {
                     executeHit(fighter, opponent, 18, 32, false);
                 }
             }
@@ -1023,6 +1058,7 @@ cat << 'EOF' > /var/www/html/index.html
             if (p1.hitFlash > 0) p1.hitFlash--;
             if (p2.hitFlash > 0) p2.hitFlash--;
 
+            // Update Blood & Spark Particles
             for (let i = hitParticles.length - 1; i >= 0; i--) {
                 const p = hitParticles[i];
                 p.x += p.vx;
@@ -1032,6 +1068,7 @@ cat << 'EOF' > /var/www/html/index.html
                 if (p.life <= 0) hitParticles.splice(i, 1);
             }
 
+            // Update Floating Damage Texts
             for (let i = damageTexts.length - 1; i >= 0; i--) {
                 const dt = damageTexts[i];
                 dt.y += dt.vy;
@@ -1042,7 +1079,23 @@ cat << 'EOF' > /var/www/html/index.html
 
             if (screenShakeTime > 0) screenShakeTime--;
 
-            // Player 1 Input Handling
+            // Update Ambient Background NPCs
+            if (ambientNPCs.walker.active) {
+                ambientNPCs.walker.x += ambientNPCs.walker.speed;
+                if (ambientNPCs.walker.x > canvas.width + 60) {
+                    ambientNPCs.walker.active = false;
+                }
+            }
+
+            if (ambientNPCs.drunkard.active) {
+                ambientNPCs.drunkard.x += ambientNPCs.drunkard.speed;
+                ambientNPCs.drunkard.staggerOffset = Math.sin(Date.now() / 180) * 4;
+                if (ambientNPCs.drunkard.x < -60) {
+                    ambientNPCs.drunkard.active = false;
+                }
+            }
+
+            // Player 1 Control
             if (p1.cooldown > 0) {
                 p1.cooldown--;
                 if (p1.cooldown === 0 && p1.state !== 'KO') p1.state = 'IDLE';
@@ -1052,7 +1105,7 @@ cat << 'EOF' > /var/www/html/index.html
                 } else if (keys['KeyZ'] || keys['KeyJ']) {
                     triggerPunch(p1, false);
                 } else if (keys['KeyC'] || keys['KeyL']) {
-                    triggerKick(p1); // Kick Attack Input
+                    triggerKick(p1);
                 } else if (keys['KeyX'] || keys['KeyK']) {
                     triggerPunch(p1, true);
                 } else if (keys['ArrowLeft'] || keys['KeyA']) {
@@ -1081,7 +1134,7 @@ cat << 'EOF' > /var/www/html/index.html
                     if (aiChoice < oppConfig.aiAggression) {
                         triggerPunch(p2, false);
                     } else if (aiChoice < oppConfig.aiAggression + 0.035) {
-                        triggerKick(p2); // AI Kick Move
+                        triggerKick(p2);
                     } else if (aiChoice < oppConfig.aiAggression + 0.065) {
                         triggerPunch(p2, true);
                     } else if (aiChoice < oppConfig.aiAggression + 0.09) {
@@ -1112,7 +1165,6 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillStyle = '#060912';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Detailed City Skyline
             ctx.fillStyle = '#0f172a';
             ctx.fillRect(15, 140, 70, 170);
             ctx.fillRect(95, 100, 90, 210);
@@ -1145,7 +1197,7 @@ cat << 'EOF' > /var/www/html/index.html
 
             ctx.font = '10px "Press Start 2P"';
             ctx.fillStyle = '#feca57';
-            ctx.fillText("PROFESSIONAL 16-BIT SPRITE ENGINE", canvas.width / 2, 135);
+            ctx.fillText("MOBILE TOUCH & AMBIENT STREET EDITION", canvas.width / 2, 135);
 
             if (Math.floor(titleFrame / 30) % 2 === 0) {
                 ctx.fillStyle = '#00d2d3';
@@ -1164,7 +1216,7 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillText("5 STAGES • FINAL BOSS: GENERAL IRONCLAD", canvas.width / 2, 290);
             ctx.fillStyle = '#c8d6e5';
             ctx.font = '8px "Press Start 2P"';
-            ctx.fillText("SPRITE ENGINE • KICK ATTACK • BLOOD FX", canvas.width / 2, 320);
+            ctx.fillText("STREET WALKERS & DRUNKARDS • MOBILE GAMEPAD", canvas.width / 2, 320);
 
             ctx.shadowOffsetX = 0;
             ctx.shadowOffsetY = 0;
@@ -1210,11 +1262,21 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillStyle = '#fff';
             ctx.fillText('CLUB 84', 215, 64);
 
+            // Sidewalk
             ctx.fillStyle = '#576574';
             ctx.fillRect(0, 260, canvas.width, 16);
             ctx.fillStyle = '#8395a7';
             ctx.fillRect(0, 260, canvas.width, 4);
 
+            // DRAW AMBIENT BACKGROUND NPCs ON SIDEWALK
+            if (ambientNPCs.walker.active) {
+                drawStreetWalker(ambientNPCs.walker.x, ambientNPCs.walker.y);
+            }
+            if (ambientNPCs.drunkard.active) {
+                drawStaggeringDrunkard(ambientNPCs.drunkard.x, ambientNPCs.drunkard.y + ambientNPCs.drunkard.staggerOffset);
+            }
+
+            // Road Asphalt
             ctx.fillStyle = '#1e272e';
             ctx.fillRect(0, 276, canvas.width, 110);
 
@@ -1231,6 +1293,65 @@ cat << 'EOF' > /var/www/html/index.html
             }
         }
 
+        // Draw Fast Street Walker Ambient NPC
+        function drawStreetWalker(x, y) {
+            ctx.save();
+            ctx.translate(x, y);
+
+            // Shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.beginPath(); ctx.ellipse(12, 38, 12, 4, 0, 0, Math.PI * 2); ctx.fill();
+
+            // Hair & Head
+            ctx.fillStyle = '#e84393'; ctx.fillRect(4, 0, 16, 8); // Pink Hair
+            ctx.fillStyle = '#ffdd59'; ctx.fillRect(6, 4, 12, 10); // Skin Face
+
+            // Bright Pink Top & Handbag
+            ctx.fillStyle = '#fd79a8'; ctx.fillRect(4, 14, 16, 12);
+            ctx.fillStyle = '#e17055'; ctx.fillRect(18, 18, 6, 8); // Handbag
+
+            // Skirt
+            ctx.fillStyle = '#2d3436'; ctx.fillRect(6, 26, 12, 8);
+
+            // Legs & High Heels (Fast Walk Animation)
+            const legSwing = Math.sin(Date.now() / 80) * 5;
+            ctx.fillStyle = '#ffdd59';
+            ctx.fillRect(6 + legSwing, 34, 4, 10);
+            ctx.fillRect(12 - legSwing, 34, 4, 10);
+            ctx.fillStyle = '#d63031'; // High Heels
+            ctx.fillRect(6 + legSwing, 44, 5, 4);
+            ctx.fillRect(12 - legSwing, 44, 5, 4);
+
+            ctx.restore();
+        }
+
+        // Draw Staggering Drunkard Ambient NPC
+        function drawStaggeringDrunkard(x, y) {
+            ctx.save();
+            ctx.translate(x, y);
+
+            // Shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.beginPath(); ctx.ellipse(14, 42, 14, 4, 0, 0, Math.PI * 2); ctx.fill();
+
+            // Stumbling Head & Messy Hair
+            ctx.fillStyle = '#636e72'; ctx.fillRect(4, 0, 18, 8);
+            ctx.fillStyle = '#ffcc99'; ctx.fillRect(6, 6, 14, 10);
+            ctx.fillStyle = '#d63031'; ctx.fillRect(14, 10, 4, 4); // Red Nose
+
+            // Stained Shirt
+            ctx.fillStyle = '#b2bec3'; ctx.fillRect(6, 16, 16, 16);
+
+            // Holding Brown Bottle
+            ctx.fillStyle = '#e17055'; ctx.fillRect(-2, 22, 6, 10); // Bottle
+            ctx.fillStyle = '#f1c40f'; ctx.fillRect(-1, 20, 4, 3);  // Cap
+
+            // Pants & Stumbling Legs
+            ctx.fillStyle = '#2d3436'; ctx.fillRect(8, 32, 12, 12);
+
+            ctx.restore();
+        }
+
         function drawPoliceCar(x, y) {
             ctx.fillStyle = '#000';
             ctx.fillRect(x, y, 105, 36);
@@ -1245,7 +1366,7 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fill();
         }
 
-        // PROFESSIONAL SPRITE RENDERING ENGINE WITH KICK ANIMATION
+        // ULTRA HIGH-DETAIL 16-BIT FIGHTER DRAWING ENGINE
         function drawFighter(f) {
             ctx.save();
 
@@ -1346,14 +1467,11 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillStyle = f.pantsColor || '#192a56';
 
             if (f.state === 'KICK') {
-                // 💥 HIGH KICK EXTENDED LEG ANIMATION
-                ctx.fillRect(12, 54, 16, 20); // Standing leg
+                ctx.fillRect(12, 54, 16, 20);
                 ctx.fillStyle = f.skinColor;
-                ctx.fillRect(12, 74, 16, 12); // Boot standing
+                ctx.fillRect(12, 74, 16, 12);
                 ctx.fillStyle = f.pantsColor || '#192a56';
-                // Extended Kick Leg
                 ctx.fillRect(f.facing === 1 ? 26 : -18, 44, 32, 14);
-                // Boot on Kicking Foot
                 ctx.fillStyle = '#0b0e14';
                 ctx.fillRect(f.facing === 1 ? 58 : -28, 42, 14, 18);
             } else {
@@ -1460,4 +1578,4 @@ chmod -R 755 /var/www/html
 systemctl enable nginx
 systemctl restart nginx
 
-echo "=== 8bitCityChamp Startup Script Completed Successfully (Professional Sprite + Kick Edition) at $(date) ==="
+echo "=== 8bitCityChamp Startup Script Completed Successfully (Mobile + Ambient NPCs Edition) at $(date) ==="
