@@ -44,7 +44,7 @@ resource "google_compute_firewall" "eightbitcitychamp_firewall_http" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["8bitcitychamp-web"]
+  target_tags   = ["v8bitcitychamp-web"]
 }
 
 # Firewall Rule: Allow SSH Traffic on Port 22
@@ -58,7 +58,7 @@ resource "google_compute_firewall" "eightbitcitychamp_firewall_ssh" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["8bitcitychamp-web"]
+  target_tags   = ["v8bitcitychamp-web"]
 }
 
 # Static External Public IP Address
@@ -73,7 +73,7 @@ resource "google_compute_instance" "eightbitcitychamp_vm" {
   machine_type = "e2-micro"
   zone         = var.zone
 
-  tags = ["8bitcitychamp-web"]
+  tags = ["v8bitcitychamp-web"]
 
   boot_disk {
     initialize_params {
