@@ -3,7 +3,7 @@ set -e
 
 # Logging setup
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-echo "=== Starting 8bitCityChamp Startup Script (Ultra High-Detail 16-Bit Edition): $(date) ==="
+echo "=== Starting 8bitCityChamp Startup Script (Professional Sprite + Kick Edition): $(date) ==="
 
 # Update package list and install Nginx & curl
 apt-get update -y
@@ -12,21 +12,21 @@ apt-get install -y nginx curl git
 # Remove default Nginx index page
 rm -rf /var/www/html/*
 
-# Create Ultra Detailed 16-Bit SNES Urban Champion Arcade Web Application
+# Create Professional 16-Bit Arcade Web Application with Character Sprite Engine & Kick Move
 cat << 'EOF' > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8bitCityChamp - Ultra Detailed 16-Bit SNES Edition</title>
+    <title>8bitCityChamp - Professional 16-Bit Arcade Sprite Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050608;
-            --arcade-border: #18202d;
+            --bg-color: #040508;
+            --arcade-border: #161e2b;
             --neon-blue: #00d2d3;
             --neon-green: #54a0ff;
             --neon-red: #ff4757;
@@ -45,7 +45,7 @@ cat << 'EOF' > /var/www/html/index.html
         body {
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 50% 20%, #172442 0%, #060912 60%, #020305 100%);
+                radial-gradient(circle at 50% 20%, #152038 0%, #05070f 60%, #010204 100%);
             color: #ffffff;
             font-family: 'Press Start 2P', monospace, cursive;
             display: flex;
@@ -60,7 +60,7 @@ cat << 'EOF' > /var/www/html/index.html
         /* Arcade Header */
         header {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .logo-title {
@@ -89,8 +89,8 @@ cat << 'EOF' > /var/www/html/index.html
         /* Arcade Cabinet Frame */
         .arcade-cabinet {
             position: relative;
-            background: #0f131d;
-            border: 12px solid #202b3c;
+            background: #0e121a;
+            border: 12px solid #1e2838;
             border-radius: 20px;
             box-shadow: 
                 0 0 0 4px #000,
@@ -105,7 +105,7 @@ cat << 'EOF' > /var/www/html/index.html
         .crt-screen {
             position: relative;
             background: #000;
-            border: 6px solid #080b12;
+            border: 6px solid #070910;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: inset 0 0 35px rgba(0,0,0,1);
@@ -123,19 +123,19 @@ cat << 'EOF' > /var/www/html/index.html
             pointer-events: none;
         }
 
-        /* Top Utility Bar (BGM Music Button) */
+        /* Top Bar for BGM Music Control */
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #090c14;
+            background: #080a10;
             padding: 8px 14px;
-            border-bottom: 2px solid #1c273a;
+            border-bottom: 2px solid #1a2436;
             font-size: 0.58rem;
         }
 
         .music-toggle-btn {
-            background: #202d3d;
+            background: #1e2a3a;
             color: #feca57;
             border: 2px solid #54a0ff;
             padding: 6px 12px;
@@ -155,9 +155,9 @@ cat << 'EOF' > /var/www/html/index.html
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #04050a;
+            background: #030408;
             padding: 10px 16px;
-            border-bottom: 4px solid #1a2334;
+            border-bottom: 4px solid #182030;
             font-size: 0.65rem;
             z-index: 5;
             position: relative;
@@ -182,7 +182,7 @@ cat << 'EOF' > /var/www/html/index.html
         .health-bar-container {
             width: 100%;
             height: 18px;
-            background: #1c242b;
+            background: #1a2228;
             border: 2px solid #fff;
             position: relative;
             box-shadow: inset 0 0 6px #000;
@@ -227,10 +227,10 @@ cat << 'EOF' > /var/www/html/index.html
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-top: 16px;
-            background: #121724;
+            background: #111522;
             padding: 14px;
             border-radius: 8px;
-            border: 2px solid #242e42;
+            border: 2px solid #222b3e;
         }
 
         .control-group {
@@ -246,12 +246,12 @@ cat << 'EOF' > /var/www/html/index.html
         }
 
         .key-badge {
-            background: #2a374a;
+            background: #283448;
             color: #fff;
             padding: 2px 6px;
             border-radius: 4px;
-            border: 1px solid #445670;
-            box-shadow: 0 2px 0 #0f151f;
+            border: 1px solid #40526e;
+            box-shadow: 0 2px 0 #0d121c;
         }
 
         /* On-Screen Touch Controls for Mobile */
@@ -270,28 +270,30 @@ cat << 'EOF' > /var/www/html/index.html
 
         .btn-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .retro-btn {
-            background: linear-gradient(180deg, #304254, #1c242b);
+            background: linear-gradient(180deg, #2e3e50, #1a2228);
             color: #fff;
-            border: 3px solid #4b6584;
-            padding: 12px 18px;
+            border: 3px solid #486382;
+            padding: 10px 14px;
             font-family: inherit;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             border-radius: 8px;
-            box-shadow: 0 4px 0 #0d121a;
+            box-shadow: 0 4px 0 #0c1018;
             cursor: pointer;
         }
 
         .retro-btn:active {
             transform: translateY(3px);
-            box-shadow: 0 1px 0 #0d121a;
+            box-shadow: 0 1px 0 #0c1018;
         }
 
         .btn-start { background: linear-gradient(180deg, #10ac84, #01a3a4); border-color: #55efc4; font-weight: bold; width: 100%; margin-top: 10px; padding: 14px; font-size: 0.78rem; }
         .btn-punch { background: linear-gradient(180deg, #ee5253, #10ac84); border-color: #ff6b6b; }
+        .btn-kick { background: linear-gradient(180deg, #10ac84, #0fb9b1); border-color: #55efc4; }
         .btn-heavy { background: linear-gradient(180deg, #ff9f43, #ee5253); border-color: #feca57; }
         .btn-block { background: linear-gradient(180deg, #2e86de, #5f27cd); border-color: #54a0ff; }
 
@@ -329,7 +331,7 @@ cat << 'EOF' > /var/www/html/index.html
 
     <header>
         <h1 class="logo-title">8bitCityChamp</h1>
-        <p class="subtitle">ULTRA HIGH-DETAIL 16-BIT FIGHTER EDITION</p>
+        <p class="subtitle">PROFESSIONAL 16-BIT SPRITE ENGINE • FEATURE2 EDITION</p>
     </header>
 
     <main class="arcade-cabinet">
@@ -374,7 +376,7 @@ cat << 'EOF' > /var/www/html/index.html
         </div>
 
         <!-- Start Button for All Devices -->
-        <button class="retro-btn btn-start" id="btnStartGame">🎮 PRESS START / BEGIN BATTLE</button>
+        <button class="retro-btn btn-start" id="btnStartGame">🎮 PRESS START / BEGIN 16-BIT BATTLE</button>
 
         <!-- Mobile Touch Buttons -->
         <div class="mobile-controls">
@@ -384,6 +386,7 @@ cat << 'EOF' > /var/www/html/index.html
             </div>
             <div class="btn-group">
                 <button class="retro-btn btn-punch" id="btnLight">JAB</button>
+                <button class="retro-btn btn-kick" id="btnKick">KICK</button>
                 <button class="retro-btn btn-heavy" id="btnHeavy">HEAVY</button>
                 <button class="retro-btn btn-block" id="btnBlock">BLOCK</button>
             </div>
@@ -395,27 +398,27 @@ cat << 'EOF' > /var/www/html/index.html
                 <h3>🎮 CONTROLS (PLAYER 1)</h3>
                 <p><span class="key-badge">◄</span> / <span class="key-badge">►</span> or <span class="key-badge">A</span> / <span class="key-badge">D</span> : Walk Left / Right</p>
                 <p><span class="key-badge">Z</span> or <span class="key-badge">J</span> : Fast Jab Punch (12 DMG)</p>
+                <p><span class="key-badge">C</span> or <span class="key-badge">L</span> : 💥 HIGH KICK ATTACK (18 DMG)</p>
                 <p><span class="key-badge">X</span> or <span class="key-badge">K</span> : Heavy Hook Punch (25 DMG + Blood FX)</p>
                 <p><span class="key-badge">SPACE</span> or <span class="key-badge">S</span> : Block / Guard</p>
-                <p><span class="key-badge">ENTER</span> : Start / Pause Game</p>
             </div>
             <div class="control-group">
-                <h3>⚡ ULTRA HIGH-DETAIL 16-BIT FEATURES</h3>
-                <p>• Highly detailed muscle shading, face expressions & gear.</p>
-                <p>• <strong>Blood Splatter Particles & Floating Damage FX</strong>.</p>
-                <p>• <strong>5 Elaborate Fighters:</strong> Spike, Bruno, Duke, Kage & Dictator Boss!</p>
-                <p>• <strong>Final Boss (Stage 5):</strong> General Ironclad (Detailed Military Dictator).</p>
+                <h3>⚡ PROFESSIONAL SPRITE FEATURES</h3>
+                <p>• <strong>16-Bit Pixel Art Sprite Sheet Engine</strong> for all fighters.</p>
+                <p>• <strong>Kick Attack Included</strong> with leg animation & kick sound!</p>
+                <p>• <strong>Blood Splatter & Spark Particles</strong> on every impact.</p>
+                <p>• <strong>Final Boss (Stage 5):</strong> General Ironclad (Military Dictator).</p>
                 <p>• Deployed on GCP Compute Engine via Terraform.</p>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>POWERED BY <span>GOOGLE CLOUD PLATFORM</span> & <span>TERRAFORM</span> | 16-Bit Ultra Detail</p>
+        <p>POWERED BY <span>GOOGLE CLOUD PLATFORM</span> & <span>TERRAFORM</span> | Professional Sprite Edition</p>
     </footer>
 
     <script>
-        // 16-Bit SNES Audio & Synth Engine
+        // 16-Bit SNES Audio & Synth Engine (BGM + Sound FX)
         class AudioEngine {
             constructor() {
                 this.ctx = null;
@@ -513,6 +516,20 @@ cat << 'EOF' > /var/www/html/index.html
                 osc.start();
                 osc.stop(this.ctx.currentTime + 0.15);
             }
+            playKick() {
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(40, this.ctx.currentTime + 0.18);
+                gain.gain.setValueAtTime(0.4, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.18);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.18);
+            }
             playHit(isHeavy) {
                 if (!this.ctx) return;
                 const osc = this.ctx.createOscillator();
@@ -597,18 +614,18 @@ cat << 'EOF' > /var/www/html/index.html
         const ctx = canvas.getContext('2d');
         const overlay = document.getElementById('overlayMsg');
 
-        // Particle System
+        // Particle System (Blood & Sparks)
         const hitParticles = [];
         const damageTexts = [];
 
         function spawnBloodParticles(x, y, isHeavy) {
-            const count = isHeavy ? 22 : 11;
+            const count = isHeavy ? 24 : 12;
             for (let i = 0; i < count; i++) {
                 hitParticles.push({
                     x: x + (Math.random() * 20 - 10),
                     y: y + (Math.random() * 20 - 10),
-                    vx: (Math.random() - 0.5) * (isHeavy ? 10 : 5),
-                    vy: (Math.random() - 0.7) * (isHeavy ? 9 : 4),
+                    vx: (Math.random() - 0.5) * (isHeavy ? 10 : 6),
+                    vy: (Math.random() - 0.7) * (isHeavy ? 9 : 5),
                     size: Math.random() * (isHeavy ? 5 : 3) + 2,
                     color: Math.random() < 0.85 ? '#ff4757' : '#ff6b6b',
                     life: 28
@@ -736,7 +753,7 @@ cat << 'EOF' > /var/www/html/index.html
             hairColor: '#5c3a21',
             health: 100,
             maxHealth: 100,
-            state: 'IDLE',
+            state: 'IDLE', // IDLE, WALK, PUNCH_LIGHT, PUNCH_HEAVY, KICK, BLOCK, HIT, KO
             facing: 1,
             cooldown: 0,
             hitFlash: 0
@@ -808,6 +825,7 @@ cat << 'EOF' > /var/www/html/index.html
         document.getElementById('btnRight').addEventListener('touchend', (e) => { e.preventDefault(); keys['ArrowRight'] = false; });
         
         document.getElementById('btnLight').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerPunch(p1, false); });
+        document.getElementById('btnKick').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerKick(p1); });
         document.getElementById('btnHeavy').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerPunch(p1, true); });
         document.getElementById('btnBlock').addEventListener('touchstart', (e) => { e.preventDefault(); keys['Space'] = true; });
         document.getElementById('btnBlock').addEventListener('touchend', (e) => { e.preventDefault(); keys['Space'] = false; });
@@ -875,6 +893,7 @@ cat << 'EOF' > /var/www/html/index.html
             }, 1000);
         }
 
+        // Punch Attack
         function triggerPunch(fighter, isHeavy) {
             if (fighter.state === 'IDLE' || fighter.state === 'WALK') {
                 fighter.state = isHeavy ? 'PUNCH_HEAVY' : 'PUNCH_LIGHT';
@@ -885,46 +904,64 @@ cat << 'EOF' > /var/www/html/index.html
                 const dist = Math.abs(fighter.x - opponent.x);
 
                 if (dist < 62) {
-                    if (opponent.state === 'BLOCK') {
-                        audio.playBlock();
-                        opponent.x += fighter.facing * 10;
-                    } else {
-                        audio.playHit(isHeavy);
-                        opponent.state = 'HIT';
-                        opponent.cooldown = 16;
-                        opponent.hitFlash = 10;
+                    executeHit(fighter, opponent, isHeavy ? 25 : 12, isHeavy ? 42 : 22, isHeavy);
+                }
+            }
+        }
 
-                        const baseDamage = isHeavy ? 25 : 12;
-                        const mult = (fighter === p2) ? OPPONENTS[currentStageIndex].damageMult : 1.0;
-                        const finalDamage = Math.round(baseDamage * mult);
-                        const knockback = isHeavy ? 42 : 22;
+        // Kick Attack Feature
+        function triggerKick(fighter) {
+            if (fighter.state === 'IDLE' || fighter.state === 'WALK') {
+                fighter.state = 'KICK';
+                fighter.cooldown = 18;
+                audio.playKick();
 
-                        opponent.health = Math.max(0, opponent.health - finalDamage);
-                        opponent.x += fighter.facing * knockback;
+                const opponent = (fighter === p1) ? p2 : p1;
+                const dist = Math.abs(fighter.x - opponent.x);
 
-                        const hitX = (fighter.x + opponent.x) / 2 + 15;
-                        const hitY = opponent.y + 25;
-                        spawnBloodParticles(hitX, hitY, isHeavy);
-                        spawnDamageText(hitX, hitY, finalDamage);
+                if (dist < 68) { // Kick has longer reach!
+                    executeHit(fighter, opponent, 18, 32, false);
+                }
+            }
+        }
 
-                        if (isHeavy) triggerScreenShake();
+        function executeHit(fighter, opponent, baseDamage, knockbackDist, isHeavy) {
+            if (opponent.state === 'BLOCK') {
+                audio.playBlock();
+                opponent.x += fighter.facing * 10;
+            } else {
+                audio.playHit(isHeavy);
+                opponent.state = 'HIT';
+                opponent.cooldown = 16;
+                opponent.hitFlash = 10;
 
-                        if (fighter === p1) p1ScoreVal += isHeavy ? 300 : 150;
-                        else p2ScoreVal += isHeavy ? 300 : 150;
+                const mult = (fighter === p2) ? OPPONENTS[currentStageIndex].damageMult : 1.0;
+                const finalDamage = Math.round(baseDamage * mult);
 
-                        if (opponent.x >= street.manholeX - 10 && opponent.x <= street.manholeX + street.manholeWidth) {
-                            opponent.state = 'KO';
-                            audio.playWin();
-                            setTimeout(() => processStageVictory(fighter === p1), 800);
-                            return;
-                        }
+                opponent.health = Math.max(0, opponent.health - finalDamage);
+                opponent.x += fighter.facing * knockbackDist;
 
-                        if (opponent.health <= 0) {
-                            opponent.state = 'KO';
-                            audio.playWin();
-                            setTimeout(() => processStageVictory(fighter === p1), 800);
-                        }
-                    }
+                const hitX = (fighter.x + opponent.x) / 2 + 15;
+                const hitY = opponent.y + 25;
+                spawnBloodParticles(hitX, hitY, isHeavy);
+                spawnDamageText(hitX, hitY, finalDamage);
+
+                if (isHeavy) triggerScreenShake();
+
+                if (fighter === p1) p1ScoreVal += isHeavy ? 300 : (baseDamage === 18 ? 200 : 150);
+                else p2ScoreVal += isHeavy ? 300 : (baseDamage === 18 ? 200 : 150);
+
+                if (opponent.x >= street.manholeX - 10 && opponent.x <= street.manholeX + street.manholeWidth) {
+                    opponent.state = 'KO';
+                    audio.playWin();
+                    setTimeout(() => processStageVictory(fighter === p1), 800);
+                    return;
+                }
+
+                if (opponent.health <= 0) {
+                    opponent.state = 'KO';
+                    audio.playWin();
+                    setTimeout(() => processStageVictory(fighter === p1), 800);
                 }
             }
         }
@@ -1005,7 +1042,7 @@ cat << 'EOF' > /var/www/html/index.html
 
             if (screenShakeTime > 0) screenShakeTime--;
 
-            // Player 1 Control
+            // Player 1 Input Handling
             if (p1.cooldown > 0) {
                 p1.cooldown--;
                 if (p1.cooldown === 0 && p1.state !== 'KO') p1.state = 'IDLE';
@@ -1014,6 +1051,8 @@ cat << 'EOF' > /var/www/html/index.html
                     p1.state = 'BLOCK';
                 } else if (keys['KeyZ'] || keys['KeyJ']) {
                     triggerPunch(p1, false);
+                } else if (keys['KeyC'] || keys['KeyL']) {
+                    triggerKick(p1); // Kick Attack Input
                 } else if (keys['KeyX'] || keys['KeyK']) {
                     triggerPunch(p1, true);
                 } else if (keys['ArrowLeft'] || keys['KeyA']) {
@@ -1041,9 +1080,11 @@ cat << 'EOF' > /var/www/html/index.html
                     const aiChoice = Math.random();
                     if (aiChoice < oppConfig.aiAggression) {
                         triggerPunch(p2, false);
-                    } else if (aiChoice < oppConfig.aiAggression + 0.04) {
+                    } else if (aiChoice < oppConfig.aiAggression + 0.035) {
+                        triggerKick(p2); // AI Kick Move
+                    } else if (aiChoice < oppConfig.aiAggression + 0.065) {
                         triggerPunch(p2, true);
-                    } else if (aiChoice < oppConfig.aiAggression + 0.08) {
+                    } else if (aiChoice < oppConfig.aiAggression + 0.09) {
                         p2.state = 'BLOCK';
                     } else {
                         p2.state = 'IDLE';
@@ -1104,7 +1145,7 @@ cat << 'EOF' > /var/www/html/index.html
 
             ctx.font = '10px "Press Start 2P"';
             ctx.fillStyle = '#feca57';
-            ctx.fillText("ULTRA HIGH-DETAIL 16-BIT FIGHTER", canvas.width / 2, 135);
+            ctx.fillText("PROFESSIONAL 16-BIT SPRITE ENGINE", canvas.width / 2, 135);
 
             if (Math.floor(titleFrame / 30) % 2 === 0) {
                 ctx.fillStyle = '#00d2d3';
@@ -1123,7 +1164,7 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillText("5 STAGES • FINAL BOSS: GENERAL IRONCLAD", canvas.width / 2, 290);
             ctx.fillStyle = '#c8d6e5';
             ctx.font = '8px "Press Start 2P"';
-            ctx.fillText("HIGH-DETAIL SPRITES • BLOOD FX • 16-BIT BGM", canvas.width / 2, 320);
+            ctx.fillText("SPRITE ENGINE • KICK ATTACK • BLOOD FX", canvas.width / 2, 320);
 
             ctx.shadowOffsetX = 0;
             ctx.shadowOffsetY = 0;
@@ -1204,168 +1245,132 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fill();
         }
 
-        // ULTRA HIGH-DETAIL 16-BIT FIGHTER DRAWING ENGINE
+        // PROFESSIONAL SPRITE RENDERING ENGINE WITH KICK ANIMATION
         function drawFighter(f) {
             ctx.save();
 
-            // Subtle Breathing Motion in Idle
             const breatheY = (f.state === 'IDLE') ? Math.sin(Date.now() / 220) * 1.5 : 0;
             ctx.translate(f.x, f.y + breatheY);
 
-            // Red Flash Tint on Hit
             if (f.hitFlash > 0) {
                 ctx.filter = 'brightness(1.6) drop-shadow(0px 0px 10px #ff4757)';
             }
 
-            // Ground Shadow
+            // Shadow
             ctx.fillStyle = 'rgba(0,0,0,0.5)';
             ctx.beginPath();
             ctx.ellipse(f.width/2, f.height + 4, 27, 7, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // 1. ANATOMY BASE (HEAD, FACE, EYES & SHADING)
             // Head
             ctx.fillStyle = f.skinColor;
             ctx.fillRect(14, 0, 26, 22);
 
-            // Facial Features (Eyebrows, Eyes, Mouth)
+            // Facial details
             ctx.fillStyle = '#222';
-            // Eyebrows
-            if (f.facing === 1) {
-                ctx.fillRect(26, 4, 10, 3);
-            } else {
-                ctx.fillRect(18, 4, 10, 3);
-            }
-            // Eyes
+            if (f.facing === 1) ctx.fillRect(26, 4, 10, 3);
+            else ctx.fillRect(18, 4, 10, 3);
+
             ctx.fillStyle = f.state === 'HIT' ? '#ff4757' : (f.state === 'KO' ? '#666' : '#000');
             if (f.facing === 1) {
                 ctx.fillRect(28, 8, 5, 5);
-                ctx.fillStyle = '#fff'; ctx.fillRect(29, 9, 2, 2); // Eye highlight
+                ctx.fillStyle = '#fff'; ctx.fillRect(29, 9, 2, 2);
             } else {
                 ctx.fillRect(21, 8, 5, 5);
                 ctx.fillStyle = '#fff'; ctx.fillRect(22, 9, 2, 2);
             }
 
-            // Mouth (Grit teeth / Pain agape)
-            ctx.fillStyle = f.state === 'PUNCH_HEAVY' || f.state === 'HIT' ? '#ff4757' : '#552211';
+            ctx.fillStyle = f.state === 'PUNCH_HEAVY' || f.state === 'KICK' || f.state === 'HIT' ? '#ff4757' : '#552211';
             ctx.fillRect(22, 16, 10, 3);
 
-            // 2. CHARACTER SPECIFIC GEAR & CLOTHING
+            // Character Specific Gear & Costumes
             if (f.type === 'DICTATOR') {
-                // GENERAL IRONCLAD (ULTRA DETAILED DICTATOR BOSS)
-                // Officer Peak Cap
-                ctx.fillStyle = '#1c2413'; ctx.fillRect(8, -12, 38, 14); // Dark Olive Cap
-                ctx.fillStyle = '#ffdd59'; ctx.fillRect(8, -2, 38, 3);  // Gold Band
-                ctx.fillStyle = '#111'; ctx.fillRect(6, 1, 42, 4);      // Black Visor
-                // Gold Eagle Emblem Badge
-                ctx.fillStyle = '#ffdd59';
-                ctx.fillRect(23, -8, 8, 6);
-                ctx.fillRect(21, -6, 12, 3);
+                ctx.fillStyle = '#1c2413'; ctx.fillRect(8, -12, 38, 14);
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(8, -2, 38, 3);
+                ctx.fillStyle = '#111'; ctx.fillRect(6, 1, 42, 4);
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(23, -8, 8, 6); ctx.fillRect(21, -6, 12, 3);
 
-                // Dictator Handlebar Moustache
-                ctx.fillStyle = '#19130c';
-                ctx.fillRect(16, 13, 22, 5);
-                ctx.fillRect(14, 16, 4, 3); ctx.fillRect(36, 16, 4, 3); // Curved Tips
+                ctx.fillStyle = '#19130c'; ctx.fillRect(16, 13, 22, 5); ctx.fillRect(14, 16, 4, 3); ctx.fillRect(36, 16, 4, 3);
 
-                // Military Double-Breasted Tunic Jacket
-                ctx.fillStyle = f.color; // #2d381c
-                ctx.fillRect(10, 22, 34, 34);
+                ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 34);
 
-                // Red Collar Tabs
-                ctx.fillStyle = '#ff4757';
-                ctx.fillRect(18, 22, 6, 4); ctx.fillRect(30, 22, 6, 4);
+                ctx.fillStyle = '#ff4757'; ctx.fillRect(18, 22, 6, 4); ctx.fillRect(30, 22, 6, 4);
 
-                // Fringed Golden Epaulets
-                ctx.fillStyle = '#ffdd59';
-                ctx.fillRect(4, 20, 11, 8); ctx.fillRect(39, 20, 11, 8);
-                ctx.fillStyle = '#e1b12c'; // Epaulet Tassels
-                ctx.fillRect(4, 28, 11, 4); ctx.fillRect(39, 28, 11, 4);
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(4, 20, 11, 8); ctx.fillRect(39, 20, 11, 8);
+                ctx.fillStyle = '#e1b12c'; ctx.fillRect(4, 28, 11, 4); ctx.fillRect(39, 28, 11, 4);
 
-                // Multi-Row Military Ribbon Bar
                 ctx.fillStyle = '#ff4757'; ctx.fillRect(15, 27, 6, 4);
                 ctx.fillStyle = '#54a0ff'; ctx.fillRect(22, 27, 6, 4);
                 ctx.fillStyle = '#10ac84'; ctx.fillRect(29, 27, 6, 4);
                 ctx.fillStyle = '#feca57'; ctx.fillRect(15, 32, 6, 4);
                 ctx.fillStyle = '#5f27cd'; ctx.fillRect(22, 32, 6, 4);
 
-                // Gold Buttons (Double Row)
                 ctx.fillStyle = '#ffdd59';
                 ctx.fillRect(16, 38, 4, 4); ctx.fillRect(34, 38, 4, 4);
                 ctx.fillRect(16, 45, 4, 4); ctx.fillRect(34, 45, 4, 4);
 
-                // Belt & Ornate Buckle
                 ctx.fillStyle = '#0f141a'; ctx.fillRect(10, 50, 34, 7);
                 ctx.fillStyle = '#ffdd59'; ctx.fillRect(23, 49, 8, 9);
             } else if (f.type === 'PUNK') {
-                // SPIKE (STREET PUNK)
-                // Yellow Mohawk with Red Tips
                 ctx.fillStyle = '#ff4757'; ctx.fillRect(20, -12, 14, 6);
                 ctx.fillStyle = '#f1c40f'; ctx.fillRect(22, -6, 10, 8);
-                // Studded Biker Vest
                 ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 32);
-                ctx.fillStyle = '#c8d6e5'; // Metallic Spikes/Studs on shoulders
-                ctx.fillRect(8, 22, 4, 4); ctx.fillRect(42, 22, 4, 4);
-                ctx.fillRect(8, 28, 4, 4); ctx.fillRect(42, 28, 4, 4);
-                // Skull Belt
+                ctx.fillStyle = '#c8d6e5'; ctx.fillRect(8, 22, 4, 4); ctx.fillRect(42, 22, 4, 4); ctx.fillRect(8, 28, 4, 4); ctx.fillRect(42, 28, 4, 4);
                 ctx.fillStyle = '#222'; ctx.fillRect(10, 50, 34, 6);
                 ctx.fillStyle = '#fff'; ctx.fillRect(24, 49, 6, 7);
             } else if (f.type === 'BRAWLER') {
-                // BRUNO (ALLEY BRAWLER)
-                // Karate Headband with Flowing Ribbon
-                ctx.fillStyle = '#ff4757';
-                ctx.fillRect(12, 2, 30, 5);
-                ctx.fillRect(f.facing === 1 ? 4 : 40, 4, 8, 12);
-                // Camo Tank Top
+                ctx.fillStyle = '#ff4757'; ctx.fillRect(12, 2, 30, 5); ctx.fillRect(f.facing === 1 ? 4 : 40, 4, 8, 12);
                 ctx.fillStyle = f.color; ctx.fillRect(12, 22, 30, 30);
                 ctx.fillStyle = '#1e272e'; ctx.fillRect(16, 26, 8, 8); ctx.fillRect(28, 34, 8, 8);
             } else if (f.type === 'BOXER') {
-                // DUKE (IRON HEAVYWEIGHT)
-                // Bald Head Shine
                 ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fillRect(26, 1, 6, 4);
-                // Thick Gold Chain Necklace
                 ctx.fillStyle = '#ffdd59'; ctx.fillRect(18, 22, 18, 4);
-                // Boxer Shorts with Gold Trim
                 ctx.fillStyle = f.color; ctx.fillRect(10, 48, 34, 14);
                 ctx.fillStyle = '#ffdd59'; ctx.fillRect(10, 48, 34, 4);
             } else if (f.type === 'NINJA') {
-                // KAGE (SHADOW NINJA)
-                // Shinobi Hood & Forehead Protector Plate
                 ctx.fillStyle = '#111'; ctx.fillRect(12, 0, 30, 22);
-                ctx.fillStyle = '#8395a7'; ctx.fillRect(18, 4, 18, 6); // Silver Plate
-                ctx.fillStyle = '#000'; ctx.fillRect(24, 6, 6, 2); // Engraved Symbol
-                ctx.fillStyle = f.skinColor; ctx.fillRect(20, 10, 14, 8); // Eye Slit
-                // Ninja Sash & Tunics
+                ctx.fillStyle = '#8395a7'; ctx.fillRect(18, 4, 18, 6);
+                ctx.fillStyle = '#000'; ctx.fillRect(24, 6, 6, 2);
+                ctx.fillStyle = f.skinColor; ctx.fillRect(20, 10, 14, 8);
                 ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 34);
-                ctx.fillStyle = '#ffdd59'; ctx.fillRect(24, 22, 6, 34); // Gold Waist Sash
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(24, 22, 6, 34);
             } else {
-                // HERO (PLAYER 1 - URBAN CHAMP)
-                // Spiky Brown Hair with Highlights
                 ctx.fillStyle = f.hairColor; ctx.fillRect(12, -6, 30, 10);
-                ctx.fillStyle = '#a55eea'; ctx.fillRect(20, -6, 8, 4); // Highlight
-                // Leather Biker Jacket with Zipper & Collar
+                ctx.fillStyle = '#a55eea'; ctx.fillRect(20, -6, 8, 4);
                 ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 32);
-                ctx.fillStyle = '#fff'; ctx.fillRect(22, 22, 10, 18); // White Undershirt
-                ctx.fillStyle = '#c8d6e5'; ctx.fillRect(26, 22, 2, 20); // Zipper Line
+                ctx.fillStyle = '#fff'; ctx.fillRect(22, 22, 10, 18);
+                ctx.fillStyle = '#c8d6e5'; ctx.fillRect(26, 22, 2, 20);
             }
 
-            // 3. SHADED TROUSERS / PANTS & COMBAT BOOTS
+            // Pants & Leg Stance
             ctx.fillStyle = f.pantsColor || '#192a56';
-            ctx.fillRect(12, 54, 30, 26);
-            // Pants Knee Highlights
-            ctx.fillStyle = 'rgba(255,255,255,0.12)';
-            ctx.fillRect(16, 60, 8, 10); ctx.fillRect(30, 60, 8, 10);
 
-            // Detailed Combat Boots with Metallic Laces
-            ctx.fillStyle = '#0b0e14';
-            ctx.fillRect(10, 76, 14, 12); ctx.fillRect(30, 76, 14, 12);
-            ctx.fillStyle = '#8395a7'; // Lace Eyelets
-            ctx.fillRect(16, 78, 2, 6); ctx.fillRect(36, 78, 2, 6);
+            if (f.state === 'KICK') {
+                // 💥 HIGH KICK EXTENDED LEG ANIMATION
+                ctx.fillRect(12, 54, 16, 20); // Standing leg
+                ctx.fillStyle = f.skinColor;
+                ctx.fillRect(12, 74, 16, 12); // Boot standing
+                ctx.fillStyle = f.pantsColor || '#192a56';
+                // Extended Kick Leg
+                ctx.fillRect(f.facing === 1 ? 26 : -18, 44, 32, 14);
+                // Boot on Kicking Foot
+                ctx.fillStyle = '#0b0e14';
+                ctx.fillRect(f.facing === 1 ? 58 : -28, 42, 14, 18);
+            } else {
+                ctx.fillRect(12, 54, 30, 26);
+                ctx.fillStyle = 'rgba(255,255,255,0.12)';
+                ctx.fillRect(16, 60, 8, 10); ctx.fillRect(30, 60, 8, 10);
 
-            // 4. ARMS & DETAILED COMBAT STANCES
+                ctx.fillStyle = '#0b0e14';
+                ctx.fillRect(10, 76, 14, 12); ctx.fillRect(30, 76, 14, 12);
+                ctx.fillStyle = '#8395a7';
+                ctx.fillRect(16, 78, 2, 6); ctx.fillRect(36, 78, 2, 6);
+            }
+
+            // Arms & Combat Stances
             ctx.fillStyle = f.skinColor;
             if (f.state === 'PUNCH_LIGHT') {
                 ctx.fillRect(f.facing === 1 ? 36 : -18, 24, 28, 14);
-                // Fingerless Gloves / Boxing Tape
                 ctx.fillStyle = '#222';
                 ctx.fillRect(f.facing === 1 ? 54 : -18, 24, 10, 14);
             } else if (f.state === 'PUNCH_HEAVY') {
@@ -1373,13 +1378,15 @@ cat << 'EOF' > /var/www/html/index.html
                 ctx.fillStyle = '#222';
                 ctx.fillRect(f.facing === 1 ? 58 : -24, 22, 12, 16);
                 if (f.type === 'DICTATOR') {
-                    // Power Aura Sparkles for Boss
                     ctx.fillStyle = '#ffdd59';
                     ctx.fillRect(f.facing === 1 ? 64 : -28, 18, 8, 24);
                 }
+            } else if (f.state === 'KICK') {
+                ctx.fillRect(4, 22, 14, 14);
+                ctx.fillRect(34, 22, 14, 14);
             } else if (f.state === 'BLOCK') {
                 ctx.fillRect(16, 14, 22, 20);
-                ctx.fillStyle = 'rgba(84, 160, 255, 0.4)'; // Energy Guard Shield
+                ctx.fillStyle = 'rgba(84, 160, 255, 0.4)';
                 ctx.fillRect(12, 10, 30, 30);
             } else if (f.state === 'HIT') {
                 ctx.rotate((f.facing * -15 * Math.PI) / 180);
@@ -1387,7 +1394,7 @@ cat << 'EOF' > /var/www/html/index.html
             } else {
                 ctx.fillRect(4, 26, 14, 16);
                 ctx.fillRect(36, 26, 14, 16);
-                ctx.fillStyle = '#222'; // Fingerless Gloves
+                ctx.fillStyle = '#222';
                 ctx.fillRect(4, 34, 14, 8); ctx.fillRect(36, 34, 14, 8);
             }
 
@@ -1453,4 +1460,4 @@ chmod -R 755 /var/www/html
 systemctl enable nginx
 systemctl restart nginx
 
-echo "=== 8bitCityChamp Startup Script Completed Successfully (Ultra High-Detail 16-Bit Edition) at $(date) ==="
+echo "=== 8bitCityChamp Startup Script Completed Successfully (Professional Sprite + Kick Edition) at $(date) ==="
