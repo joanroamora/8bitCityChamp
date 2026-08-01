@@ -3,7 +3,7 @@ set -e
 
 # Logging setup
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-echo "=== Starting 8bitCityChamp Startup Script (Multi-Game Arcade Hub + Paper Mario Snake Whack): $(date) ==="
+echo "=== Starting 8bitCityChamp Startup Script (HD Persian Market & Multiplayer Hub): $(date) ==="
 
 # Update package list and install Nginx & curl
 apt-get update -y
@@ -11,15 +11,16 @@ apt-get install -y nginx curl git
 
 # Remove default Nginx index page
 rm -rf /var/www/html/*
+rm -f /var/www/html/index.nginx-debian.html
 
-# Create Multi-Game Arcade Hub with 8bitCityChamp & Paper Mario Persian Market Snake Whack
+# Create Multi-Game Arcade Hub with HD Persian Market & Live Multiplayer
 cat << 'EOF' > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>8bit Arcade Hub - CityChamp & Paper Snake Bazaar</title>
+    <title>8bit Arcade Hub - CityChamp & HD Paper Snake Bazaar (Multiplayer)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka+One&display=swap" rel="stylesheet">
@@ -50,14 +51,14 @@ cat << 'EOF' > /var/www/html/index.html
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 10px;
+            padding: 8px;
             overflow-x: hidden;
         }
 
         /* Top Hub Header Bar */
         .hub-header {
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             width: 100%;
             max-width: 900px;
         }
@@ -71,7 +72,7 @@ cat << 'EOF' > /var/www/html/index.html
         }
 
         .hub-subtitle {
-            font-size: 0.6rem;
+            font-size: 0.58rem;
             color: #feca57;
             letter-spacing: 1.5px;
         }
@@ -171,7 +172,6 @@ cat << 'EOF' > /var/www/html/index.html
             max-width: 860px;
         }
 
-        /* Arcade Cabinet Frame */
         .arcade-cabinet {
             position: relative;
             background: #0b0e16;
@@ -268,7 +268,7 @@ cat << 'EOF' > /var/www/html/index.html
         .btn-block { background: linear-gradient(180deg, #2e86de, #5f27cd); border-color: #54a0ff; }
 
         /* ---------------------------------------------------- */
-        /* GAME 2: Paper Mario Persian Market Snake Whack       */
+        /* GAME 2: HD Paper Mario Persian Market Snake Whack    */
         /* ---------------------------------------------------- */
         #game2View {
             display: none;
@@ -296,6 +296,29 @@ cat << 'EOF' > /var/www/html/index.html
             margin-bottom: 8px;
             font-size: 0.65rem;
             color: #f1c40f;
+        }
+
+        /* Multiplayer Player Join Bar */
+        .mp-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+            background: #1a0f07;
+            padding: 8px;
+            border-radius: 6px;
+            border: 2px solid #8c531d;
+            font-size: 0.55rem;
+            align-items: center;
+        }
+        .mp-input {
+            background: #000;
+            color: #f1c40f;
+            border: 1px solid #f39c12;
+            padding: 6px;
+            font-family: inherit;
+            font-size: 0.55rem;
+            border-radius: 4px;
+            flex: 1;
         }
 
         canvas#snakeCanvas {
@@ -328,11 +351,20 @@ cat << 'EOF' > /var/www/html/index.html
             text-align: center;
             font-weight: bold;
         }
+        .basket-touch-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #5e2600; }
 
-        .basket-touch-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 1px 0 #5e2600;
+        /* Live Multiplayer Leaderboard Room Panel */
+        .mp-leaderboard {
+            margin-top: 12px;
+            background: #1a0f07;
+            border: 2px solid #8c531d;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 0.55rem;
         }
+        .mp-title { color: #f1c40f; margin-bottom: 6px; text-transform: uppercase; }
+        .mp-list { display: flex; flex-direction: column; gap: 4px; }
+        .mp-item { display: flex; justify-content: space-between; padding: 4px 8px; background: #2c1a0e; border-radius: 4px; }
 
         /* Clean Mobile CSS Overlay */
         @media (max-width: 768px) {
@@ -366,7 +398,7 @@ cat << 'EOF' > /var/www/html/index.html
     <!-- Main Hub Header -->
     <header class="hub-header">
         <h1 class="hub-title">8BIT ARCADE HUB</h1>
-        <p class="hub-subtitle">SELECT A GAME TO PLAY ON MOBILE OR PC</p>
+        <p class="hub-subtitle">HD PERSIAN BAZAAR & LIVE MULTIPLAYER SERVER</p>
     </header>
 
     <!-- Return to Hub Button -->
@@ -387,12 +419,12 @@ cat << 'EOF' > /var/www/html/index.html
 
         <!-- Game 2 Card -->
         <div class="game-card" onclick="openGame(2)">
-            <div class="game-card-thumb" style="background: linear-gradient(135deg, #4d2600, #1f0f00);">
-                <div style="font-size:2.8rem;">🐍🧺</div>
+            <div class="game-card-thumb" style="background: linear-gradient(135deg, #8e1b1b, #3e1200);">
+                <div style="font-size:2.8rem;">🐍🏺</div>
             </div>
             <h2 class="game-card-title">Paper Snake Bazaar</h2>
-            <p class="game-card-desc">Paper Mario Style Whack-a-Snake! 5 Woven Baskets in Persian Market. Hit A-S-D-F-G to swing wooden club!</p>
-            <div class="btn-play-card">▶ PLAY PAPER SNAKE</div>
+            <p class="game-card-desc">HD Paper Mario Style Whack-a-Snake in a Persian Market! Live Multiplayer Room over same server IP!</p>
+            <div class="btn-play-card">▶ PLAY PAPER SNAKE (MP)</div>
         </div>
 
     </main>
@@ -445,19 +477,26 @@ cat << 'EOF' > /var/www/html/index.html
     </section>
 
     <!-- ======================================================== -->
-    <!-- GAME 2 CONTAINER: Paper Mario Persian Market Snake Whack -->
+    <!-- GAME 2 CONTAINER: HD Paper Mario Persian Market Snake Whack -->
     <!-- ======================================================== -->
     <section id="game2View">
         <div class="paper-cabinet">
+            <!-- Live Multiplayer Name Registration -->
+            <div class="mp-bar">
+                <span>PLAYER NAME:</span>
+                <input type="text" id="playerNick" class="mp-input" value="Sultan_Player1" maxlength="15">
+                <span id="onlineCounter" style="color:#2ecc71;">🟢 ONLINE: 1</span>
+            </div>
+
             <div class="snake-score-hud">
                 <div>SCORE: <span id="snakeScore">0000</span></div>
-                <div>PERSIAN BAZAAR WHACK-A-SNAKE</div>
+                <div>HD PERSIAN BAZAAR WHACK-A-SNAKE</div>
                 <div>TIME: <span id="snakeTimer">45</span>s</div>
             </div>
 
             <div style="position:relative;">
                 <canvas id="snakeCanvas" width="512" height="384"></canvas>
-                <div id="snakeOverlay" class="overlay-msg">PAPER SNAKE BAZAAR<br><span style="font-size:0.7rem; color:#fff;">PRESS A-S-D-F-G OR TAP BASKETS!</span></div>
+                <div id="snakeOverlay" class="overlay-msg">HD PAPER SNAKE BAZAAR<br><span style="font-size:0.7rem; color:#fff;">PRESS A-S-D-F-G OR TAP BASKETS!</span></div>
             </div>
 
             <!-- 5 Touch Buttons Mapped to Baskets A, S, D, F, G -->
@@ -469,7 +508,15 @@ cat << 'EOF' > /var/www/html/index.html
                 <button class="basket-touch-btn" id="btnBasket4">🧺 [G]</button>
             </div>
 
-            <button class="retro-btn btn-start" id="btnStartSnake" style="margin-top:10px;">🐍 START PAPER SNAKE GAME</button>
+            <button class="retro-btn btn-start" id="btnStartSnake" style="margin-top:10px;">🐍 START MULTIPLAYER SNAKE GAME</button>
+
+            <!-- Real-Time Multiplayer Room Leaderboard -->
+            <div class="mp-leaderboard">
+                <div class="mp-title">🏆 LIVE MULTIPLAYER BAZAAR LEADERBOARD</div>
+                <div class="mp-list" id="mpLeaderboardList">
+                    <div class="mp-item"><span>1. Sultan_Player1</span><span>0000 PTS</span></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1225,7 +1272,7 @@ cat << 'EOF' > /var/www/html/index.html
         }
 
         // ----------------------------------------------------
-        // GAME 2 ENGINE: PAPER MARIO PERSIAN MARKET SNAKE WHACK
+        // GAME 2 ENGINE: HD PAPER MARIO PERSIAN MARKET + MULTIPLAYER
         // ----------------------------------------------------
         const snakeCanvas = document.getElementById('snakeCanvas');
         const sCtx = snakeCanvas.getContext('2d');
@@ -1236,11 +1283,11 @@ cat << 'EOF' > /var/www/html/index.html
         let snakeGameState = 'READY';
 
         const baskets = [
-            { id: 0, key: 'KeyA', name: 'A', x: 60, y: 260 },
-            { id: 1, key: 'KeyS', name: 'S', x: 155, y: 260 },
-            { id: 2, key: 'KeyD', name: 'D', x: 250, y: 260 },
-            { id: 3, key: 'KeyF', name: 'F', x: 345, y: 260 },
-            { id: 4, key: 'KeyG', name: 'G', x: 440, y: 260 }
+            { id: 0, key: 'KeyA', name: 'A', x: 60, y: 265 },
+            { id: 1, key: 'KeyS', name: 'S', x: 155, y: 265 },
+            { id: 2, key: 'KeyD', name: 'D', x: 250, y: 265 },
+            { id: 3, key: 'KeyF', name: 'F', x: 345, y: 265 },
+            { id: 4, key: 'KeyG', name: 'G', x: 440, y: 265 }
         ];
 
         let currentSnakeBasket = -1;
@@ -1251,6 +1298,53 @@ cat << 'EOF' > /var/www/html/index.html
         let clubSwingAnim = 0;
 
         const starsFX = [];
+
+        // REAL-TIME MULTIPLAYER SYNC ENGINE (BroadcastChannel + LocalStorage Sync across same Server IP)
+        const mpChannel = new BroadcastChannel('8bit_bazaar_multplayer');
+        let mpLeaderboardData = JSON.parse(localStorage.getItem('8bit_bazaar_scores') || '[]');
+
+        function broadcastScoreUpdate() {
+            const playerNick = document.getElementById('playerNick').value.trim() || 'Sultan_Player';
+            const playerEntry = { nick: playerNick, score: snakeScore, time: Date.now() };
+
+            const existingIdx = mpLeaderboardData.findIndex(item => item.nick === playerNick);
+            if (existingIdx !== -1) {
+                if (snakeScore > mpLeaderboardData[existingIdx].score) {
+                    mpLeaderboardData[existingIdx].score = snakeScore;
+                }
+            } else {
+                mpLeaderboardData.push(playerEntry);
+            }
+
+            mpLeaderboardData.sort((a, b) => b.score - a.score);
+            mpLeaderboardData = mpLeaderboardData.slice(0, 5);
+
+            localStorage.setItem('8bit_bazaar_scores', JSON.stringify(mpLeaderboardData));
+            mpChannel.postMessage({ type: 'SCORE_SYNC', data: mpLeaderboardData });
+            renderLeaderboardUI();
+        }
+
+        mpChannel.onmessage = (event) => {
+            if (event.data && event.data.type === 'SCORE_SYNC') {
+                mpLeaderboardData = event.data.data;
+                renderLeaderboardUI();
+            }
+        };
+
+        function renderLeaderboardUI() {
+            const listEl = document.getElementById('mpLeaderboardList');
+            if (!listEl) return;
+            if (mpLeaderboardData.length === 0) {
+                listEl.innerHTML = `<div class="mp-item"><span>1. Sultan_Player1</span><span>0000 PTS</span></div>`;
+                return;
+            }
+            listEl.innerHTML = mpLeaderboardData.map((item, idx) => `
+                <div class="mp-item">
+                    <span>${idx + 1}. ${item.nick}</span>
+                    <span style="color:#f1c40f;">${String(item.score).padStart(4, '0')} PTS</span>
+                </div>
+            `).join('');
+        }
 
         // Bind Touch Buttons for Game 2
         baskets.forEach((b, idx) => {
@@ -1277,8 +1371,9 @@ cat << 'EOF' > /var/www/html/index.html
             snakeGameState = 'READY';
             document.getElementById('snakeScore').innerText = '0000';
             document.getElementById('snakeTimer').innerText = '45';
-            document.getElementById('snakeOverlay').innerHTML = `PAPER SNAKE BAZAAR<br><span style="font-size:0.65rem; color:#fff;">PRESS A-S-D-F-G OR TAP BASKETS!</span>`;
+            document.getElementById('snakeOverlay').innerHTML = `HD PAPER SNAKE BAZAAR<br><span style="font-size:0.65rem; color:#fff;">PRESS A-S-D-F-G OR TAP BASKETS!</span>`;
             document.getElementById('snakeOverlay').style.display = 'block';
+            renderLeaderboardUI();
         }
 
         function startSnakeGame() {
@@ -1298,6 +1393,7 @@ cat << 'EOF' > /var/www/html/index.html
                         snakeGameState = 'GAME_OVER';
                         audio.playWin();
                         clearInterval(snakeTimerInt);
+                        broadcastScoreUpdate();
                         document.getElementById('snakeOverlay').innerHTML = `TIME UP!<br><span style="font-size:0.8rem; color:#f1c40f;">FINAL SCORE: ${snakeScore}</span><br><span style="font-size:0.6rem; color:#fff;">PRESS START TO RETRY</span>`;
                         document.getElementById('snakeOverlay').style.display = 'block';
                     }
@@ -1327,6 +1423,7 @@ cat << 'EOF' > /var/www/html/index.html
                 snakeState = 'HIT';
                 snakeScore += 100;
                 document.getElementById('snakeScore').innerText = String(snakeScore).padStart(4, '0');
+                broadcastScoreUpdate();
 
                 // Spawn Paper Mario Stars & Bump FX
                 const b = baskets[basketIdx];
@@ -1387,7 +1484,7 @@ cat << 'EOF' > /var/www/html/index.html
             }
         }
 
-        // PAPER MARIO PERSIAN BAZAAR GRAPHICAL RENDER ENGINE
+        // ULTRA HD PAPER MARIO PERSIAN MARKET RENDER ENGINE
         function renderSnakeGame() {
             if (activeGame !== 2) return;
 
@@ -1400,28 +1497,61 @@ cat << 'EOF' > /var/www/html/index.html
 
             // Crescent Moon & Stars
             sCtx.fillStyle = '#f1c40f';
-            sCtx.beginPath(); sCtx.arc(440, 50, 24, 0, Math.PI * 2); sCtx.fill();
+            sCtx.beginPath(); sCtx.arc(440, 48, 24, 0, Math.PI * 2); sCtx.fill();
             sCtx.fillStyle = '#0c0714';
-            sCtx.beginPath(); sCtx.arc(430, 44, 20, 0, Math.PI * 2); sCtx.fill();
+            sCtx.beginPath(); sCtx.arc(430, 42, 20, 0, Math.PI * 2); sCtx.fill();
 
-            // Hanging Persian Lanterns
+            // HD PERSIAN MARKET CANOPY TENT AWNING (Red, Purple & Gold Striped Fabric)
+            const stripeW = 32;
+            for (let i = 0; i < snakeCanvas.width / stripeW + 1; i++) {
+                sCtx.fillStyle = (i % 2 === 0) ? '#9b59b6' : (i % 3 === 0 ? '#e74c3c' : '#f1c40f');
+                sCtx.beginPath();
+                sCtx.moveTo(i * stripeW, 0);
+                sCtx.lineTo((i + 1) * stripeW, 0);
+                sCtx.lineTo((i + 0.8) * stripeW, 36);
+                sCtx.lineTo((i + 0.2) * stripeW, 36);
+                sCtx.closePath();
+                sCtx.fill();
+                // Scalloped Tent Trim
+                sCtx.fillStyle = '#f39c12';
+                sCtx.beginPath(); sCtx.arc((i + 0.5) * stripeW, 36, 12, 0, Math.PI); sCtx.fill();
+            }
+
+            // Hanging Persian Brass Genie Oil Lamps
             [80, 200, 320, 440].forEach(lx => {
                 sCtx.strokeStyle = '#f39c12'; sCtx.lineWidth = 2;
-                sCtx.beginPath(); sCtx.moveTo(lx, 0); sCtx.lineTo(lx, 35); sCtx.stroke();
-                sCtx.fillStyle = '#e67e22'; sCtx.fillRect(lx - 10, 35, 20, 22);
-                sCtx.fillStyle = '#f1c40f'; sCtx.fillRect(lx - 6, 39, 12, 14); // Glowing light
+                sCtx.beginPath(); sCtx.moveTo(lx, 36); sCtx.lineTo(lx, 65); sCtx.stroke();
+                sCtx.fillStyle = '#e67e22'; sCtx.fillRect(lx - 10, 65, 20, 22);
+                sCtx.fillStyle = '#f1c40f'; sCtx.fillRect(lx - 6, 69, 12, 14); // Glowing light
+                // Flickering Flame
+                if (Math.floor(Date.now() / 150) % 2 === 0) {
+                    sCtx.fillStyle = '#e74c3c'; sCtx.beginPath(); sCtx.arc(lx, 63, 5, 0, Math.PI * 2); sCtx.fill();
+                }
             });
 
-            // Bazaar Archway & Oriental Carpet Ground
-            sCtx.fillStyle = '#4a2311'; sCtx.fillRect(0, 230, snakeCanvas.width, 154);
-            // Carpet Pattern
+            // Persian Archway Architecture
+            sCtx.fillStyle = '#3e1d0f'; sCtx.fillRect(0, 110, snakeCanvas.width, 274);
+            sCtx.fillStyle = '#5c2d18';
+            sCtx.fillRect(0, 110, 35, 274); sCtx.fillRect(snakeCanvas.width - 35, 110, 35, 274);
+            sCtx.strokeStyle = '#f1c40f'; sCtx.lineWidth = 4;
+            sCtx.strokeRect(0, 110, 35, 274); sCtx.strokeRect(snakeCanvas.width - 35, 110, 35, 274);
+
+            // Spice Sacks & Ceramic Pots on Market Floor
+            // Spice Sack 1 (Saffron Yellow)
+            sCtx.fillStyle = '#d35400'; sCtx.fillRect(40, 215, 24, 28);
+            sCtx.fillStyle = '#f1c40f'; sCtx.beginPath(); sCtx.ellipse(52, 215, 12, 6, 0, 0, Math.PI * 2); sCtx.fill(); // Saffron Powder
+            // Spice Sack 2 (Paprika Red)
+            sCtx.fillStyle = '#d35400'; sCtx.fillRect(448, 215, 24, 28);
+            sCtx.fillStyle = '#e74c3c'; sCtx.beginPath(); sCtx.ellipse(460, 215, 12, 6, 0, 0, Math.PI * 2); sCtx.fill(); // Paprika Powder
+
+            // Carpet Ground
             const carpetGrad = sCtx.createLinearGradient(0, 240, 0, 384);
             carpetGrad.addColorStop(0, '#8e1b1b');
             carpetGrad.addColorStop(1, '#5c0d0d');
             sCtx.fillStyle = carpetGrad;
-            sCtx.fillRect(15, 245, 482, 125);
+            sCtx.fillRect(35, 245, 442, 130);
             sCtx.strokeStyle = '#f1c40f'; sCtx.lineWidth = 4;
-            sCtx.strokeRect(15, 245, 482, 125);
+            sCtx.strokeRect(35, 245, 442, 130);
 
             // DRAW PAPER MARIO STYLE SNAKE & BASKETS
             baskets.forEach((b, idx) => {
@@ -1438,14 +1568,14 @@ cat << 'EOF' > /var/www/html/index.html
                     sCtx.translate(0, -snakeHeight);
 
                     // Paper Cutout Shadow Offset
-                    sCtx.fillStyle = 'rgba(0,0,0,0.3)';
+                    sCtx.fillStyle = 'rgba(0,0,0,0.35)';
                     sCtx.fillRect(-12, -28, 28, snakeHeight + 20);
 
                     // White Paper Border Outline
                     sCtx.fillStyle = '#ffffff';
                     sCtx.fillRect(-18, -34, 36, 38);
 
-                    // Cobra Snake Body (Green Papercraft with Diamond Texture)
+                    // Cobra Snake Body (Green Papercraft with Gold Diamond Texture)
                     sCtx.fillStyle = '#2ecc71';
                     sCtx.fillRect(-15, -31, 30, 34);
                     sCtx.fillStyle = '#27ae60';
@@ -1524,7 +1654,6 @@ cat << 'EOF' > /var/www/html/index.html
                     sCtx.rotate(-Math.PI / 4 * (clubSwingAnim / 10));
 
                     // Wooden Mallet Handle
-                    sCtx.fillStyle = '#8e44ad';
                     sCtx.fillStyle = '#5c3818';
                     sCtx.fillRect(-4, -45, 8, 45);
 
@@ -1570,26 +1699,6 @@ cat << 'EOF' > /var/www/html/index.html
 </html>
 EOF
 
-# Wipe any default Nginx index files
-rm -f /var/www/html/index.nginx-debian.html
-
-# Ensure default Nginx site configuration points cleanly to index.html
-cat << 'NGINX_CONF' > /etc/nginx/sites-available/default
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /var/www/html;
-    index index.html;
-
-    server_name _;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-NGINX_CONF
-
 # Ensure proper permissions and ownership
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
@@ -1599,4 +1708,3 @@ systemctl enable nginx
 systemctl restart nginx
 
 echo "=== 8bit Arcade Hub Startup Script Completed Successfully at $(date) ==="
-
