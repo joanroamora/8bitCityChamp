@@ -1,35 +1,38 @@
 # 🎮 8bitCityChamp - Infrastructure as Code (IaC) & CI/CD Pipeline
 
-An Infrastructure as Code (IaC) project built with **Terraform** and **GitHub Actions** to automatically deploy a vintage retro 8-bit web arcade game (**Urban Champion NES Edition**) on **Google Cloud Platform (GCP)** using a Compute Engine instance (`e2-micro`).
+An Infrastructure as Code (IaC) project built with **Terraform** and **GitHub Actions** to automatically deploy a 16-bit Super Nintendo (SNES) style arcade fighting game (**Urban Champion 16-Bit Edition**) on **Google Cloud Platform (GCP)** using a Compute Engine instance (`e2-micro`).
 
 ---
 
 ## 📌 Architecture & Provisioned Resources
 
-All GCP infrastructure resources are managed via Terraform using the `8bitcitychamp` prefix:
+All GCP infrastructure resources are managed via Terraform using the `v8bitcitychamp` prefix:
 
 - **Compute Engine VM**: `v8bitcitychamp-vm` (`e2-micro`, Debian 12 OS)
 - **Dedicated VPC**: `v8bitcitychamp-vpc`
 - **Subnet**: `v8bitcitychamp-subnet` (`10.0.1.0/24`)
 - **Firewall Rules**:
-  - `v8bitcitychamp-firewall-http` (Port 80 HTTP)
-  - `v8bitcitychamp-firewall-ssh` (Port 22 SSH)
+  - `v8bitcitychamp-firewall-http` (Port 80 HTTP, target tag: `v8bitcitychamp-web`)
+  - `v8bitcitychamp-firewall-ssh` (Port 22 SSH, target tag: `v8bitcitychamp-web`)
 - **Static Public External IP**: `v8bitcitychamp-ip`
-- **Automated Web Provisioning**: `scripts/startup.sh` injected via `metadata_startup_script` installs Nginx and deploys the interactive 8-bit vintage web arcade game.
+- **Automated Web Provisioning**: `scripts/startup.sh` injected via `metadata_startup_script` installs Nginx and deploys the 16-bit SNES arcade fighting game.
 
 ---
 
-## 🕹️ Feature2 Arcade Game Enhancements
+## 🕹️ Feature2 16-Bit Arcade Game Enhancements
 
-- **Vintage NES Title Screen**: Retro 8-bit start screen featuring project branding ("8bitCityChamp"), flickering CRT cityscape, pixel graphics, audio chimes, and blinking "PRESS START TO PLAY".
-- **English Localization**: Full game UI, controls panel, stage announcements, victory banners, and documentation in English.
-- **5 Ascending Difficulty Opponents**:
-  1. **Stage 1**: *Spike (Rookie)* - Street Punk (Easy)
-  2. **Stage 2**: *Bruno (Brawler)* - Alley Champ (Medium)
-  3. **Stage 3**: *Duke (Heavyweight)* - Iron Duke (Hard)
-  4. **Stage 4**: *Kage (Shadow)* - Shadow Ninja (Expert)
-  5. **Stage 5 (FINAL BOSS)**: *General Ironclad (The Dictator)* - A vintage military dictator outfitted in a green military uniform, officer peak cap with gold star, epaulets, medals, and moustache!
-- **Web Audio API Synthesizer**: 8-bit sound effects for punches, hits, blocks, police sirens, stage clears, game over, and victory fanfares.
+- **16-Bit SNES Graphic Overhaul**:
+  - Detailed character models with muscle shading, face expressions, leather boots, vest textures, and distinct gear.
+  - **Blood Splatter & Hit FX**: Dynamic 16-bit blood particle bursts, floating damage text (`-12`, `-25`), screen shake on heavy hooks, and red hit flashes!
+- **16-Bit SNES Background Music (BGM)**:
+  - Retro SNES soundtrack synthesized via Web Audio API with lead synth melody, walking 16-bit bassline, and rhythm percussion.
+  - Dedicated `🎵 BGM MUSIC: ON / OFF` toggle button.
+- **5 Elaborate 16-Bit Fighters & Dictator Boss**:
+  1. **Stage 1**: *Spike (Rookie)* - Street Punk with yellow mohawk & studded leather vest (Easy)
+  2. **Stage 2**: *Bruno (Brawler)* - Alley Champ with camo pants & headband (Medium)
+  3. **Stage 3**: *Duke (Heavyweight)* - Iron Duke with gold chains & boxing gloves (Hard)
+  4. **Stage 4**: *Kage (Shadow)* - Shadow Ninja with purple shinobi suit & cowl (Expert)
+  5. **Stage 5 (FINAL BOSS)**: *General Ironclad (The Dictator)* - Highly detailed 16-bit Military Dictator with peak military cap, gold eagle emblem, double-breasted officer tunic, golden fringed epaulets, multi-color award ribbons, belt buckle, and dictator moustache!
 - **Responsive Controls**: Full support for Keyboard (`A/D/Z/X/Space/Enter`) and Touchscreen controls for mobile devices.
 
 ---
@@ -40,12 +43,12 @@ All GCP infrastructure resources are managed via Terraform using the `8bitcitych
 .
 ├── .github/
 │   └── workflows/
-│       ├── deploy.yml     # Automated CI/CD Deployment Workflow
+│       ├── deploy.yml     # Automated CI/CD Deployment Workflow with Concurrency Lock
 │       └── destroy.yml    # Remote Destruction & Cleanup Workflow
 ├── scripts/
-│   └── startup.sh         # Nginx + Vintage Urban Champion 8-Bit Web App
+│   └── startup.sh         # Nginx + 16-Bit SNES Urban Champion Web App
 ├── .gitignore
-├── main.tf                # Main Terraform GCP Infrastructure Specs
+├── main.tf                # Main Terraform GCP Infrastructure Specs with GCS Backend
 ├── outputs.tf             # Outputs (Public IP, Web URL, VPC, Subnet)
 ├── variables.tf           # Terraform Input Variables Definition
 └── README.md              # Project Documentation
@@ -111,47 +114,20 @@ In your GitHub repository:
 | `GCP_PROJECT_ID` | Your GCP Project ID (e.g. `my-gcp-project-12345`) |
 | `GCP_SA_KEY` | The **entire raw JSON** contents of `8bitcitychamp-sa-key.json` |
 
-> ⚠️ **Security Notice**: Safely remove `8bitcitychamp-sa-key.json` from your local machine after configuring GitHub Secrets:
-> ```bash
-> rm 8bitcitychamp-sa-key.json
-> ```
-
 ---
 
 ## 🚀 GitHub Actions CI/CD Workflows
 
 ### 1. Deployment Workflow (`deploy.yml`)
 - **Triggers**: `push` to `main`, `Feature1Infraestructure`, `Feature2Game` branches, or manually via `workflow_dispatch`.
+- **Concurrency Lock**: Serializes deployments to prevent state lock collisions.
 - **Pipeline**: Runs `terraform init`, `terraform plan`, and `terraform apply -auto-approve`.
-- **Result**: Provisions the GCP VM, static public IP, network rules, and serves the arcade web game at `http://<PUBLIC_IP>`.
+- **Result**: Provisions the GCP VM, static public IP, network rules, and serves the 16-bit arcade web game at `http://<PUBLIC_IP>`.
 
 ### 2. Destruction & Cleanup Workflow (`destroy.yml`)
 - **Trigger**: Manual (`workflow_dispatch`).
 - **Pipeline**: Runs `terraform destroy -auto-approve`.
 - **Result**: Safely destroys 100% of provisioned GCP infrastructure to eliminate ongoing cloud costs.
-
----
-
-## 🕹️ Local Testing with Terraform (Optional)
-
-To test infrastructure deployment locally prior to GitHub Actions:
-
-```bash
-# Initialize Terraform
-terraform init
-
-# Validate syntax
-terraform validate
-
-# Create deployment execution plan
-terraform plan -var="project_id=YOUR_GCP_PROJECT_ID"
-
-# Apply deployment
-terraform apply -var="project_id=YOUR_GCP_PROJECT_ID" -auto-approve
-
-# Destroy infrastructure locally
-terraform destroy -var="project_id=YOUR_GCP_PROJECT_ID" -auto-approve
-```
 
 ---
 
