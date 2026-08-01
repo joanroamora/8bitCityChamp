@@ -3,7 +3,7 @@ set -e
 
 # Logging setup
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-echo "=== Starting 8bitCityChamp Startup Script (Mobile Touch Fix + Animated Arcade Hub BG): $(date) ==="
+echo "=== Starting 8bitCityChamp Startup Script (Universal Mobile Touch Fix): $(date) ==="
 
 # Update package list and install Nginx & curl
 apt-get update -y
@@ -13,7 +13,7 @@ apt-get install -y nginx curl git
 rm -rf /var/www/html/*
 rm -f /var/www/html/index.nginx-debian.html
 
-# Create Multi-Game Arcade Hub with Animated Gaming Canvas & Mobile Touch Fix
+# Create Multi-Game Arcade Hub with 100% Reliable Mobile Touch Buttons
 cat << 'EOF' > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +62,7 @@ cat << 'EOF' > /var/www/html/index.html
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
+            z-index: 0;
             pointer-events: none;
         }
 
@@ -73,6 +73,7 @@ cat << 'EOF' > /var/www/html/index.html
             width: 100%;
             max-width: 900px;
             z-index: 10;
+            position: relative;
         }
 
         .hub-title {
@@ -100,15 +101,16 @@ cat << 'EOF' > /var/www/html/index.html
             background: linear-gradient(180deg, #ff4757, #c0392b);
             color: #fff;
             border: 3px solid #fff;
-            padding: 10px 18px;
+            padding: 12px 20px;
             font-family: inherit;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             border-radius: 8px;
             box-shadow: 0 4px 0 #000;
             cursor: pointer;
             display: none;
             margin-bottom: 12px;
             z-index: 20;
+            position: relative;
         }
         .btn-back-hub:active { transform: translateY(2px); }
 
@@ -120,26 +122,19 @@ cat << 'EOF' > /var/www/html/index.html
             width: 100%;
             max-width: 880px;
             z-index: 10;
+            position: relative;
         }
 
         .game-card {
-            background: rgba(15, 23, 42, 0.92);
+            background: #0f172a;
             border: 4px solid #1e293b;
             border-radius: 14px;
             padding: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            cursor: pointer;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-            backdrop-filter: blur(6px);
-        }
-
-        .game-card:hover, .game-card:active {
-            transform: translateY(-6px);
-            border-color: #54a0ff;
-            box-shadow: 0 15px 30px rgba(84, 160, 255, 0.4);
+            width: 100%;
         }
 
         .game-card-thumb {
@@ -165,26 +160,28 @@ cat << 'EOF' > /var/www/html/index.html
         }
 
         .game-card-desc {
-            font-size: 0.52rem;
+            font-size: 0.55rem;
             color: #cbd5e1;
             line-height: 1.6;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .btn-play-card {
             background: linear-gradient(180deg, #10ac84, #01a3a4);
             color: #fff;
             border: 2px solid #55efc4;
-            padding: 12px 20px;
+            padding: 16px 20px;
             font-family: inherit;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             border-radius: 8px;
             box-shadow: 0 4px 0 #000;
             width: 100%;
             text-align: center;
             cursor: pointer;
+            display: block;
         }
+        .btn-play-card:active { transform: translateY(2px); }
 
         /* ---------------------------------------------------- */
         /* GAME 1: 8bitCityChamp Container */
@@ -194,6 +191,7 @@ cat << 'EOF' > /var/www/html/index.html
             width: 100%;
             max-width: 860px;
             z-index: 10;
+            position: relative;
         }
 
         .arcade-cabinet {
@@ -299,6 +297,7 @@ cat << 'EOF' > /var/www/html/index.html
             width: 100%;
             max-width: 860px;
             z-index: 10;
+            position: relative;
         }
 
         .paper-cabinet {
@@ -366,7 +365,7 @@ cat << 'EOF' > /var/www/html/index.html
             background: linear-gradient(180deg, #d35400, #a04000);
             color: #fff;
             border: 3px solid #f39c12;
-            padding: 16px 4px;
+            padding: 18px 4px;
             font-family: inherit;
             font-size: 0.85rem;
             border-radius: 10px;
@@ -396,8 +395,9 @@ cat << 'EOF' > /var/www/html/index.html
             .hub-title { font-size: 1.2rem; }
             .top-bar { display: none !important; }
             .game-card-thumb { height: 140px; }
-            .retro-btn { padding: 16px 8px; font-size: 0.7rem; }
-            .basket-touch-btn { padding: 18px 4px; font-size: 0.9rem; }
+            .btn-play-card { padding: 18px 10px; font-size: 0.8rem; }
+            .retro-btn { padding: 18px 8px; font-size: 0.72rem; }
+            .basket-touch-btn { padding: 20px 4px; font-size: 0.95rem; }
         }
 
         .overlay-msg {
@@ -429,29 +429,29 @@ cat << 'EOF' > /var/www/html/index.html
     </header>
 
     <!-- Return to Hub Button -->
-    <button class="btn-back-hub" id="btnBackHub">◄ BACK TO ARCADE HUB</button>
+    <button class="btn-back-hub" id="btnBackHub" type="button">◄ BACK TO ARCADE HUB</button>
 
     <!-- Main Game Grid Selection Screen -->
     <main class="game-grid-container" id="hubView">
 
         <!-- Game 1 Card -->
-        <div class="game-card" id="cardGame1">
+        <div class="game-card">
             <div class="game-card-thumb" style="background: linear-gradient(135deg, #1e272e, #090d13);">
                 <div style="font-size:3.5rem;">🥊</div>
             </div>
             <h2 class="game-card-title">8bitCityChamp</h2>
             <p class="game-card-desc">16-Bit SNES Arcade Fighter! 5 Stages, Dictator Boss, High Kick, Blood FX & Street Walkers.</p>
-            <div class="btn-play-card">▶ PLAY CITY CHAMP</div>
+            <button class="btn-play-card" type="button" onclick="openGame(1)">▶ PLAY CITY CHAMP</button>
         </div>
 
         <!-- Game 2 Card -->
-        <div class="game-card" id="cardGame2">
+        <div class="game-card">
             <div class="game-card-thumb" style="background: linear-gradient(135deg, #8e1b1b, #3e1200);">
                 <div style="font-size:3.5rem;">🐍🏺</div>
             </div>
             <h2 class="game-card-title">Paper Snake Bazaar</h2>
             <p class="game-card-desc">HD Paper Mario Whack-a-Snake in a Persian Market! Live Multiplayer Room over same server IP!</p>
-            <div class="btn-play-card">▶ PLAY PAPER SNAKE (MP)</div>
+            <button class="btn-play-card" type="button" onclick="openGame(2)">▶ PLAY PAPER SNAKE (MP)</button>
         </div>
 
     </main>
@@ -463,7 +463,7 @@ cat << 'EOF' > /var/www/html/index.html
         <div class="arcade-cabinet">
             <div class="top-bar">
                 <span>16-BIT SNES SOUNDTRACK</span>
-                <button class="music-toggle-btn" id="btnToggleMusic">🎵 BGM MUSIC: ON</button>
+                <button class="music-toggle-btn" id="btnToggleMusic" type="button">🎵 BGM MUSIC: ON</button>
             </div>
 
             <div class="crt-screen">
@@ -486,18 +486,18 @@ cat << 'EOF' > /var/www/html/index.html
                 <div id="overlayMsg" class="overlay-msg">PRESS START TO PLAY</div>
             </div>
 
-            <button class="retro-btn btn-start" id="btnStartGame">🎮 PRESS START / BEGIN BATTLE</button>
+            <button class="retro-btn btn-start" id="btnStartGame" type="button">🎮 PRESS START / BEGIN BATTLE</button>
 
             <div class="mobile-controls">
                 <div class="btn-group" style="width: 40%;">
-                    <button class="retro-btn" id="btnLeft">◄ LEFT</button>
-                    <button class="retro-btn" id="btnRight">RIGHT ►</button>
+                    <button class="retro-btn" id="btnLeft" type="button">◄ LEFT</button>
+                    <button class="retro-btn" id="btnRight" type="button">RIGHT ►</button>
                 </div>
                 <div class="btn-group" style="width: 60%;">
-                    <button class="retro-btn btn-punch" id="btnLight">JAB</button>
-                    <button class="retro-btn btn-kick" id="btnKick">KICK</button>
-                    <button class="retro-btn btn-heavy" id="btnHeavy">HEAVY</button>
-                    <button class="retro-btn btn-block" id="btnBlock">BLOCK</button>
+                    <button class="retro-btn btn-punch" id="btnLight" type="button">JAB</button>
+                    <button class="retro-btn btn-kick" id="btnKick" type="button">KICK</button>
+                    <button class="retro-btn btn-heavy" id="btnHeavy" type="button">HEAVY</button>
+                    <button class="retro-btn btn-block" id="btnBlock" type="button">BLOCK</button>
                 </div>
             </div>
         </div>
@@ -526,14 +526,14 @@ cat << 'EOF' > /var/www/html/index.html
             </div>
 
             <div class="snake-touch-pad">
-                <button class="basket-touch-btn" id="btnBasket0">🧺 [A]</button>
-                <button class="basket-touch-btn" id="btnBasket1">🧺 [S]</button>
-                <button class="basket-touch-btn" id="btnBasket2">🧺 [D]</button>
-                <button class="basket-touch-btn" id="btnBasket3">🧺 [F]</button>
-                <button class="basket-touch-btn" id="btnBasket4">🧺 [G]</button>
+                <button class="basket-touch-btn" id="btnBasket0" type="button">🧺 [A]</button>
+                <button class="basket-touch-btn" id="btnBasket1" type="button">🧺 [S]</button>
+                <button class="basket-touch-btn" id="btnBasket2" type="button">🧺 [D]</button>
+                <button class="basket-touch-btn" id="btnBasket3" type="button">🧺 [F]</button>
+                <button class="basket-touch-btn" id="btnBasket4" type="button">🧺 [G]</button>
             </div>
 
-            <button class="retro-btn btn-start" id="btnStartSnake" style="margin-top:10px;">🐍 START MULTIPLAYER SNAKE GAME</button>
+            <button class="retro-btn btn-start" id="btnStartSnake" type="button" style="margin-top:10px;">🐍 START MULTIPLAYER SNAKE GAME</button>
 
             <div class="mp-leaderboard">
                 <div class="mp-title">🏆 LIVE MULTIPLAYER BAZAAR LEADERBOARD</div>
@@ -575,7 +575,6 @@ cat << 'EOF' > /var/www/html/index.html
         function renderBgArcade() {
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
 
-            // Synthwave Grid Perspective Horizon
             bgGridOffset = (bgGridOffset + 0.8) % 30;
             bgCtx.strokeStyle = 'rgba(84, 160, 255, 0.25)';
             bgCtx.lineWidth = 1;
@@ -597,7 +596,6 @@ cat << 'EOF' > /var/www/html/index.html
                 bgCtx.stroke();
             }
 
-            // Floating Gaming Icons Animation
             for (let p of bgParticles) {
                 p.y += p.vy;
                 if (p.y < -40) {
@@ -633,17 +631,8 @@ cat << 'EOF' > /var/www/html/index.html
                 document.getElementById('game2View').style.display = 'block';
                 initSnakeGame();
             }
+            window.scrollTo(0, 0);
         }
-
-        // Bind Card Touch & Click Listeners cleanly for Mobile Phones
-        function bindCard(cardId, gameId) {
-            const card = document.getElementById(cardId);
-            if (!card) return;
-            card.addEventListener('pointerdown', (e) => { e.preventDefault(); openGame(gameId); });
-            card.addEventListener('click', () => { openGame(gameId); });
-        }
-        bindCard('cardGame1', 1);
-        bindCard('cardGame2', 2);
 
         document.getElementById('btnBackHub').addEventListener('click', () => {
             activeGame = 0;
@@ -651,6 +640,7 @@ cat << 'EOF' > /var/www/html/index.html
             document.getElementById('game2View').style.display = 'none';
             document.getElementById('hubView').style.display = 'grid';
             document.getElementById('btnBackHub').style.display = 'none';
+            window.scrollTo(0, 0);
         });
 
         // ----------------------------------------------------
@@ -923,10 +913,12 @@ cat << 'EOF' > /var/www/html/index.html
         function bindTouchBtn(elementId, keyCode) {
             const btn = document.getElementById(elementId);
             if (!btn) return;
-            btn.addEventListener('pointerdown', (e) => { e.preventDefault(); audio.init(); keys[keyCode] = true; });
-            btn.addEventListener('pointerup', (e) => { e.preventDefault(); keys[keyCode] = false; });
-            btn.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); keys[keyCode] = true; });
-            btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyCode] = false; });
+            const press = (e) => { e.preventDefault(); audio.init(); keys[keyCode] = true; };
+            const release = (e) => { e.preventDefault(); keys[keyCode] = false; };
+            btn.addEventListener('pointerdown', press);
+            btn.addEventListener('pointerup', release);
+            btn.addEventListener('touchstart', press);
+            btn.addEventListener('touchend', release);
         }
 
         bindTouchBtn('btnLeft', 'ArrowLeft');
@@ -937,8 +929,7 @@ cat << 'EOF' > /var/www/html/index.html
         document.getElementById('btnLight').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerPunch(p1, false); });
         document.getElementById('btnKick').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerKick(p1); });
         document.getElementById('btnHeavy').addEventListener('click', () => { audio.init(); if(gameState==='PLAYING') triggerPunch(p1, true); });
-        document.getElementById('btnBlock').addEventListener('pointerdown', (e) => { e.preventDefault(); keys['Space'] = true; });
-        document.getElementById('btnBlock').addEventListener('pointerup', (e) => { e.preventDefault(); keys['Space'] = false; });
+        document.getElementById('btnBlock').addEventListener('click', () => { audio.init(); keys['Space'] = true; setTimeout(() => keys['Space'] = false, 300); });
 
         function startNextGame() {
             audio.playStart();
@@ -1445,12 +1436,14 @@ cat << 'EOF' > /var/www/html/index.html
             `).join('');
         }
 
-        // Universal Touch Event Handlers for Mobile Gamepad Buttons
+        // Clean Touch Listeners for Mobile Basket Buttons
         baskets.forEach((b, idx) => {
             const btn = document.getElementById(`btnBasket${idx}`);
             if (btn) {
-                btn.addEventListener('pointerdown', (e) => { e.preventDefault(); audio.init(); whackBasket(idx); });
-                btn.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); whackBasket(idx); });
+                const triggerWhack = (e) => { e.preventDefault(); audio.init(); whackBasket(idx); };
+                btn.addEventListener('pointerdown', triggerWhack);
+                btn.addEventListener('touchstart', triggerWhack);
+                btn.addEventListener('click', (e) => { audio.init(); whackBasket(idx); });
             }
         });
 
