@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - Feature1Infraestructure
+      - Feature2Game
   workflow_dispatch:
 
 jobs:
