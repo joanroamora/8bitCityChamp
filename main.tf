@@ -68,6 +68,10 @@ resource "google_compute_address" "eightbitcitychamp_ip" {
 }
 
 # Compute Engine VM Instance (e2-micro, Debian 12)
+resource "terraform_data" "startup_script_hash" {
+  input = filemd5("${path.module}/scripts/startup.sh")
+}
+
 resource "google_compute_instance" "eightbitcitychamp_vm" {
   name         = "v8bitcitychamp-vm"
   machine_type = "e2-micro"
@@ -101,7 +105,7 @@ resource "google_compute_instance" "eightbitcitychamp_vm" {
 
   lifecycle {
     replace_triggered_by = [
-      self.metadata_startup_script
+      terraform_data.startup_script_hash
     ]
   }
 }
