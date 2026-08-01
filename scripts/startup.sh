@@ -3,17 +3,21 @@ set -e
 
 # Logging setup
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-echo "=== Starting 8bitCityChamp Startup Script (Universal Mobile Touch Fix): $(date) ==="
+echo "=== Starting 8bitCityChamp Startup Script (Force Nginx Index Override): $(date) ==="
 
 # Update package list and install Nginx & curl
 apt-get update -y
 apt-get install -y nginx curl git
 
-# Remove default Nginx index page
+# Stop Nginx during setup to prevent serving stale default files
+systemctl stop nginx || true
+
+# Force wipe any default Nginx welcome pages
 rm -rf /var/www/html/*
 rm -f /var/www/html/index.nginx-debian.html
+rm -f /var/www/html/index.html
 
-# Create Multi-Game Arcade Hub with 100% Reliable Mobile Touch Buttons
+# Create Multi-Game Arcade Hub HTML5 Game Page
 cat << 'EOF' > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
@@ -1690,10 +1694,7 @@ cat << 'EOF' > /var/www/html/index.html
 </html>
 EOF
 
-# Wipe any default Nginx index files
-rm -f /var/www/html/index.nginx-debian.html
-
-# Ensure default Nginx site configuration points cleanly to index.html
+# Ensure default Nginx site configuration points cleanly to index.html ONLY
 cat << 'NGINX_CONF' > /etc/nginx/sites-available/default
 server {
     listen 80 default_server;
@@ -1714,8 +1715,14 @@ NGINX_CONF
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
 
-# Enable and restart Nginx
+# Enable site configuration symlink if missing
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Test Nginx configuration before restarting
+nginx -t
+
+# Enable and start Nginx service
 systemctl enable nginx
-systemctl restart nginx
+systemctl start nginx || systemctl restart nginx
 
 echo "=== 8bit Arcade Hub Startup Script Completed Successfully at $(date) ==="
