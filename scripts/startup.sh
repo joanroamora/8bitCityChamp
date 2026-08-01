@@ -3,7 +3,7 @@ set -e
 
 # Logging setup
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-echo "=== Starting 8bitCityChamp Startup Script (16-Bit SNES Edition): $(date) ==="
+echo "=== Starting 8bitCityChamp Startup Script (Ultra High-Detail 16-Bit Edition): $(date) ==="
 
 # Update package list and install Nginx & curl
 apt-get update -y
@@ -12,21 +12,21 @@ apt-get install -y nginx curl git
 # Remove default Nginx index page
 rm -rf /var/www/html/*
 
-# Create 16-bit SNES Retro Urban Champion Arcade Web Application
+# Create Ultra Detailed 16-Bit SNES Urban Champion Arcade Web Application
 cat << 'EOF' > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8bitCityChamp - 16-Bit SNES Urban Champion Edition</title>
+    <title>8bitCityChamp - Ultra Detailed 16-Bit SNES Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #06070a;
-            --arcade-border: #1a2230;
+            --bg-color: #050608;
+            --arcade-border: #18202d;
             --neon-blue: #00d2d3;
             --neon-green: #54a0ff;
             --neon-red: #ff4757;
@@ -45,7 +45,7 @@ cat << 'EOF' > /var/www/html/index.html
         body {
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 50% 20%, #192a56 0%, #080d1a 60%, #03050a 100%);
+                radial-gradient(circle at 50% 20%, #172442 0%, #060912 60%, #020305 100%);
             color: #ffffff;
             font-family: 'Press Start 2P', monospace, cursive;
             display: flex;
@@ -53,7 +53,7 @@ cat << 'EOF' > /var/www/html/index.html
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 15px;
+            padding: 12px;
             overflow-x: hidden;
         }
 
@@ -81,7 +81,7 @@ cat << 'EOF' > /var/www/html/index.html
         }
 
         .subtitle {
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             color: var(--neon-yellow);
             letter-spacing: 1.5px;
         }
@@ -89,14 +89,14 @@ cat << 'EOF' > /var/www/html/index.html
         /* Arcade Cabinet Frame */
         .arcade-cabinet {
             position: relative;
-            background: #10141f;
-            border: 12px solid #222c3d;
+            background: #0f131d;
+            border: 12px solid #202b3c;
             border-radius: 20px;
             box-shadow: 
                 0 0 0 4px #000,
                 0 25px 60px rgba(0,0,0,0.95),
                 inset 0 0 25px rgba(0,0,0,0.85);
-            padding: 18px;
+            padding: 16px;
             max-width: 860px;
             width: 100%;
         }
@@ -105,7 +105,7 @@ cat << 'EOF' > /var/www/html/index.html
         .crt-screen {
             position: relative;
             background: #000;
-            border: 6px solid #090c14;
+            border: 6px solid #080b12;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: inset 0 0 35px rgba(0,0,0,1);
@@ -117,7 +117,7 @@ cat << 'EOF' > /var/www/html/index.html
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
             z-index: 10;
             background-size: 100% 4px, 6px 100%;
             pointer-events: none;
@@ -128,14 +128,14 @@ cat << 'EOF' > /var/www/html/index.html
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #0b0e17;
+            background: #090c14;
             padding: 8px 14px;
-            border-bottom: 2px solid #1f2a3e;
-            font-size: 0.6rem;
+            border-bottom: 2px solid #1c273a;
+            font-size: 0.58rem;
         }
 
         .music-toggle-btn {
-            background: #222f3e;
+            background: #202d3d;
             color: #feca57;
             border: 2px solid #54a0ff;
             padding: 6px 12px;
@@ -155,9 +155,9 @@ cat << 'EOF' > /var/www/html/index.html
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #05070d;
+            background: #04050a;
             padding: 10px 16px;
-            border-bottom: 4px solid #1c2638;
+            border-bottom: 4px solid #1a2334;
             font-size: 0.65rem;
             z-index: 5;
             position: relative;
@@ -182,7 +182,7 @@ cat << 'EOF' > /var/www/html/index.html
         .health-bar-container {
             width: 100%;
             height: 18px;
-            background: #1e272e;
+            background: #1c242b;
             border: 2px solid #fff;
             position: relative;
             box-shadow: inset 0 0 6px #000;
@@ -226,32 +226,32 @@ cat << 'EOF' > /var/www/html/index.html
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-top: 18px;
-            background: #141926;
+            margin-top: 16px;
+            background: #121724;
             padding: 14px;
             border-radius: 8px;
-            border: 2px solid #273248;
+            border: 2px solid #242e42;
         }
 
         .control-group {
-            font-size: 0.6rem;
+            font-size: 0.58rem;
             line-height: 1.7;
         }
 
         .control-group h3 {
             color: #54a0ff;
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             margin-bottom: 8px;
             text-transform: uppercase;
         }
 
         .key-badge {
-            background: #2c3a4e;
+            background: #2a374a;
             color: #fff;
             padding: 2px 6px;
             border-radius: 4px;
-            border: 1px solid #485b75;
-            box-shadow: 0 2px 0 #101722;
+            border: 1px solid #445670;
+            box-shadow: 0 2px 0 #0f151f;
         }
 
         /* On-Screen Touch Controls for Mobile */
@@ -274,32 +274,32 @@ cat << 'EOF' > /var/www/html/index.html
         }
 
         .retro-btn {
-            background: linear-gradient(180deg, #34495e, #1e272e);
+            background: linear-gradient(180deg, #304254, #1c242b);
             color: #fff;
-            border: 3px solid #546de5;
+            border: 3px solid #4b6584;
             padding: 12px 18px;
             font-family: inherit;
             font-size: 0.65rem;
             border-radius: 8px;
-            box-shadow: 0 4px 0 #0f141d;
+            box-shadow: 0 4px 0 #0d121a;
             cursor: pointer;
         }
 
         .retro-btn:active {
             transform: translateY(3px);
-            box-shadow: 0 1px 0 #0f141d;
+            box-shadow: 0 1px 0 #0d121a;
         }
 
-        .btn-start { background: linear-gradient(180deg, #10ac84, #01a3a4); border-color: #55efc4; font-weight: bold; width: 100%; margin-top: 10px; padding: 14px; font-size: 0.8rem; }
+        .btn-start { background: linear-gradient(180deg, #10ac84, #01a3a4); border-color: #55efc4; font-weight: bold; width: 100%; margin-top: 10px; padding: 14px; font-size: 0.78rem; }
         .btn-punch { background: linear-gradient(180deg, #ee5253, #10ac84); border-color: #ff6b6b; }
         .btn-heavy { background: linear-gradient(180deg, #ff9f43, #ee5253); border-color: #feca57; }
         .btn-block { background: linear-gradient(180deg, #2e86de, #5f27cd); border-color: #54a0ff; }
 
         /* Footer Info */
         footer {
-            margin-top: 18px;
+            margin-top: 16px;
             text-align: center;
-            font-size: 0.6rem;
+            font-size: 0.58rem;
             color: #888;
         }
 
@@ -329,11 +329,10 @@ cat << 'EOF' > /var/www/html/index.html
 
     <header>
         <h1 class="logo-title">8bitCityChamp</h1>
-        <p class="subtitle">16-BIT SUPER NINTENDO ARCADE • FEATURE2 EDITION</p>
+        <p class="subtitle">ULTRA HIGH-DETAIL 16-BIT FIGHTER EDITION</p>
     </header>
 
     <main class="arcade-cabinet">
-        <!-- Top Bar for BGM Music Control -->
         <div class="top-bar">
             <span>16-BIT SNES BGM SOUNDTRACK</span>
             <button class="music-toggle-btn" id="btnToggleMusic">🎵 BGM MUSIC: ON</button>
@@ -375,7 +374,7 @@ cat << 'EOF' > /var/www/html/index.html
         </div>
 
         <!-- Start Button for All Devices -->
-        <button class="retro-btn btn-start" id="btnStartGame">🎮 PRESS START / BEGIN 16-BIT BATTLE</button>
+        <button class="retro-btn btn-start" id="btnStartGame">🎮 PRESS START / BEGIN BATTLE</button>
 
         <!-- Mobile Touch Buttons -->
         <div class="mobile-controls">
@@ -390,7 +389,7 @@ cat << 'EOF' > /var/www/html/index.html
             </div>
         </div>
 
-        <!-- Controls & Rules Guide in English -->
+        <!-- Controls Guide in English -->
         <div class="controls-panel">
             <div class="control-group">
                 <h3>🎮 CONTROLS (PLAYER 1)</h3>
@@ -401,22 +400,22 @@ cat << 'EOF' > /var/www/html/index.html
                 <p><span class="key-badge">ENTER</span> : Start / Pause Game</p>
             </div>
             <div class="control-group">
-                <h3>⚡ 16-BIT ARCADE STAGES & BLOOD FX</h3>
-                <p>• Land punches to trigger <strong>blood splatter & hit spark FX</strong>!</p>
-                <p>• Push your rival off the street edge or into the sewer pit!</p>
-                <p>• <strong>5 Detailed 16-Bit Fighters:</strong> Spike, Bruno, Duke, Kage & Dictator Boss!</p>
-                <p>• <strong>Final Boss (Stage 5):</strong> Defeat General Ironclad (Military Dictator)!</p>
+                <h3>⚡ ULTRA HIGH-DETAIL 16-BIT FEATURES</h3>
+                <p>• Highly detailed muscle shading, face expressions & gear.</p>
+                <p>• <strong>Blood Splatter Particles & Floating Damage FX</strong>.</p>
+                <p>• <strong>5 Elaborate Fighters:</strong> Spike, Bruno, Duke, Kage & Dictator Boss!</p>
+                <p>• <strong>Final Boss (Stage 5):</strong> General Ironclad (Detailed Military Dictator).</p>
                 <p>• Deployed on GCP Compute Engine via Terraform.</p>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>POWERED BY <span>GOOGLE CLOUD PLATFORM</span> & <span>TERRAFORM</span> | 16-Bit SNES Edition</p>
+        <p>POWERED BY <span>GOOGLE CLOUD PLATFORM</span> & <span>TERRAFORM</span> | 16-Bit Ultra Detail</p>
     </footer>
 
     <script>
-        // 16-Bit SNES Audio & Synth Engine (BGM + Sound FX)
+        // 16-Bit SNES Audio & Synth Engine
         class AudioEngine {
             constructor() {
                 this.ctx = null;
@@ -447,7 +446,6 @@ cat << 'EOF' > /var/www/html/index.html
                 this.init();
                 if (this.bgmTimer) clearInterval(this.bgmTimer);
 
-                // 16-Bit SNES Synth Melody & Bassline Notes (Classic Fighting Stage Loop)
                 const melody = [
                     155.56, 207.65, 233.08, 311.13, 207.65, 233.08, 155.56, 207.65,
                     174.61, 220.00, 261.63, 349.23, 220.00, 261.63, 174.61, 220.00,
@@ -461,7 +459,6 @@ cat << 'EOF' > /var/www/html/index.html
                     const freq = melody[this.noteIndex % melody.length];
                     this.noteIndex++;
 
-                    // Lead Synth Pulse Wave
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
                     osc.type = 'square';
@@ -473,7 +470,6 @@ cat << 'EOF' > /var/www/html/index.html
                     osc.start();
                     osc.stop(this.ctx.currentTime + 0.16);
 
-                    // Bass Synth Line (Sub-octave Sawtooth)
                     const bassOsc = this.ctx.createOscillator();
                     const bassGain = this.ctx.createGain();
                     bassOsc.type = 'sawtooth';
@@ -601,21 +597,21 @@ cat << 'EOF' > /var/www/html/index.html
         const ctx = canvas.getContext('2d');
         const overlay = document.getElementById('overlayMsg');
 
-        // Particle FX System (Blood Splatter, Impact Sparks & Damage Text)
+        // Particle System
         const hitParticles = [];
         const damageTexts = [];
 
         function spawnBloodParticles(x, y, isHeavy) {
-            const count = isHeavy ? 18 : 9;
+            const count = isHeavy ? 22 : 11;
             for (let i = 0; i < count; i++) {
                 hitParticles.push({
                     x: x + (Math.random() * 20 - 10),
                     y: y + (Math.random() * 20 - 10),
-                    vx: (Math.random() - 0.5) * (isHeavy ? 9 : 5),
-                    vy: (Math.random() - 0.7) * (isHeavy ? 8 : 4),
+                    vx: (Math.random() - 0.5) * (isHeavy ? 10 : 5),
+                    vy: (Math.random() - 0.7) * (isHeavy ? 9 : 4),
                     size: Math.random() * (isHeavy ? 5 : 3) + 2,
-                    color: Math.random() < 0.8 ? '#ff4757' : '#ff6b6b', // 16-Bit Blood Red
-                    life: 25
+                    color: Math.random() < 0.85 ? '#ff4757' : '#ff6b6b',
+                    life: 28
                 });
             }
         }
@@ -627,7 +623,7 @@ cat << 'EOF' > /var/www/html/index.html
                 text: '-' + amount,
                 vy: -1.5,
                 alpha: 1.0,
-                life: 30
+                life: 32
             });
         }
 
@@ -638,7 +634,7 @@ cat << 'EOF' > /var/www/html/index.html
             screenShakeTime = 8;
         }
 
-        // 16-Bit Opponents Roster Definition (4 ascending difficulty fighters + 1 Dictator Boss)
+        // Detailed Opponents Roster Definition
         const OPPONENTS = [
             {
                 id: 1,
@@ -653,7 +649,7 @@ cat << 'EOF' > /var/www/html/index.html
                 damageMult: 0.8,
                 speed: 1.7,
                 aiAggression: 0.03,
-                isBoss: false
+                type: "PUNK"
             },
             {
                 id: 2,
@@ -668,7 +664,7 @@ cat << 'EOF' > /var/www/html/index.html
                 damageMult: 1.0,
                 speed: 2.1,
                 aiAggression: 0.05,
-                isBoss: false
+                type: "BRAWLER"
             },
             {
                 id: 3,
@@ -683,7 +679,7 @@ cat << 'EOF' > /var/www/html/index.html
                 damageMult: 1.25,
                 speed: 2.4,
                 aiAggression: 0.07,
-                isBoss: false
+                type: "BOXER"
             },
             {
                 id: 4,
@@ -698,41 +694,42 @@ cat << 'EOF' > /var/www/html/index.html
                 damageMult: 1.45,
                 speed: 2.8,
                 aiAggression: 0.09,
-                isBoss: false
+                type: "NINJA"
             },
             {
                 id: 5,
                 name: "GEN. IRONCLAD",
                 title: "FINAL BOSS: THE DICTATOR",
                 difficulty: "BOSS",
-                shirtColor: "#2d381c", // Vintage 16-Bit Military Tunic Green
+                shirtColor: "#2d381c",
                 pantsColor: "#1c2411",
                 skinColor: "#d2b48c",
                 hairColor: "#4a3c31",
-                maxHealth: 170,
-                damageMult: 1.75,
+                maxHealth: 175,
+                damageMult: 1.8,
                 speed: 3.0,
                 aiAggression: 0.12,
-                isBoss: true // Elaborate 16-Bit Military Dictator
+                type: "DICTATOR"
             }
         ];
 
         // Game State Variables
         let currentStageIndex = 0;
-        let gameState = 'TITLE'; // TITLE, STAGE_INTRO, PLAYING, ROUND_OVER, STAGE_CLEAR, GAME_OVER, GAME_VICTORY
+        let gameState = 'TITLE';
         let timer = 99;
         let timerInterval = null;
         let p1ScoreVal = 0;
         let p2ScoreVal = 0;
         let titleFrame = 0;
 
-        // Fighter Objects (16-Bit Detailed Sprites)
+        // Fighter Objects
         const p1 = {
             name: "URBAN CHAMP",
+            type: "HERO",
             x: 140,
-            y: 230,
-            width: 50,
-            height: 80,
+            y: 225,
+            width: 54,
+            height: 86,
             color: '#2e86de',
             pantsColor: '#192a56',
             skinColor: '#ffcc99',
@@ -747,10 +744,11 @@ cat << 'EOF' > /var/www/html/index.html
 
         const p2 = {
             name: OPPONENTS[0].name,
+            type: OPPONENTS[0].type,
             x: 320,
-            y: 230,
-            width: 50,
-            height: 80,
+            y: 225,
+            width: 54,
+            height: 86,
             color: OPPONENTS[0].shirtColor,
             pantsColor: OPPONENTS[0].pantsColor,
             skinColor: OPPONENTS[0].skinColor,
@@ -760,7 +758,6 @@ cat << 'EOF' > /var/www/html/index.html
             state: 'IDLE',
             facing: -1,
             cooldown: 0,
-            isBoss: false,
             hitFlash: 0
         };
 
@@ -834,6 +831,7 @@ cat << 'EOF' > /var/www/html/index.html
             p1.state = 'IDLE';
 
             p2.name = oppData.name;
+            p2.type = oppData.type;
             p2.color = oppData.shirtColor;
             p2.pantsColor = oppData.pantsColor;
             p2.skinColor = oppData.skinColor;
@@ -842,7 +840,6 @@ cat << 'EOF' > /var/www/html/index.html
             p2.maxHealth = oppData.maxHealth;
             p2.x = 320;
             p2.state = 'IDLE';
-            p2.isBoss = oppData.isBoss;
 
             document.getElementById('p2Name').innerText = oppData.name;
             document.getElementById('stageLabel').innerText = `STAGE ${stageIdx + 1}/5`;
@@ -887,7 +884,7 @@ cat << 'EOF' > /var/www/html/index.html
                 const opponent = (fighter === p1) ? p2 : p1;
                 const dist = Math.abs(fighter.x - opponent.x);
 
-                if (dist < 60) {
+                if (dist < 62) {
                     if (opponent.state === 'BLOCK') {
                         audio.playBlock();
                         opponent.x += fighter.facing * 10;
@@ -895,17 +892,16 @@ cat << 'EOF' > /var/www/html/index.html
                         audio.playHit(isHeavy);
                         opponent.state = 'HIT';
                         opponent.cooldown = 16;
-                        opponent.hitFlash = 10; // Flash red on hit
+                        opponent.hitFlash = 10;
 
                         const baseDamage = isHeavy ? 25 : 12;
                         const mult = (fighter === p2) ? OPPONENTS[currentStageIndex].damageMult : 1.0;
                         const finalDamage = Math.round(baseDamage * mult);
-                        const knockback = isHeavy ? 40 : 20;
+                        const knockback = isHeavy ? 42 : 22;
 
                         opponent.health = Math.max(0, opponent.health - finalDamage);
                         opponent.x += fighter.facing * knockback;
 
-                        // Spawn Blood Particles & Damage Floating Text
                         const hitX = (fighter.x + opponent.x) / 2 + 15;
                         const hitY = opponent.y + 25;
                         spawnBloodParticles(hitX, hitY, isHeavy);
@@ -916,7 +912,6 @@ cat << 'EOF' > /var/www/html/index.html
                         if (fighter === p1) p1ScoreVal += isHeavy ? 300 : 150;
                         else p2ScoreVal += isHeavy ? 300 : 150;
 
-                        // Sewer Fall Win Condition
                         if (opponent.x >= street.manholeX - 10 && opponent.x <= street.manholeX + street.manholeWidth) {
                             opponent.state = 'KO';
                             audio.playWin();
@@ -944,7 +939,6 @@ cat << 'EOF' > /var/www/html/index.html
                     gameState = 'STAGE_CLEAR';
                     setTimeout(() => loadStage(currentStageIndex), 3000);
                 } else {
-                    // Defeated Dictator Boss
                     gameState = 'GAME_VICTORY';
                     overlay.innerHTML = `<div style="color:#feca57; font-size:1.4rem;">🏆 VICTORY! 🏆</div><div style="font-size:0.7rem; margin-top:12px; color:#fff;">YOU DEFEATED GENERAL IRONCLAD!</div><div style="font-size:0.65rem; margin-top:10px; color:#54a0ff;">CITY IS LIBERATED! PRESS START TO RESTART</div>`;
                     overlay.style.display = 'block';
@@ -986,25 +980,21 @@ cat << 'EOF' > /var/www/html/index.html
             document.getElementById('p2Score').innerText = String(p2ScoreVal).padStart(5, '0');
         }
 
-        // Game AI & Physics Updates
         function updateGame() {
             if (gameState !== 'PLAYING') return;
 
-            // Update Hit Flash
             if (p1.hitFlash > 0) p1.hitFlash--;
             if (p2.hitFlash > 0) p2.hitFlash--;
 
-            // Update Particles
             for (let i = hitParticles.length - 1; i >= 0; i--) {
                 const p = hitParticles[i];
                 p.x += p.vx;
                 p.y += p.vy;
-                p.vy += 0.4; // Gravity
+                p.vy += 0.45;
                 p.life--;
                 if (p.life <= 0) hitParticles.splice(i, 1);
             }
 
-            // Update Floating Damage Texts
             for (let i = damageTexts.length - 1; i >= 0; i--) {
                 const dt = damageTexts[i];
                 dt.y += dt.vy;
@@ -1013,7 +1003,6 @@ cat << 'EOF' > /var/www/html/index.html
                 if (dt.life <= 0) damageTexts.splice(i, 1);
             }
 
-            // Screen shake dampening
             if (screenShakeTime > 0) screenShakeTime--;
 
             // Player 1 Control
@@ -1028,10 +1017,10 @@ cat << 'EOF' > /var/www/html/index.html
                 } else if (keys['KeyX'] || keys['KeyK']) {
                     triggerPunch(p1, true);
                 } else if (keys['ArrowLeft'] || keys['KeyA']) {
-                    p1.x = Math.max(street.leftBoundary, p1.x - 3.2);
+                    p1.x = Math.max(street.leftBoundary, p1.x - 3.4);
                     p1.state = 'WALK';
                 } else if (keys['ArrowRight'] || keys['KeyD']) {
-                    p1.x = Math.min(street.manholeX + 20, p1.x + 3.2);
+                    p1.x = Math.min(street.manholeX + 20, p1.x + 3.4);
                     p1.state = 'WALK';
                 } else {
                     p1.state = 'IDLE';
@@ -1062,11 +1051,9 @@ cat << 'EOF' > /var/www/html/index.html
                 }
             }
 
-            // Keep in arena
             p1.x = Math.max(street.leftBoundary, Math.min(street.rightBoundary, p1.x));
             p2.x = Math.max(street.leftBoundary, Math.min(street.rightBoundary, p2.x));
 
-            // Police Car Patrol Movement
             if (street.policeActive) {
                 street.policeCarX += 7.5;
                 if (street.policeCarX > canvas.width + 100) {
@@ -1077,30 +1064,27 @@ cat << 'EOF' > /var/www/html/index.html
             updateHUD();
         }
 
-        // 16-Bit Detailed Drawing Functions
+        // Title Screen Drawing
         function drawVintageTitleScreen() {
             titleFrame++;
 
-            // Dark 16-Bit CRT Title Screen Background
-            ctx.fillStyle = '#080c18';
+            ctx.fillStyle = '#060912';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Detailed 16-Bit City Skyline
-            ctx.fillStyle = '#10192e';
+            // Detailed City Skyline
+            ctx.fillStyle = '#0f172a';
             ctx.fillRect(15, 140, 70, 170);
             ctx.fillRect(95, 100, 90, 210);
             ctx.fillRect(195, 120, 80, 190);
             ctx.fillRect(285, 80, 100, 230);
             ctx.fillRect(395, 130, 80, 180);
 
-            // Shaded Windows
             ctx.fillStyle = (titleFrame % 60 < 30) ? '#feca57' : '#54a0ff';
             ctx.fillRect(110, 120, 18, 22);
             ctx.fillRect(145, 120, 18, 22);
             ctx.fillRect(305, 100, 22, 28);
             ctx.fillRect(345, 100, 22, 28);
 
-            // 16-Bit Title Box with Gradient & Border
             const titleGrad = ctx.createLinearGradient(40, 40, 472, 110);
             titleGrad.addColorStop(0, '#ee5253');
             titleGrad.addColorStop(1, '#5f27cd');
@@ -1120,17 +1104,15 @@ cat << 'EOF' > /var/www/html/index.html
 
             ctx.font = '10px "Press Start 2P"';
             ctx.fillStyle = '#feca57';
-            ctx.fillText("16-BIT SUPER NINTENDO URBAN CHAMPION", canvas.width / 2, 135);
+            ctx.fillText("ULTRA HIGH-DETAIL 16-BIT FIGHTER", canvas.width / 2, 135);
 
-            // Blinking PRESS START Prompt
             if (Math.floor(titleFrame / 30) % 2 === 0) {
                 ctx.fillStyle = '#00d2d3';
                 ctx.font = '12px "Press Start 2P"';
                 ctx.fillText("PRESS START TO PLAY", canvas.width / 2, 225);
             }
 
-            // Dictator Boss 16-Bit Preview Card
-            ctx.fillStyle = '#141926';
+            ctx.fillStyle = '#121724';
             ctx.fillRect(50, 265, 412, 80);
             ctx.strokeStyle = '#ffdd59';
             ctx.lineWidth = 3;
@@ -1141,14 +1123,13 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillText("5 STAGES • FINAL BOSS: GENERAL IRONCLAD", canvas.width / 2, 290);
             ctx.fillStyle = '#c8d6e5';
             ctx.font = '8px "Press Start 2P"';
-            ctx.fillText("BLOOD FX • 16-BIT SNES GRAPHICS & BGM", canvas.width / 2, 320);
+            ctx.fillText("HIGH-DETAIL SPRITES • BLOOD FX • 16-BIT BGM", canvas.width / 2, 320);
 
             ctx.shadowOffsetX = 0;
             ctx.shadowOffsetY = 0;
         }
 
         function drawBackground() {
-            // Apply Screen Shake
             ctx.save();
             if (screenShakeTime > 0) {
                 const dx = (Math.random() - 0.5) * 8;
@@ -1156,19 +1137,16 @@ cat << 'EOF' > /var/www/html/index.html
                 ctx.translate(dx, dy);
             }
 
-            // 16-Bit Night Sky Gradient
             const skyGrad = ctx.createLinearGradient(0, 0, 0, 260);
-            skyGrad.addColorStop(0, '#090d18');
-            skyGrad.addColorStop(1, '#1b263b');
+            skyGrad.addColorStop(0, '#070a14');
+            skyGrad.addColorStop(1, '#18243b');
             ctx.fillStyle = skyGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Detailed Brick Buildings
-            ctx.fillStyle = '#2b1b36';
+            ctx.fillStyle = '#261730';
             ctx.fillRect(0, 40, canvas.width, 220);
 
-            // Windows with 16-bit glow
-            ctx.fillStyle = '#4a2c5a';
+            ctx.fillStyle = '#422550';
             ctx.fillRect(30, 70, 95, 85);
             ctx.fillRect(200, 70, 115, 85);
             ctx.fillRect(380, 70, 95, 85);
@@ -1179,7 +1157,6 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillRect(215, 85, 38, 32);
             ctx.fillRect(262, 85, 38, 32);
 
-            // Neon Signboards
             ctx.fillStyle = '#ff4757';
             ctx.fillRect(20, 50, 115, 18);
             ctx.fillStyle = '#fff';
@@ -1192,17 +1169,14 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillStyle = '#fff';
             ctx.fillText('CLUB 84', 215, 64);
 
-            // 16-Bit Sidewalk
             ctx.fillStyle = '#576574';
             ctx.fillRect(0, 260, canvas.width, 16);
             ctx.fillStyle = '#8395a7';
             ctx.fillRect(0, 260, canvas.width, 4);
 
-            // Road Asphalt
             ctx.fillStyle = '#1e272e';
             ctx.fillRect(0, 276, canvas.width, 110);
 
-            // Sewer Pit Grate
             ctx.fillStyle = '#0a0e14';
             ctx.beginPath();
             ctx.ellipse(street.manholeX + 25, 320, 26, 9, 0, 0, Math.PI * 2);
@@ -1211,7 +1185,6 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.lineWidth = 3;
             ctx.stroke();
 
-            // Police Car Patrol
             if (street.policeActive) {
                 drawPoliceCar(street.policeCarX, 290);
             }
@@ -1231,117 +1204,195 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fill();
         }
 
-        // 16-Bit Detailed Fighter Rendering Engine
+        // ULTRA HIGH-DETAIL 16-BIT FIGHTER DRAWING ENGINE
         function drawFighter(f) {
             ctx.save();
-            ctx.translate(f.x, f.y);
+
+            // Subtle Breathing Motion in Idle
+            const breatheY = (f.state === 'IDLE') ? Math.sin(Date.now() / 220) * 1.5 : 0;
+            ctx.translate(f.x, f.y + breatheY);
 
             // Red Flash Tint on Hit
             if (f.hitFlash > 0) {
-                ctx.filter = 'brightness(1.5) drop-shadow(0px 0px 8px #ff4757)';
+                ctx.filter = 'brightness(1.6) drop-shadow(0px 0px 10px #ff4757)';
             }
 
-            // Shadow
-            ctx.fillStyle = 'rgba(0,0,0,0.45)';
+            // Ground Shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
             ctx.beginPath();
-            ctx.ellipse(f.width/2, f.height + 4, 25, 7, 0, 0, Math.PI * 2);
+            ctx.ellipse(f.width/2, f.height + 4, 27, 7, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Head (16-Bit Shaded Skin)
+            // 1. ANATOMY BASE (HEAD, FACE, EYES & SHADING)
+            // Head
             ctx.fillStyle = f.skinColor;
-            ctx.fillRect(12, 0, 26, 22);
+            ctx.fillRect(14, 0, 26, 22);
 
-            // Hair / Headgear
-            if (f.isBoss) {
-                // Elaborate 16-Bit Military Dictator Peak Cap with Visor & Gold Emblem
-                ctx.fillStyle = '#1e2612'; // Military Dark Olive Green
-                ctx.fillRect(6, -10, 38, 12);
-                ctx.fillStyle = '#ffdd59'; // Gold Trim
-                ctx.fillRect(6, 0, 38, 3);
-                ctx.fillStyle = '#111'; // Visor
-                ctx.fillRect(4, 2, 42, 4);
-                // Golden Dictator Eagle / Star Badge
-                ctx.fillStyle = '#ffdd59';
-                ctx.beginPath();
-                ctx.arc(25, -5, 5, 0, Math.PI * 2);
-                ctx.fill();
+            // Facial Features (Eyebrows, Eyes, Mouth)
+            ctx.fillStyle = '#222';
+            // Eyebrows
+            if (f.facing === 1) {
+                ctx.fillRect(26, 4, 10, 3);
             } else {
-                ctx.fillStyle = f.hairColor;
-                ctx.fillRect(10, -4, 30, 10);
+                ctx.fillRect(18, 4, 10, 3);
             }
-
-            // Eyes & Expression
-            ctx.fillStyle = f.state === 'HIT' ? '#ff4757' : '#000';
-            if (f.facing === 1) ctx.fillRect(26, 8, 4, 4);
-            else ctx.fillRect(18, 8, 4, 4);
-
-            // Dictator Moustache
-            if (f.isBoss) {
-                ctx.fillStyle = '#1b140e';
-                ctx.fillRect(14, 14, 22, 5);
-            }
-
-            // 16-Bit Body / Vest / Military Uniform
-            ctx.fillStyle = f.color;
-            ctx.fillRect(10, 22, 30, 32);
-
-            // Dictator Military Uniform Details (Golden Epaulets, Medals & Belt)
-            if (f.isBoss) {
-                // Fringed Golden Shoulder Epaulets
-                ctx.fillStyle = '#ffdd59';
-                ctx.fillRect(4, 20, 10, 7);
-                ctx.fillRect(36, 20, 10, 7);
-
-                // Multi-Color Military Medals
-                ctx.fillStyle = '#ff4757'; ctx.fillRect(14, 26, 5, 5);
-                ctx.fillStyle = '#54a0ff'; ctx.fillRect(20, 26, 5, 5);
-                ctx.fillStyle = '#10ac84'; ctx.fillRect(26, 26, 5, 5);
-
-                // Gold Buttons on Double-Breasted Jacket
-                ctx.fillStyle = '#ffdd59';
-                ctx.fillRect(16, 34, 3, 3); ctx.fillRect(31, 34, 3, 3);
-                ctx.fillRect(16, 40, 3, 3); ctx.fillRect(31, 40, 3, 3);
-
-                // Military Belt & Gold Buckle
-                ctx.fillStyle = '#111'; ctx.fillRect(10, 48, 30, 6);
-                ctx.fillStyle = '#ffdd59'; ctx.fillRect(21, 47, 8, 8);
+            // Eyes
+            ctx.fillStyle = f.state === 'HIT' ? '#ff4757' : (f.state === 'KO' ? '#666' : '#000');
+            if (f.facing === 1) {
+                ctx.fillRect(28, 8, 5, 5);
+                ctx.fillStyle = '#fff'; ctx.fillRect(29, 9, 2, 2); // Eye highlight
             } else {
-                // Player 1 16-bit Vest details
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(20, 22, 10, 16); // White Undershirt
+                ctx.fillRect(21, 8, 5, 5);
+                ctx.fillStyle = '#fff'; ctx.fillRect(22, 9, 2, 2);
             }
 
-            // Pants / Trousers with Shading
+            // Mouth (Grit teeth / Pain agape)
+            ctx.fillStyle = f.state === 'PUNCH_HEAVY' || f.state === 'HIT' ? '#ff4757' : '#552211';
+            ctx.fillRect(22, 16, 10, 3);
+
+            // 2. CHARACTER SPECIFIC GEAR & CLOTHING
+            if (f.type === 'DICTATOR') {
+                // GENERAL IRONCLAD (ULTRA DETAILED DICTATOR BOSS)
+                // Officer Peak Cap
+                ctx.fillStyle = '#1c2413'; ctx.fillRect(8, -12, 38, 14); // Dark Olive Cap
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(8, -2, 38, 3);  // Gold Band
+                ctx.fillStyle = '#111'; ctx.fillRect(6, 1, 42, 4);      // Black Visor
+                // Gold Eagle Emblem Badge
+                ctx.fillStyle = '#ffdd59';
+                ctx.fillRect(23, -8, 8, 6);
+                ctx.fillRect(21, -6, 12, 3);
+
+                // Dictator Handlebar Moustache
+                ctx.fillStyle = '#19130c';
+                ctx.fillRect(16, 13, 22, 5);
+                ctx.fillRect(14, 16, 4, 3); ctx.fillRect(36, 16, 4, 3); // Curved Tips
+
+                // Military Double-Breasted Tunic Jacket
+                ctx.fillStyle = f.color; // #2d381c
+                ctx.fillRect(10, 22, 34, 34);
+
+                // Red Collar Tabs
+                ctx.fillStyle = '#ff4757';
+                ctx.fillRect(18, 22, 6, 4); ctx.fillRect(30, 22, 6, 4);
+
+                // Fringed Golden Epaulets
+                ctx.fillStyle = '#ffdd59';
+                ctx.fillRect(4, 20, 11, 8); ctx.fillRect(39, 20, 11, 8);
+                ctx.fillStyle = '#e1b12c'; // Epaulet Tassels
+                ctx.fillRect(4, 28, 11, 4); ctx.fillRect(39, 28, 11, 4);
+
+                // Multi-Row Military Ribbon Bar
+                ctx.fillStyle = '#ff4757'; ctx.fillRect(15, 27, 6, 4);
+                ctx.fillStyle = '#54a0ff'; ctx.fillRect(22, 27, 6, 4);
+                ctx.fillStyle = '#10ac84'; ctx.fillRect(29, 27, 6, 4);
+                ctx.fillStyle = '#feca57'; ctx.fillRect(15, 32, 6, 4);
+                ctx.fillStyle = '#5f27cd'; ctx.fillRect(22, 32, 6, 4);
+
+                // Gold Buttons (Double Row)
+                ctx.fillStyle = '#ffdd59';
+                ctx.fillRect(16, 38, 4, 4); ctx.fillRect(34, 38, 4, 4);
+                ctx.fillRect(16, 45, 4, 4); ctx.fillRect(34, 45, 4, 4);
+
+                // Belt & Ornate Buckle
+                ctx.fillStyle = '#0f141a'; ctx.fillRect(10, 50, 34, 7);
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(23, 49, 8, 9);
+            } else if (f.type === 'PUNK') {
+                // SPIKE (STREET PUNK)
+                // Yellow Mohawk with Red Tips
+                ctx.fillStyle = '#ff4757'; ctx.fillRect(20, -12, 14, 6);
+                ctx.fillStyle = '#f1c40f'; ctx.fillRect(22, -6, 10, 8);
+                // Studded Biker Vest
+                ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 32);
+                ctx.fillStyle = '#c8d6e5'; // Metallic Spikes/Studs on shoulders
+                ctx.fillRect(8, 22, 4, 4); ctx.fillRect(42, 22, 4, 4);
+                ctx.fillRect(8, 28, 4, 4); ctx.fillRect(42, 28, 4, 4);
+                // Skull Belt
+                ctx.fillStyle = '#222'; ctx.fillRect(10, 50, 34, 6);
+                ctx.fillStyle = '#fff'; ctx.fillRect(24, 49, 6, 7);
+            } else if (f.type === 'BRAWLER') {
+                // BRUNO (ALLEY BRAWLER)
+                // Karate Headband with Flowing Ribbon
+                ctx.fillStyle = '#ff4757';
+                ctx.fillRect(12, 2, 30, 5);
+                ctx.fillRect(f.facing === 1 ? 4 : 40, 4, 8, 12);
+                // Camo Tank Top
+                ctx.fillStyle = f.color; ctx.fillRect(12, 22, 30, 30);
+                ctx.fillStyle = '#1e272e'; ctx.fillRect(16, 26, 8, 8); ctx.fillRect(28, 34, 8, 8);
+            } else if (f.type === 'BOXER') {
+                // DUKE (IRON HEAVYWEIGHT)
+                // Bald Head Shine
+                ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fillRect(26, 1, 6, 4);
+                // Thick Gold Chain Necklace
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(18, 22, 18, 4);
+                // Boxer Shorts with Gold Trim
+                ctx.fillStyle = f.color; ctx.fillRect(10, 48, 34, 14);
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(10, 48, 34, 4);
+            } else if (f.type === 'NINJA') {
+                // KAGE (SHADOW NINJA)
+                // Shinobi Hood & Forehead Protector Plate
+                ctx.fillStyle = '#111'; ctx.fillRect(12, 0, 30, 22);
+                ctx.fillStyle = '#8395a7'; ctx.fillRect(18, 4, 18, 6); // Silver Plate
+                ctx.fillStyle = '#000'; ctx.fillRect(24, 6, 6, 2); // Engraved Symbol
+                ctx.fillStyle = f.skinColor; ctx.fillRect(20, 10, 14, 8); // Eye Slit
+                // Ninja Sash & Tunics
+                ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 34);
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(24, 22, 6, 34); // Gold Waist Sash
+            } else {
+                // HERO (PLAYER 1 - URBAN CHAMP)
+                // Spiky Brown Hair with Highlights
+                ctx.fillStyle = f.hairColor; ctx.fillRect(12, -6, 30, 10);
+                ctx.fillStyle = '#a55eea'; ctx.fillRect(20, -6, 8, 4); // Highlight
+                // Leather Biker Jacket with Zipper & Collar
+                ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 32);
+                ctx.fillStyle = '#fff'; ctx.fillRect(22, 22, 10, 18); // White Undershirt
+                ctx.fillStyle = '#c8d6e5'; ctx.fillRect(26, 22, 2, 20); // Zipper Line
+            }
+
+            // 3. SHADED TROUSERS / PANTS & COMBAT BOOTS
             ctx.fillStyle = f.pantsColor || '#192a56';
-            ctx.fillRect(12, 54, 26, 24);
+            ctx.fillRect(12, 54, 30, 26);
+            // Pants Knee Highlights
+            ctx.fillStyle = 'rgba(255,255,255,0.12)';
+            ctx.fillRect(16, 60, 8, 10); ctx.fillRect(30, 60, 8, 10);
 
-            // Leather Boots
-            ctx.fillStyle = '#0f141d';
-            ctx.fillRect(10, 72, 12, 10);
-            ctx.fillRect(28, 72, 12, 10);
+            // Detailed Combat Boots with Metallic Laces
+            ctx.fillStyle = '#0b0e14';
+            ctx.fillRect(10, 76, 14, 12); ctx.fillRect(30, 76, 14, 12);
+            ctx.fillStyle = '#8395a7'; // Lace Eyelets
+            ctx.fillRect(16, 78, 2, 6); ctx.fillRect(36, 78, 2, 6);
 
-            // 16-Bit Arms & Combat Stance Animations
+            // 4. ARMS & DETAILED COMBAT STANCES
             ctx.fillStyle = f.skinColor;
             if (f.state === 'PUNCH_LIGHT') {
-                ctx.fillRect(f.facing === 1 ? 32 : -16, 24, 26, 12);
+                ctx.fillRect(f.facing === 1 ? 36 : -18, 24, 28, 14);
+                // Fingerless Gloves / Boxing Tape
+                ctx.fillStyle = '#222';
+                ctx.fillRect(f.facing === 1 ? 54 : -18, 24, 10, 14);
             } else if (f.state === 'PUNCH_HEAVY') {
-                ctx.fillRect(f.facing === 1 ? 32 : -22, 22, 32, 15);
-                if (f.isBoss) { // Dictator Boss Power Aura
+                ctx.fillRect(f.facing === 1 ? 36 : -24, 22, 34, 16);
+                ctx.fillStyle = '#222';
+                ctx.fillRect(f.facing === 1 ? 58 : -24, 22, 12, 16);
+                if (f.type === 'DICTATOR') {
+                    // Power Aura Sparkles for Boss
                     ctx.fillStyle = '#ffdd59';
-                    ctx.fillRect(f.facing === 1 ? 58 : -26, 20, 8, 20);
+                    ctx.fillRect(f.facing === 1 ? 64 : -28, 18, 8, 24);
                 }
             } else if (f.state === 'BLOCK') {
-                ctx.fillRect(16, 16, 18, 18);
+                ctx.fillRect(16, 14, 22, 20);
+                ctx.fillStyle = 'rgba(84, 160, 255, 0.4)'; // Energy Guard Shield
+                ctx.fillRect(12, 10, 30, 30);
             } else if (f.state === 'HIT') {
                 ctx.rotate((f.facing * -15 * Math.PI) / 180);
-                ctx.fillRect(6, 26, 14, 14);
+                ctx.fillRect(6, 26, 16, 16);
             } else {
-                ctx.fillRect(6, 26, 12, 14);
-                ctx.fillRect(32, 26, 12, 14);
+                ctx.fillRect(4, 26, 14, 16);
+                ctx.fillRect(36, 26, 14, 16);
+                ctx.fillStyle = '#222'; // Fingerless Gloves
+                ctx.fillRect(4, 34, 14, 8); ctx.fillRect(36, 34, 14, 8);
             }
 
             if (f.state === 'KO') {
-                ctx.translate(0, 32);
+                ctx.translate(0, 34);
             }
 
             ctx.restore();
@@ -1351,13 +1402,11 @@ cat << 'EOF' > /var/www/html/index.html
         function drawParticles() {
             ctx.save();
 
-            // Blood & Spark Particles
             for (let p of hitParticles) {
                 ctx.fillStyle = p.color;
                 ctx.fillRect(p.x, p.y, p.size, p.size);
             }
 
-            // Floating Damage Texts
             ctx.font = '10px "Press Start 2P"';
             ctx.shadowColor = '#000';
             ctx.shadowOffsetX = 2;
@@ -1380,7 +1429,7 @@ cat << 'EOF' > /var/www/html/index.html
                 drawFighter(p1);
                 drawFighter(p2);
                 drawParticles();
-                ctx.restore(); // Restore screen shake
+                ctx.restore();
             }
         }
 
@@ -1390,7 +1439,6 @@ cat << 'EOF' > /var/www/html/index.html
             requestAnimationFrame(gameLoop);
         }
 
-        // Start Game Loop
         gameLoop();
     </script>
 </body>
@@ -1405,4 +1453,4 @@ chmod -R 755 /var/www/html
 systemctl enable nginx
 systemctl restart nginx
 
-echo "=== 8bitCityChamp Startup Script Completed Successfully (16-Bit SNES Edition) at $(date) ==="
+echo "=== 8bitCityChamp Startup Script Completed Successfully (Ultra High-Detail 16-Bit Edition) at $(date) ==="
