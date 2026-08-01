@@ -101,7 +101,7 @@ resource "google_compute_instance" "eightbitcitychamp_vm" {
 
   lifecycle {
     replace_triggered_by = [
-      metadata_startup_script
+      self.metadata_startup_script
     ]
   }
 }
