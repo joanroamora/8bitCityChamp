@@ -3,7 +3,7 @@ set -e
 
 # Logging setup
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-echo "=== Starting 8bitCityChamp Startup Script (Street Walker, Drunkard, Black Cat & Rats Edition): $(date) ==="
+echo "=== Starting 8bitCityChamp Startup Script (Chest Fix, Cat/Rats Spawner & Ultra Mobile Layout): $(date) ==="
 
 # Update package list and install Nginx & curl
 apt-get update -y
@@ -12,14 +12,14 @@ apt-get install -y nginx curl git
 # Remove default Nginx index page
 rm -rf /var/www/html/*
 
-# Create Ultra Detailed 16-Bit Arcade Web Application with Complete Street NPC Fauna & Lit Buildings
+# Create Ultra Detailed 16-Bit Arcade Web Application with Fixed Sprites, Cat/Rats Spawner & Clean Mobile Layout
 cat << 'EOF' > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>8bitCityChamp - 16-Bit Street Fauna & Neon Lights Edition</title>
+    <title>8bitCityChamp - Mobile Optimized 16-Bit Arcade Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -295,10 +295,36 @@ cat << 'EOF' > /var/www/html/index.html
             box-shadow: 0 2px 0 #0a0e16;
         }
 
+        /* CLEAN MOBILE LAYOUT OPTIMIZATION (Hides all non-essential UI elements on phones) */
         @media (max-width: 768px) {
-            .logo-title { font-size: 1.2rem; }
-            .controls-panel { display: none; }
-            .retro-btn { padding: 14px 12px; font-size: 0.62rem; }
+            body {
+                padding: 2px;
+                justify-content: flex-start;
+            }
+            header, footer, .controls-panel, .top-bar {
+                display: none !important;
+            }
+            .arcade-cabinet {
+                border-width: 4px;
+                padding: 4px;
+                box-shadow: none;
+                border-radius: 8px;
+            }
+            .crt-screen {
+                border-width: 2px;
+            }
+            .mobile-controls {
+                display: flex !important;
+                margin-top: 8px;
+            }
+            .retro-btn {
+                padding: 16px 10px;
+                font-size: 0.68rem;
+            }
+            .btn-start {
+                padding: 16px;
+                font-size: 0.8rem;
+            }
         }
 
         /* Footer Info */
@@ -335,7 +361,7 @@ cat << 'EOF' > /var/www/html/index.html
 
     <header>
         <h1 class="logo-title">8bitCityChamp</h1>
-        <p class="subtitle">STREET WALKERS, DRUNKARDS, BLACK CATS & RATS</p>
+        <p class="subtitle">CLEAN MOBILE LAYOUT & RECURRING STREET FAUNA</p>
     </header>
 
     <main class="arcade-cabinet">
@@ -408,7 +434,7 @@ cat << 'EOF' > /var/www/html/index.html
             </div>
             <div class="control-group">
                 <h3>🏙️ RICH STREET FAUNA & LIT BUILDINGS</h3>
-                <p>• <strong>Detailed Street Walker & Drunkard NPCs</strong>.</p>
+                <p>• <strong>Detailed Prostitute & Drunkard NPCs</strong>.</p>
                 <p>• <strong>Black Cat running & Street Rats scuttling</strong>!</p>
                 <p>• <strong>Fully Lit Windows</strong> & Neon Signs in all buildings!</p>
                 <p>• Deployed on GCP Compute Engine via Terraform.</p>
@@ -417,7 +443,7 @@ cat << 'EOF' > /var/www/html/index.html
     </main>
 
     <footer>
-        <p>POWERED BY <span>GOOGLE CLOUD PLATFORM</span> & <span>TERRAFORM</span> | Rich Street Fauna</p>
+        <p>POWERED BY <span>GOOGLE CLOUD PLATFORM</span> & <span>TERRAFORM</span> | Mobile Optimized Layout</p>
     </footer>
 
     <script>
@@ -654,14 +680,14 @@ cat << 'EOF' > /var/www/html/index.html
             screenShakeTime = 8;
         }
 
-        // AMBIENT STREET FAUNA & NPCs (Walker, Drunkard, Black Cat & Street Rats)
+        // CONTINUOUS STREET FAUNA & NPCs (Walker, Drunkard, Black Cat & Street Rats)
         const ambientNPCs = {
             walker: {
                 active: true,
                 x: -40,
                 y: 212,
                 speed: 3.4,
-                respawnCooldown: 0
+                timer: 0
             },
             drunkard: {
                 active: true,
@@ -669,21 +695,21 @@ cat << 'EOF' > /var/www/html/index.html
                 y: 212,
                 speed: -1.4,
                 staggerOffset: 0,
-                respawnCooldown: 90
+                timer: 60
             },
             blackCat: {
                 active: true,
                 x: -50,
-                y: 254,
+                y: 246,
                 speed: 6.2,
-                respawnCooldown: 60
+                timer: 120
             },
             rats: {
                 active: true,
                 x: 550,
-                y: 266,
+                y: 250,
                 speed: -7.8,
-                respawnCooldown: 180
+                timer: 180
             }
         };
 
@@ -1085,17 +1111,17 @@ cat << 'EOF' > /var/www/html/index.html
 
             if (screenShakeTime > 0) screenShakeTime--;
 
-            // CONTINUOUS STREET FAUNA & NPCs MOVEMENT
+            // ROCK-SOLID CONTINUOUS STREET FAUNA & NPCs MOVEMENT ENGINE (60 FPS)
             // 1. Prostitute / Street Walker NPC
             if (ambientNPCs.walker.active) {
                 ambientNPCs.walker.x += ambientNPCs.walker.speed;
                 if (ambientNPCs.walker.x > canvas.width + 60) {
                     ambientNPCs.walker.active = false;
-                    ambientNPCs.walker.respawnCooldown = 120;
+                    ambientNPCs.walker.timer = 120;
                 }
             } else {
-                ambientNPCs.walker.respawnCooldown--;
-                if (ambientNPCs.walker.respawnCooldown <= 0) {
+                ambientNPCs.walker.timer--;
+                if (ambientNPCs.walker.timer <= 0) {
                     ambientNPCs.walker.active = true;
                     ambientNPCs.walker.x = -60;
                 }
@@ -1107,11 +1133,11 @@ cat << 'EOF' > /var/www/html/index.html
                 ambientNPCs.drunkard.staggerOffset = Math.sin(Date.now() / 150) * 5;
                 if (ambientNPCs.drunkard.x < -60) {
                     ambientNPCs.drunkard.active = false;
-                    ambientNPCs.drunkard.respawnCooldown = 180;
+                    ambientNPCs.drunkard.timer = 180;
                 }
             } else {
-                ambientNPCs.drunkard.respawnCooldown--;
-                if (ambientNPCs.drunkard.respawnCooldown <= 0) {
+                ambientNPCs.drunkard.timer--;
+                if (ambientNPCs.drunkard.timer <= 0) {
                     ambientNPCs.drunkard.active = true;
                     ambientNPCs.drunkard.x = canvas.width + 60;
                 }
@@ -1122,11 +1148,11 @@ cat << 'EOF' > /var/www/html/index.html
                 ambientNPCs.blackCat.x += ambientNPCs.blackCat.speed;
                 if (ambientNPCs.blackCat.x > canvas.width + 60) {
                     ambientNPCs.blackCat.active = false;
-                    ambientNPCs.blackCat.respawnCooldown = 200;
+                    ambientNPCs.blackCat.timer = 200;
                 }
             } else {
-                ambientNPCs.blackCat.respawnCooldown--;
-                if (ambientNPCs.blackCat.respawnCooldown <= 0) {
+                ambientNPCs.blackCat.timer--;
+                if (ambientNPCs.blackCat.timer <= 0) {
                     ambientNPCs.blackCat.active = true;
                     ambientNPCs.blackCat.x = -50;
                 }
@@ -1137,11 +1163,11 @@ cat << 'EOF' > /var/www/html/index.html
                 ambientNPCs.rats.x += ambientNPCs.rats.speed;
                 if (ambientNPCs.rats.x < -60) {
                     ambientNPCs.rats.active = false;
-                    ambientNPCs.rats.respawnCooldown = 260;
+                    ambientNPCs.rats.timer = 240;
                 }
             } else {
-                ambientNPCs.rats.respawnCooldown--;
-                if (ambientNPCs.rats.respawnCooldown <= 0) {
+                ambientNPCs.rats.timer--;
+                if (ambientNPCs.rats.timer <= 0) {
                     ambientNPCs.rats.active = true;
                     ambientNPCs.rats.x = canvas.width + 60;
                 }
@@ -1249,7 +1275,7 @@ cat << 'EOF' > /var/www/html/index.html
 
             ctx.font = '10px "Press Start 2P"';
             ctx.fillStyle = '#feca57';
-            ctx.fillText("STREET WALKERS, DRUNKARD, CAT & RATS", canvas.width / 2, 135);
+            ctx.fillText("CLEAN MOBILE GAMEPAD & RECURRING FAUNA", canvas.width / 2, 135);
 
             if (Math.floor(titleFrame / 30) % 2 === 0) {
                 ctx.fillStyle = '#00d2d3';
@@ -1268,7 +1294,7 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillText("5 STAGES • FINAL BOSS: GENERAL IRONCLAD", canvas.width / 2, 290);
             ctx.fillStyle = '#c8d6e5';
             ctx.font = '8px "Press Start 2P"';
-            ctx.fillText("ALL BUILDINGS LIT • BLACK CAT & STREET RATS", canvas.width / 2, 320);
+            ctx.fillText("CHEST BUG FIXED • BLACK CAT & STREET RATS", canvas.width / 2, 320);
 
             ctx.shadowOffsetX = 0;
             ctx.shadowOffsetY = 0;
@@ -1333,7 +1359,7 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillStyle = '#8395a7';
             ctx.fillRect(0, 255, canvas.width, 4);
 
-            // DRAW STREET FAUNA & NPCs ON SIDEWALK
+            // DRAW STREET FAUNA & NPCs ON SIDEWALK BEFORE ROAD ASPHALT
             if (ambientNPCs.walker.active) {
                 drawProstituteNPC(ambientNPCs.walker.x, ambientNPCs.walker.y);
             }
@@ -1392,10 +1418,9 @@ cat << 'EOF' > /var/www/html/index.html
 
             // Fishnet Tights & High Heels
             const legSwing = Math.sin(Date.now() / 70) * 6;
-            ctx.fillStyle = '#e5b796'; // Skin leg
+            ctx.fillStyle = '#ffeaa7';
             ctx.fillRect(8 + legSwing, 36, 5, 12);
             ctx.fillRect(15 - legSwing, 36, 5, 12);
-            // Fishnet Overlay Pattern
             ctx.fillStyle = 'rgba(0,0,0,0.6)';
             ctx.fillRect(8 + legSwing, 38, 5, 2); ctx.fillRect(15 - legSwing, 42, 5, 2);
 
@@ -1443,18 +1468,18 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.save();
             ctx.translate(x, y);
 
-            // Body & Head
-            ctx.fillStyle = '#111116';
-            ctx.fillRect(8, 6, 20, 10); // Body
+            // High Contrast Outline & Body
+            ctx.fillStyle = '#feca57'; ctx.fillRect(6, 4, 24, 14); // Glow outline
+            ctx.fillStyle = '#050508'; ctx.fillRect(8, 6, 20, 10); // Black Body
             ctx.fillRect(24, 0, 10, 10); // Head
-            ctx.fillRect(24, -4, 3, 4); ctx.fillRect(31, -4, 3, 4); // Pointed Ears
+            ctx.fillRect(24, -4, 3, 4); ctx.fillRect(31, -4, 3, 4); // Ears
 
             // Glowing Yellow Eyes
             ctx.fillStyle = '#feca57';
             ctx.fillRect(28, 3, 3, 3);
 
             // Curved Tail
-            ctx.fillStyle = '#111116';
+            ctx.fillStyle = '#050508';
             const tailY = Math.sin(Date.now() / 60) * 3;
             ctx.fillRect(4, 2 + tailY, 5, 8);
 
@@ -1471,16 +1496,16 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.save();
             ctx.translate(x, y);
 
-            // Rat 1
-            ctx.fillStyle = '#4b4b4b'; ctx.fillRect(10, 4, 14, 6); // Body
+            // Rat 1 (High contrast outline)
+            ctx.fillStyle = '#ff7675'; ctx.fillRect(8, 2, 18, 10); // Outline
+            ctx.fillStyle = '#3a3a3a'; ctx.fillRect(10, 4, 14, 6); // Dark Body
             ctx.fillStyle = '#ff7675'; ctx.fillRect(22, 5, 4, 3);  // Pink Nose
             ctx.fillStyle = '#74b9ff'; ctx.fillRect(20, 4, 2, 2);  // Eye
-            ctx.fillStyle = '#4b4b4b'; ctx.fillRect(0, 6, 10, 2);  // Tail
-            // Scuttling feet
+            ctx.fillStyle = '#3a3a3a'; ctx.fillRect(0, 6, 10, 2);  // Tail
             const ratLeg = Math.sin(Date.now() / 30) * 3;
-            ctx.fillStyle = '#333'; ctx.fillRect(12 + ratLeg, 10, 2, 3); ctx.fillRect(20 - ratLeg, 10, 2, 3);
+            ctx.fillStyle = '#111'; ctx.fillRect(12 + ratLeg, 10, 2, 3); ctx.fillRect(20 - ratLeg, 10, 2, 3);
 
-            // Rat 2 (Trailing Behind)
+            // Rat 2
             ctx.fillStyle = '#3a3a3a'; ctx.fillRect(32, 6, 12, 5);
             ctx.fillStyle = '#ff7675'; ctx.fillRect(42, 7, 3, 2);
             ctx.fillStyle = '#3a3a3a'; ctx.fillRect(24, 8, 8, 2);
@@ -1494,6 +1519,7 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillStyle = '#fff';
             ctx.fillRect(x + 22, y, 62, 19);
             ctx.fillStyle = Math.floor(Date.now() / 140) % 2 === 0 ? '#ff4757' : '#00d2d3';
+            ctx.fillRect(x + 46, y - 9, 14, 9);
             ctx.fillStyle = '#8395a7';
             ctx.beginPath();
             ctx.arc(x + 22, y + 36, 11, 0, Math.PI * 2);
@@ -1501,7 +1527,7 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fill();
         }
 
-        // ULTRA HIGH-DETAIL 16-BIT FIGHTER DRAWING ENGINE
+        // ULTRA HIGH-DETAIL 16-BIT FIGHTER DRAWING ENGINE (FIXED TRANSPARENT CHEST BUG)
         function drawFighter(f) {
             ctx.save();
 
@@ -1518,7 +1544,7 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.ellipse(f.width/2, f.height + 4, 27, 7, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Head
+            // Head (Skin Base)
             ctx.fillStyle = f.skinColor;
             ctx.fillRect(14, 0, 26, 22);
 
@@ -1539,7 +1565,11 @@ cat << 'EOF' > /var/www/html/index.html
             ctx.fillStyle = f.state === 'PUNCH_HEAVY' || f.state === 'KICK' || f.state === 'HIT' ? '#ff4757' : '#552211';
             ctx.fillRect(22, 16, 10, 3);
 
-            // Character Specific Gear & Costumes
+            // ⭐ CRITICAL FIX: ALWAYS DRAW SOLID UPPER TORSO SKIN BASE FIRST (NO TRANSPARENT CHEST!)
+            ctx.fillStyle = f.skinColor;
+            ctx.fillRect(10, 22, 34, 32);
+
+            // Character Specific Costumes & Overlays
             if (f.type === 'DICTATOR') {
                 ctx.fillStyle = '#1c2413'; ctx.fillRect(8, -12, 38, 14);
                 ctx.fillStyle = '#ffdd59'; ctx.fillRect(8, -2, 38, 3);
@@ -1548,6 +1578,7 @@ cat << 'EOF' > /var/www/html/index.html
 
                 ctx.fillStyle = '#19130c'; ctx.fillRect(16, 13, 22, 5); ctx.fillRect(14, 16, 4, 3); ctx.fillRect(36, 16, 4, 3);
 
+                // Military Double-Breasted Tunic Jacket
                 ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 34);
 
                 ctx.fillStyle = '#ff4757'; ctx.fillRect(18, 22, 6, 4); ctx.fillRect(30, 22, 6, 4);
@@ -1579,9 +1610,11 @@ cat << 'EOF' > /var/www/html/index.html
                 ctx.fillStyle = f.color; ctx.fillRect(12, 22, 30, 30);
                 ctx.fillStyle = '#1e272e'; ctx.fillRect(16, 26, 8, 8); ctx.fillRect(28, 34, 8, 8);
             } else if (f.type === 'BOXER') {
+                // BOXER (Bare Chest with Gold Chain & Trunks)
                 ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fillRect(26, 1, 6, 4);
-                ctx.fillStyle = '#ffdd59'; ctx.fillRect(18, 22, 18, 4);
-                ctx.fillStyle = f.color; ctx.fillRect(10, 48, 34, 14);
+                ctx.fillStyle = '#ffdd59'; ctx.fillRect(18, 22, 18, 4); // Gold Chain
+                ctx.fillStyle = '#222'; ctx.fillRect(16, 32, 22, 2); // Muscle Pectoral Contour
+                ctx.fillStyle = f.color; ctx.fillRect(10, 48, 34, 14); // Trunks
                 ctx.fillStyle = '#ffdd59'; ctx.fillRect(10, 48, 34, 4);
             } else if (f.type === 'NINJA') {
                 ctx.fillStyle = '#111'; ctx.fillRect(12, 0, 30, 22);
@@ -1591,6 +1624,7 @@ cat << 'EOF' > /var/www/html/index.html
                 ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 34);
                 ctx.fillStyle = '#ffdd59'; ctx.fillRect(24, 22, 6, 34);
             } else {
+                // HERO (PLAYER 1)
                 ctx.fillStyle = f.hairColor; ctx.fillRect(12, -6, 30, 10);
                 ctx.fillStyle = '#a55eea'; ctx.fillRect(20, -6, 8, 4);
                 ctx.fillStyle = f.color; ctx.fillRect(10, 22, 34, 32);
@@ -1713,4 +1747,4 @@ chmod -R 755 /var/www/html
 systemctl enable nginx
 systemctl restart nginx
 
-echo "=== 8bitCityChamp Startup Script Completed Successfully (Street Walker, Drunkard, Black Cat & Rats Edition) at $(date) ==="
+echo "=== 8bitCityChamp Startup Script Completed Successfully (Chest Fix, Cat/Rats Spawner & Ultra Mobile Layout) at $(date) ==="
