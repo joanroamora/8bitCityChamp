@@ -98,4 +98,10 @@ resource "google_compute_instance" "eightbitcitychamp_vm" {
     env        = var.environment
     managed_by = "terraform"
   }
+
+  lifecycle {
+    replace_triggered_by = [
+      metadata_startup_script
+    ]
+  }
 }

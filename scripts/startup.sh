@@ -1570,6 +1570,26 @@ cat << 'EOF' > /var/www/html/index.html
 </html>
 EOF
 
+# Wipe any default Nginx index files
+rm -f /var/www/html/index.nginx-debian.html
+
+# Ensure default Nginx site configuration points cleanly to index.html
+cat << 'NGINX_CONF' > /etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+NGINX_CONF
+
 # Ensure proper permissions and ownership
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
@@ -1579,3 +1599,4 @@ systemctl enable nginx
 systemctl restart nginx
 
 echo "=== 8bit Arcade Hub Startup Script Completed Successfully at $(date) ==="
+
